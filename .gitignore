@@ -1,9 +1,23 @@
+# Ignore everything in storage and storage_
+/storage
+/storage_
+
+# Only include storage_/app/public
+!/storage_/app
+!/storage_/app/public
+
+# But ignore any .key files in public
+/storage_/app/public/*.key
+
+# Explicitly ignore logs and framework directories
+/storage_/logs
+/storage_/framework
+
+# Keep other existing ignores
 /.phpunit.cache
 /node_modules
 /public/build
 /public/hot
-/public/storage
-/storage/*.key
 /vendor
 .env
 .env.backup

@@ -5,18 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? 'Rublevsky Store' }}</title>
+    <title>{{ $title ?? 'Rublevsky Studio' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <link rel="preload" href="{{ Vite::asset('resources/fonts/OverusedGrotesk-VF.woff2') }}" as="font"
+        type="font/woff2" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 </head>
 
-<body class="bg-slate-100 dark:bg-slate-700">
+<body class="px-4 sm:px-6 lg:px-8">
     @livewire('partials.navbar')
     <main>
         {{ $slot }}
     </main>
 
-    @livewireScripts()
+    @livewireScripts
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <x-livewire-alert::scripts />
+    @stack('scripts')
 </body>
 
 </html>

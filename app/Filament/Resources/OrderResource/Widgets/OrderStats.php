@@ -15,9 +15,10 @@ class OrderStats extends BaseWidget
             Stat::make('New Orders', Order::query()->where('status', 'new')->count()),
             Stat::make('Orders Processing', Order::query()->where('status', 'processing')->count()),
             Stat::make('Orders Shipped', Order::query()->where('status', 'shipped')->count()),
-            Stat::make('Average price', Number::currency(Order::query()->avg('grand_total')), 'CAD')
-
-
+            Stat::make('Average price', function () {
+                $avgPrice = Order::query()->avg('grand_total');
+                return $avgPrice ? Number::currency($avgPrice, 'CAD') : '0';
+            }),
         ];
     }
 }

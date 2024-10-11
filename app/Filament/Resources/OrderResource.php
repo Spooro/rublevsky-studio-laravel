@@ -56,7 +56,7 @@ class OrderResource extends Resource
                             ->preload()
                             ->required(),
 
-                        Select::make('payment_,method')
+                        Select::make('payment_method')
                             ->options(
                                 [
                                     'stripe' => 'Stripe',
@@ -208,7 +208,7 @@ class OrderResource extends Resource
                     ->sortable()
                     ->money('CAD'),
 
-                TextColumn::make('paymnet_method')
+                TextColumn::make('payment_method')
                     ->searchable()
                     ->sortable(),
 
