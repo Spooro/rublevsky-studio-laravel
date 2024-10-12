@@ -1,7 +1,27 @@
 {{-- TODO: remove "your browser does not support the video tag" --}}
+
+{{-- TODO:
+Beauty Floor Project:
+	•	Reposition screenshots to be slightly overlapping, creating a stacked effect.
+	4.	Custom Cursor:
+	•	Implement a custom cursor across the site.
+	5.	Loader:
+	•	Add a loading animation or loader to the site.
+	6.	Branding Projects:
+	•	Include branding projects on the site.
+	7.	Lightbox Functionality:
+	•	Add a lightbox feature for photos and posters to enlarge them on click.
+	8.	Things Section:
+	•	Add content to the Things section.
+	9.	Contact Page:
+	•	Mention Laravel experience on the Contact page.
+	•	Add top and bottom margin/padding to the first section for proper spacing.
+	10.	Store Page:
+	•	Add some margin to the list of products container, separating it from the top. --}}
+
 <div class="relative">
-    {{-- Spline viewer section (existing) --}}
-    <div class="h-screen">
+    {{-- Spline viewer section (updated) --}}
+    <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
         <spline-viewer loading-anim-type="spinner-big-dark"
             url="https://prod.spline.design/XRydKQhqfpYOjapX/scene.splinecode"></spline-viewer>
@@ -25,7 +45,7 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                         </div>
                         <h3><a href="#" class="blur-link">Live website</a></h3>
                     </div>
@@ -70,9 +90,9 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                         </div>
                         <h3><a href="#" class="blur-link">Live website</a></h3>
                     </div>
@@ -116,9 +136,9 @@
                             <h4>Tools used:</h4>
                             <div class="flex flex-wrap mt-4 mb-6 gap-6">
                                 <img src="{{ Storage::disk('r2')->url('spline.png') }}" alt="Spline"
-                                    class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                    class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                                 <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                    class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                    class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                             </div>
                             <h3><a href="#" class="blur-link">Live website</a></h3>
                         </div>
@@ -152,9 +172,9 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 transition-all duration-300">
+                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                         </div>
                         <h3><a href="#" class="blur-link">Live website</a></h3>
                     </div>
@@ -247,7 +267,7 @@
     </section>
 
     {{-- Branding Section --}}
-    <section id="branding" class="bg-gray-50">
+    <section id="branding">
         <div class="pb-32 pt-20">
             <h1 class="text-center">Branding</h1>
         </div>
@@ -276,23 +296,33 @@
             'girl-and-goat.jpg',
             'hpl-it-guy.jpg',
             'squirrel-with-a-nut.jpg',
+            'boy-rabbit.jpg',
+            'dinner-3-people.jpg',
+            'squirrel-fence.jpg',
+            'goose-water.jpg',
+            'bird.jpg',
+
             // Add more photo filenames as needed
         ];
     @endphp
     {{-- Photos Section --}}
-    <section id="photos">
+    <section id="photos" x-data="imageGallery('photos', @js($photos))">
         <div class="pb-32 pt-20">
             <h1 class="text-center">Photos</h1>
         </div>
         <div class="masonry-grid">
-            @foreach ($photos as $photo)
+            <template x-for="(photo, index) in images" :key="index">
                 <div class="masonry-item">
                     <div class="photo-item rounded-lg overflow-hidden">
-                        <img src="{{ Storage::disk('r2')->url($photo) }}" alt="Photo" class="w-full h-auto">
+                        <img :src="getImageUrl(photo)" :alt="'Photo ' + (index + 1)"
+                            class="w-full h-auto cursor-zoom-in transition-transform duration-500 ease-in-out hover:scale-105"
+                            @click="openGallery(index)">
                     </div>
                 </div>
-            @endforeach
+            </template>
         </div>
+
+        <x-lightbox-gallery />
     </section>
 
     @php
@@ -315,19 +345,23 @@
     @endphp
 
     {{-- Posters Section --}}
-    <section id="posters" class="bg-gray-50">
+    <section id="posters" x-data="imageGallery('posters', @js($posters))">
         <div class="pb-32 pt-20">
             <h1 class="text-center">Posters</h1>
         </div>
         <div class="masonry-grid">
-            @foreach ($posters as $poster)
+            <template x-for="(poster, index) in images" :key="index">
                 <div class="masonry-item">
                     <div class="poster-item rounded-lg overflow-hidden">
-                        <img src="{{ Storage::disk('r2')->url($poster) }}" alt="Poster" class="w-full h-auto">
+                        <img :src="getImageUrl(poster)" :alt="'Poster ' + (index + 1)"
+                            class="w-full h-auto cursor-zoom-in transition-transform duration-500 ease-in-out hover:scale-105"
+                            @click="openGallery(index)">
                     </div>
                 </div>
-            @endforeach
+            </template>
         </div>
+
+        <x-lightbox-gallery />
     </section>
 
     {{-- Things Section --}}
@@ -344,55 +378,37 @@
             @endforeach
         </div>
     </section>
+
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const brandingItems = document.querySelectorAll('.branding-item');
-
-        brandingItems.forEach(item => {
-            const images = JSON.parse(item.dataset.images);
-            if (images.length <= 1) return; // Skip if there's only one or no images
-
-            let currentIndex = 0;
-            let intervalId = null;
-            const previewImage = item.querySelector('img');
-            const slideImages = [previewImage.src, ...images.slice(1).map(img =>
-                `{{ Storage::disk('r2')->url('') }}${img}`)];
-
-            item.addEventListener('mouseenter', () => {
-                startSlideshow();
-            });
-
-            item.addEventListener('mouseleave', () => {
-                stopSlideshow();
-                showImage(0); // Reset to preview image
-            });
-
-            function startSlideshow() {
-                if (intervalId) clearInterval(intervalId);
-                intervalId = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % slideImages.length;
-                    showImage(currentIndex);
-                }, 500);
+    function imageGallery(type, images) {
+        return {
+            type,
+            images,
+            isOpen: false,
+            currentIndex: 0,
+            getImageUrl(image) {
+                return `{{ Storage::disk('r2')->url('') }}${image}`;
+            },
+            get currentImage() {
+                return this.getImageUrl(this.images[this.currentIndex]);
+            },
+            openGallery(index) {
+                this.currentIndex = index;
+                this.isOpen = true;
+            },
+            closeGallery() {
+                this.isOpen = false;
+            },
+            nextImage() {
+                this.currentIndex = (this.currentIndex + 1) % this.images.length;
+            },
+            prevImage() {
+                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
             }
-
-            function stopSlideshow() {
-                if (intervalId) {
-                    clearInterval(intervalId);
-                    intervalId = null;
-                }
-            }
-
-            function showImage(index) {
-                const newImg = new Image();
-                newImg.src = slideImages[index];
-                newImg.onload = () => {
-                    previewImage.src = newImg.src;
-                };
-            }
-        });
-    });
+        }
+    }
 </script>
 
 </body>
