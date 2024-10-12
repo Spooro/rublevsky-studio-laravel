@@ -76,7 +76,7 @@
         </div>
     </nav>
 
-    <section class="font-poppins mb-20">
+    <section class="my-24">
         <!-- Product list with 1rem padding on each side -->
         <div class="px-4">
             <!-- Product grid -->
@@ -86,7 +86,8 @@
                         <div class="bg-white h-full flex flex-col">
                             <div class="relative aspect-square overflow-hidden">
                                 <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full">
-                                    <img src="{{ url('storage', $product->images[0]) }}" alt="{{ $product->name }}"
+                                    <img src="{{ Storage::disk('local')->url($product->images[0]) }}"
+                                        alt="{{ $product->name }}"
                                         class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
                                     @if (count($product->images) > 1)
                                         <img src="{{ url('storage', $product->images[1]) }}"

@@ -5,6 +5,7 @@ namespace App\Livewire\Partials;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Helpers\CartManagement;
+use Illuminate\Support\Facades\Auth;
 
 class Navbar extends Component
 {
@@ -29,6 +30,7 @@ class Navbar extends Component
     public function updateCurrentRoute($route)
     {
         $this->currentRoute = $route;
+        $this->isStorePage = $this->checkIsStorePage();
     }
 
     public function render()

@@ -1,164 +1,59 @@
-<div class="flex items-center justify-center min-h-screen">
-    <div class="w-full max-w-[95rem] p-8 mx-auto mb-20 h-[calc(100vh-5rem)]">
-        <div class="flex flex-col md:flex-row md:space-x-8 h-full">
-            <!-- Desktop layout remains unchanged -->
-            <div class="hidden md:flex md:w-1/2 flex-col justify-between pr-4">
-                <!-- New card wrapper -->
-                <div class=" bg-white rounded-lg drop-shadow-2xl flex flex-col w-fit">
-                    <div class="p-6 flex-grow">
-                        <h2 class="mb-4">{{ $product->name }}</h2>
+ <!-- TODO:
+    1. Add hover-lense-zoom for the main product image
+    2. finish mobile version
+-->
 
-                        <!-- Product variants -->
-                        <div class="mb-6">
-                            <div class="flex space-x-2 mb-2">
-                                <button class="px-4 py-2 bg-gray-200 rounded-full text-sm font-semibold">shirt</button>
-                                <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">hoodie</button>
-                                <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">sweater</button>
-                            </div>
-                            <div class="flex space-x-2">
-                                <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">XL</button>
-                                <button class="px-4 py-2 bg-gray-200 rounded-full text-sm font-semibold">XXL</button>
-                                <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">XXXXL</button>
-                            </div>
-                        </div>
+ <div class="min-h-screen flex items-center justify-center px-2">
+     <div class="w-full max-w-[95rem] grid grid-cols-1 xl:grid-cols-2 gap-8 p-0">
+         <!-- Image gallery -->
+         <div class="flex flex-col xl:flex-row w-full h-full">
+             <!-- Main image -->
+             <div class="order-1 xl:order-2 mb-2 xl:mb-0 w-screen xl:w-auto -mx-4 sm:-mx-6 lg:-mx-8 xl:mx-0">
+                 <div class="w-full h-full max-h-[80vh] aspect-w-1 aspect-h-1 xl:aspect-none relative overflow-hidden">
+                     <img src="{{ url('storage', $selectedImage) }}" alt="{{ $product->name }}"
+                         class="w-full h-full object-contain xl:object-cover">
+                 </div>
+             </div>
+             <!-- Thumbnail preview column -->
+             <div
+                 class="flex -mx-2 xl:flex-col order-2 xl:order-1 space-x-2 xl:space-x-0 xl:space-y-2 h-24 xl:h-auto xl:w-24 overflow-x-auto xl:overflow-y-auto xl:overflow-x-hidden px-4 xl:px-0 xl:mr-2">
+                 @foreach ($product->images as $index => $image)
+                     <div class="w-24 h-24 flex-shrink-0">
+                         <img src="{{ url('storage', $image) }}" alt="{{ $product->name }}"
+                             class="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-75 transition"
+                             wire:click="$set('selectedImage', '{{ $image }}')">
+                     </div>
+                 @endforeach
+             </div>
+         </div>
 
-                        <!-- Quantity selector -->
-                        <div class="flex items-center space-x-4 mb-6">
-                            <button wire:click="decreaseQty"
-                                class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl font-semibold">-</button>
-                            <span class="text-xl font-semibold">{{ $quantity }}</span>
-                            <button wire:click="increaseQty"
-                                class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl font-semibold">+</button>
-                        </div>
-                    </div>
+         <!-- Product information -->
+         <div class="flex items-center justify-left xl:justify-start xl:pl-16 px-4 sm:px-6 lg:px-8 xl:px-0">
+             <div class="w-full max-w-[40rem] space-y-8">
+                 <h3 class="">{{ $product->name }}</h3>
 
-                    <!-- Add to cart button -->
-                    <button wire:click='addToCart({{ $product->id }})'
-                        class="w-full py-3 bg-black text-white rounded-b-lg text-lg transition duration-300 ease-in-out hover:bg-gray-800">
-                        <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to cart</span>
-                        <span wire:loading wire:target='addToCart({{ $product->id }})'>Loading...</span>
-                        <span class="ml-2">CAD{{ number_format($product->price, 2) }}</span>
-                    </button>
-                </div>
+                 <!-- Quantity selector and Add to cart button -->
+                 <div class="flex flex-wrap items-center gap-4">
+                     <div class="flex items-center space-x-4">
+                         <button wire:click="decreaseQty"
+                             class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-2xl hover:bg-gray-200 transition duration-300 ease-in-out">-</button>
+                         <span class="text-2xl">{{ $quantity }}</span>
+                         <button wire:click="increaseQty"
+                             class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-2xl hover:bg-gray-200 transition duration-300 ease-in-out">+</button>
+                     </div>
+                     <button wire:click='addToCart({{ $product->id }})'
+                         class="px-6 py-3 bg-black text-white rounded-full text-lg transition duration-300 ease-in-out hover:bg-gray-800">
+                         <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to Cart</span>
+                         <span wire:loading wire:target='addToCart({{ $product->id }})'>Loading...</span>
+                         <span class="ml-2">CAD{{ number_format($product->price, 2) }}</span>
+                     </button>
+                 </div>
 
-                <!-- Product description -->
-                <div class="mt-8">
-                    <p class="text-gray-600">
-                        {!! Str::markdown($product->description) !!}
-                    </p>
-                </div>
-            </div>
-
-            <!-- Desktop image gallery -->
-            <div class="hidden md:flex md:w-1/2 mt-8 md:mt-0 flex-col h-full items-end" x-data="{
-                mainImage: '{{ url('storage', $product->images[0]) }}',
-                selectedIndex: 0,
-                scrollToSelected() {
-                    this.$nextTick(() => {
-                        this.$refs.previewContainer.children[this.selectedIndex].scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest',
-                            inline: 'center'
-                        });
-                    });
-                }
-            }"
-                x-init="scrollToSelected">
-                <div class="w-[35rem] h-[49rem] mb-2 flex items-center justify-center overflow-hidden">
-                    <img x-bind:src="mainImage" alt="{{ $product->name }}"
-                        class="w-full h-full object-cover rounded-lg">
-                </div>
-                <div x-ref="previewContainer" class="w-[35rem] flex space-x-2 overflow-x-auto pb-2 snap-x no-scrollbar">
-                    @foreach ($product->images as $index => $image)
-                        <div class="w-28 h-28 flex-shrink-0 snap-center">
-                            <img src="{{ url('storage', $image) }}" alt="{{ $product->name }}"
-                                class="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-75 transition"
-                                x-bind:class="{ 'ring-4 ring-black ring-inset': selectedIndex === {{ $index }} }"
-                                x-on:click="mainImage='{{ url('storage', $image) }}'; selectedIndex={{ $index }}; scrollToSelected()">
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <!-- Mobile layout -->
-            <div class="md:hidden w-full flex flex-col pt-12">
-                <!-- Image gallery -->
-                <div x-data="{
-                    mainImage: '{{ url('storage', $product->images[0]) }}',
-                    selectedIndex: 0,
-                    scrollToSelected() {
-                        this.$nextTick(() => {
-                            this.$refs.previewContainer.children[this.selectedIndex].scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'nearest',
-                                inline: 'center'
-                            });
-                        });
-                    }
-                }" x-init="scrollToSelected" class="mb-6">
-                    <div
-                        class="w-full aspect-[5/7] mb-2 flex items-end justify-center overflow-hidden bg-gray-100 rounded-lg">
-                        <img x-bind:src="mainImage" alt="{{ $product->name }}"
-                            class="w-full h-auto object-cover">
-                    </div>
-                    <div x-ref="previewContainer"
-                        class="w-full flex space-x-2 overflow-x-auto pb-2 snap-x no-scrollbar">
-                        @foreach ($product->images as $index => $image)
-                            <div class="w-16 h-16 flex-shrink-0 snap-center">
-                                <img src="{{ url('storage', $image) }}" alt="{{ $product->name }}"
-                                    class="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-75 transition"
-                                    x-bind:class="{ 'ring-2 ring-black ring-inset': selectedIndex === {{ $index }} }"
-                                    x-on:click="mainImage='{{ url('storage', $image) }}'; selectedIndex={{ $index }}; scrollToSelected()">
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- Product name and price -->
-                <div class="flex justify-between items-center mb-4">
-                    <h2>{{ $product->name }}</h2>
-                    <h4 class="">CAD{{ number_format($product->price, 2) }}</h4>
-                </div>
-
-                <!-- Quantity selector -->
-                <div class="flex items-center space-x-4 mb-6">
-                    <button wire:click="decreaseQty"
-                        class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl font-semibold">-</button>
-                    <span class="text-xl font-semibold">{{ $quantity }}</span>
-                    <button wire:click="increaseQty"
-                        class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-xl font-semibold">+</button>
-                </div>
-
-                <!-- Product variants -->
-                <div class="mb-6">
-                    <div class="flex space-x-2 mb-2">
-                        <button class="px-4 py-2 bg-gray-200 rounded-full text-sm font-semibold">shirt</button>
-                        <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">hoodie</button>
-                        <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">sweater</button>
-                    </div>
-                    <div class="flex space-x-2">
-                        <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">XL</button>
-                        <button class="px-4 py-2 bg-gray-200 rounded-full text-sm font-semibold">XXL</button>
-                        <button class="px-4 py-2 bg-gray-100 rounded-full text-sm">XXXXL</button>
-                    </div>
-                </div>
-
-                <!-- Product description -->
-                <div class="mb-24">
-                    <p class="text-gray-600">
-                        {!! Str::markdown($product->description) !!}
-                    </p>
-                </div>
-
-                <!-- Add to cart button (fixed at bottom with increased padding) -->
-                <div class="fixed bottom-0 right-0   p-4 pb-20  w-min whitespace-nowrap">
-                    <button wire:click='addToCart({{ $product->id }})'
-                        class=" px-4 py-3 bg-black text-white rounded-2xl text-lg transition duration-300 ease-in-out hover:bg-gray-800">
-                        <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to cart</span>
-                        <span wire:loading wire:target='addToCart({{ $product->id }})'>Loading...</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                 <!-- Product description -->
+                 <div class="text-gray-600 max-h-48 overflow-y-auto pb-64">
+                     <p>{!! Str::markdown($product->description) !!}</p>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>

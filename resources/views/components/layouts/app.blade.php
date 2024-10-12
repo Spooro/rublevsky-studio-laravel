@@ -12,9 +12,10 @@
         type="font/woff2" crossorigin>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
 </head>
 
-<body class="px-4 sm:px-6 lg:px-8">
+<body>
     @livewire('partials.navbar')
     <main>
         {{ $slot }}
@@ -25,6 +26,7 @@
 
     <x-livewire-alert::scripts />
     @stack('scripts')
+
 </body>
 
 </html>

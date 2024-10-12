@@ -1,4 +1,4 @@
-<div class="max-w-[95rem] mx-auto">
+<div class="max-w-[95rem] mx-auto px-4 py-4 sm:px-6 lg:px-8">
     {{-- Greeting Section --}}
     <section class="mb-12">
         <div class="flex flex-col md:flex-row items-start">
@@ -9,10 +9,10 @@
                     originally from
                     Russia<sup>3</sup>. Just finished my time at Hamilton Public Library where I was helping with
                     branding.</h3>
-                <div class="text-sm mt-4">
+                <div class="mt-4">
                     <p>1. Hamilton &nbsp; 2. Auckland &nbsp; 3. Vladivostok</p>
                 </div>
-                <div class="flex space-x-4">
+                <div class="mt-4 flex space-x-8">
                     <h3><a href="#" class="blur-link">Email</a></h3>
                     <h3><a href="#" class="blur-link">LinkedIn</a></h3>
                     <h3><a href="#" class="blur-link">Telegram</a></h3>
@@ -27,7 +27,7 @@
 
     {{-- Services Offered Section --}}
     <section class="mb-12">
-        <h2 class="text-3xl font-bold mb-4">Services offered</h2>
+        <h2 class="mb-4">Services offered</h2>
         <div class="services-grid">
             <div class="service-row">
                 <div class="service-item">Accessibility audit & optimization</div>

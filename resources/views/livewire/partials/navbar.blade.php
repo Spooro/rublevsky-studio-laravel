@@ -1,30 +1,49 @@
 <div
     class="fixed inset-x-0 bottom-0 flex justify-center items-center z-50 transition-all duration-300 ease-in-out px-2 pb-2">
-    <!-- Center Menu -->
-    <div id="center-menu" class="flex items-center space-x-2 transition-all duration-300">
-        <!-- User Button (only visible on store pages) -->
-        <div id="user-menu" class="flex-shrink-0">
+    <div class="relative inline-flex items-center">
+        <!-- User Button (visible on store pages) -->
+        <div id="user-menu" class="absolute right-full mr-2">
             @if ($isStorePage)
                 @guest
-                    <a href="{{ route('login') }}"
-                        class="flex items-center justify-center h-12 px-4 rounded-full text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-gray-700 hover:bg-black/15">
+                    <a href="{{ route('login') }}" wire:navigate
+                        class="whitespace-nowrap flex items-center justify-center h-12 px-4 rounded-full text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-gray-700 hover:bg-black/15">
                         Log in
                     </a>
                 @endguest
                 @auth
-                    <div class="relative group">
+                    <div x-data="{ open: false, timeout: null }" @mouseenter="clearTimeout(timeout); open = true"
+                        @mouseleave="timeout = setTimeout(() => open = false, 300)" class="relative">
+                        <!-- Dropdown menu -->
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 transform scale-95"
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95"
+                            class="absolute bottom-full left-0 mb-2 w-48 bg-gray-200/70 backdrop-blur-sm rounded-md shadow-lg py-1 z-10">
+                            <div class="absolute w-full h-2 bottom-0 translate-y-full"></div>
+                            <a href="{{ route('my-orders') }}" wire:navigate
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-400/50 rounded-md mx-1">
+                                My Orders
+                            </a>
+                            <a ref="/logout" method="POST"
+                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-400/50 rounded-md mx-1">
+                                Log out
+                            </a>
+                        </div>
+
+                        <!-- User Button -->
                         <button
                             class="flex items-center justify-center h-12 px-4 rounded-full text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-gray-400/50">
                             {{ Auth::user()->name }}
                         </button>
-                        <!-- Dropdown menu (unchanged) -->
                     </div>
                 @endauth
             @endif
         </div>
 
         <!-- Main Menu (always centered) -->
-        <nav class="flex space-x-1 bg-gray-200/70 backdrop-blur-sm rounded-full p-1">
+        <nav class="inline-flex space-x-1 bg-gray-200/70 backdrop-blur-sm rounded-full p-1">
             <a href="{{ route('work') }}" wire:navigate
                 class="px-4 py-1.5 rounded-full text-lg transition-colors duration-200 {{ $currentRoute === 'work' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
                 Work
@@ -40,8 +59,8 @@
         </nav>
 
         <!-- Cart Button (only on store-related pages) -->
-        @if ($isStorePage)
-            <div class="flex-shrink-0">
+        <div class="absolute left-full ml-2">
+            @if ($isStorePage)
                 <a href="{{ route('cart') }}" wire:navigate
                     class="relative flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-200 backdrop-blur-sm p-2 {{ $currentRoute === 'cart' ? 'bg-black text-white' : 'bg-gray-200/70 text-black hover:bg-gray-400/50' }}">
                     <!-- Cart SVG Icon -->
@@ -59,7 +78,7 @@
                         {{ $total_count }}
                     </span>
                 </a>
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 </div>

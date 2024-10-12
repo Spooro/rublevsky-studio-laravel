@@ -1,6 +1,6 @@
 # Ignore everything in storage and storage_
-/storage
-/storage_
+#/storage
+#/storage_
 
 # Only include storage_/app/public
 !/storage_/app

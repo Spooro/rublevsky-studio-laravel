@@ -14,13 +14,16 @@ class ProductDetailPage extends Component
 {
     use LivewireAlert;
 
-    public $slug;
-
+    public $product;
     public $quantity = 1;
+    public $selectedImage;
+    public $slug;
 
     public function mount($slug)
     {
         $this->slug = $slug;
+        $this->product = Product::where('slug', $this->slug)->firstOrFail();
+        $this->selectedImage = $this->product->images[0] ?? null;
     }
 
     public function increaseQty()
@@ -59,8 +62,6 @@ class ProductDetailPage extends Component
 
     public function render()
     {
-        return view('livewire.product-detail-page', [
-            'product' => Product::where('slug', $this->slug)->firstOrFail(),
-        ]);
+        return view('livewire.product-detail-page');
     }
 }
