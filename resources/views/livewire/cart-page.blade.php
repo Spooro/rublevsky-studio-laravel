@@ -1,9 +1,9 @@
-<div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    <div class="container mx-auto px-4">
+<div class="w-full px-6 py-10">
+    <div class="">
         <h1 class="text-4xl font-normal mb-8">Shopping Cart</h1>
         <div class="flex flex-col md:flex-row gap-8">
             <div class="md:w-2/3">
-                <div class="bg-white overflow-x-auto rounded-lg p-6 mb-4">
+                <div class="bg-white overflow-x-auto rounded-lg mb-4">
                     <table class="w-full">
                         <thead>
                             <tr class="border-b">
@@ -16,12 +16,22 @@
                         </thead>
                         <tbody>
                             @forelse ($cart_items as $item)
-                                <tr wire:key="{{ $item['product_id'] }}" class="border-b">
+                                <tr wire:key="{{ $item['product_id'] . '-' . ($item['variation_id'] ?? '') }}"
+                                    class="border-b">
                                     <td class="py-4">
                                         <div class="flex items-center">
-                                            <img class="h-16 w-16 mr-4 rounded-md"
-                                                src="{{ url('storage', $item['image']) }}" alt="{{ $item['name'] }}">
-                                            <span class="font-normal text-gray-500">{{ $item['name'] }}</span>
+                                            <img class="h-max w-16 mr-4 rounded-md"
+                                                src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}">
+                                            <div>
+                                                <span class="font-normal text-gray-500">{{ $item['name'] }}</span>
+                                                @if (isset($item['attributes']))
+                                                    <div class="text-sm text-gray-400 mt-1">
+                                                        @foreach ($item['attributes'] as $attribute => $value)
+                                                            <span class="inline-block mr-3">{{ $value }}</span>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="py-4 text-gray-500">{{ Number::currency($item['unit_amount'], 'CAD') }}
@@ -30,7 +40,8 @@
                                     <td class="py-4 text-gray-500">{{ Number::currency($item['total_amount'], 'CAD') }}
                                     </td>
                                     <td class="py-4">
-                                        <button wire:click="removeItem({{ $item['product_id'] }})"
+                                        <button
+                                            wire:click="removeItem({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
                                             class="bg-white border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-100 text-gray-500">
                                             Remove
                                         </button>

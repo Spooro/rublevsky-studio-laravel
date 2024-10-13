@@ -2,11 +2,11 @@
     class="fixed inset-x-0 bottom-0 flex justify-center items-center z-50 transition-all duration-300 ease-in-out px-2 pb-2">
     <div class="relative inline-flex items-center">
         <!-- User Button (visible on store pages) -->
-        <div id="user-menu" class="absolute right-full mr-2">
+        <div id="user-menu" class="absolute right-full mr-1 sm:mr-2">
             @if ($isStorePage)
                 @guest
                     <a href="{{ route('login') }}" wire:navigate
-                        class="whitespace-nowrap flex items-center justify-center h-12 px-4 rounded-full text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-gray-700 hover:bg-black/15">
+                        class="whitespace-nowrap flex items-center justify-center h-12 px-2 sm:px-4 rounded-full text-base sm:text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-gray-700 hover:bg-black/15">
                         Log in
                     </a>
                 @endguest
@@ -34,7 +34,7 @@
 
                         <!-- User Button -->
                         <button
-                            class="flex items-center justify-center h-12 px-4 rounded-full text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-gray-400/50">
+                            class="flex items-center justify-center h-12 px-3 sm:px-4 rounded-full text-base sm:text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-gray-400/50">
                             {{ Auth::user()->name }}
                         </button>
                     </div>
@@ -43,23 +43,23 @@
         </div>
 
         <!-- Main Menu (always centered) -->
-        <nav class="inline-flex space-x-1 bg-gray-200/70 backdrop-blur-sm rounded-full p-1">
+        <nav class="inline-flex space-x-0.5 sm:space-x-1 bg-gray-200/70 backdrop-blur-sm rounded-full p-1">
             <a href="{{ route('work') }}" wire:navigate
-                class="px-4 py-1.5 rounded-full text-lg transition-colors duration-200 {{ $currentRoute === 'work' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
+                class="px-2 sm:px-4 py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'work' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
                 Work
             </a>
             <a href="{{ route('contact') }}" wire:navigate
-                class="px-4 py-1.5 rounded-full text-lg transition-colors duration-200 {{ $currentRoute === 'contact' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
+                class="px-2 sm:px-4 py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'contact' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
                 Contact
             </a>
             <a href="{{ route('store') }}" wire:navigate
-                class="px-4 py-1.5 rounded-full text-lg transition-colors duration-200 {{ $currentRoute === 'store' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
+                class="px-2 sm:px-4 py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'store' ? 'bg-black text-white' : 'text-black hover:bg-gray-400/50' }}">
                 Store
             </a>
         </nav>
 
         <!-- Cart Button (only on store-related pages) -->
-        <div class="absolute left-full ml-2">
+        <div class="absolute left-full ml-1 sm:ml-2">
             @if ($isStorePage)
                 <a href="{{ route('cart') }}" wire:navigate
                     class="relative flex items-center justify-center w-12 h-12 rounded-full transition-colors duration-200 backdrop-blur-sm p-2 {{ $currentRoute === 'cart' ? 'bg-black text-white' : 'bg-gray-200/70 text-black hover:bg-gray-400/50' }}">

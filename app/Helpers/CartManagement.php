@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Product;
+use App\Models\ProductVariation;
 use Illuminate\Support\Facades\Cookie;
 
 class CartManagement
@@ -11,12 +12,27 @@ class CartManagement
     // add item to cart
     static public function addItemToCart($product_id)
     {
+        $product = Product::findOrFail($product_id);
+
+        if ($product->has_variations) {
+            $variation = ProductVariation::where('product_id', $product_id)
+                ->where('stock', '>', 0)
+                ->orderBy('id')
+                ->first();
+
+            if ($variation) {
+                return self::addVariationToCartWithQuantity($product_id, $variation->id, 1);
+            }
+            return false;
+        }
+
+        // Existing logic for products without variations
         $cart_items = self::getCartItemsFromCookie();
 
         $existing_item = null;
 
         foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
+            if ($item['product_id'] == $product_id && !isset($item['variation_id'])) {
                 $existing_item = $key;
                 break;
             }
@@ -26,7 +42,6 @@ class CartManagement
             $cart_items[$existing_item]['quantity']++;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
             if ($product) {
                 $cart_items[] = [
                     'product_id'   => $product_id,
@@ -79,17 +94,18 @@ class CartManagement
     }
 
     // remove item from cart
-    static public function removeCartItem($product_id)
+    static public function removeCartItem($product_id, $variation_id = null)
     {
         $cart_items = self::getCartItemsFromCookie();
 
-        foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
-                unset($cart_items[$key]);
+        $cart_items = array_filter($cart_items, function ($item) use ($product_id, $variation_id) {
+            if ($variation_id !== null) {
+                return !($item['product_id'] == $product_id && isset($item['variation_id']) && $item['variation_id'] == $variation_id);
             }
-        }
+            return !($item['product_id'] == $product_id && !isset($item['variation_id']));
+        });
 
-        self::addCartItemsToCookie($cart_items);
+        self::addCartItemsToCookie(array_values($cart_items));
         return $cart_items;
     }
 
@@ -139,7 +155,6 @@ class CartManagement
 
 
     //decrement item quantity
-
     static public function decrementQuantityToCartItem($product_id)
     {
         $cart_items = self::getCartItemsFromCookie();
@@ -159,5 +174,42 @@ class CartManagement
     static public function calculateGrandTotal($items)
     {
         return array_sum(array_column($items, 'total_amount'));
+    }
+
+    static public function addVariationToCartWithQuantity($product_id, $variation_id, $qty = 1)
+    {
+        $cart_items = self::getCartItemsFromCookie();
+
+        $existing_item = null;
+
+        foreach ($cart_items as $key => $item) {
+            if ($item['product_id'] == $product_id && isset($item['variation_id']) && $item['variation_id'] == $variation_id) {
+                $existing_item = $key;
+                break;
+            }
+        }
+
+        if ($existing_item !== null) {
+            $cart_items[$existing_item]['quantity'] += $qty;
+            $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
+        } else {
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'images']);
+            $variation = ProductVariation::where('id', $variation_id)->with('attributes')->first();
+            if ($product && $variation) {
+                $cart_items[] = [
+                    'product_id'   => $product_id,
+                    'variation_id' => $variation_id,
+                    'name'         => $product->name,
+                    'image'        => $product->images[0],
+                    'quantity'     => $qty,
+                    'unit_amount'  => $variation->price,
+                    'total_amount' => $qty * $variation->price,
+                    'attributes'   => $variation->attributes->pluck('value', 'name')->toArray(),
+                ];
+            }
+        }
+
+        self::addCartItemsToCookie($cart_items);
+        return count($cart_items);
     }
 }

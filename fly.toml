@@ -25,7 +25,7 @@ console_command = 'php /var/www/html/artisan tinker'
   R2_ENDPOINT = "https://your-endpoint.r2.cloudflarestorage.com"
   R2_REGION = "auto"
   R2_URL = "https://pub-e0cacce632b34b06ae852d50afaa9085.r2.dev"
-  FILESYSTEM_DISK = 'public'
+  FILESYSTEM_DISK = 'r2'
   STRIPE_SECRET = "${STRIPE_SECRET}"
 
 [http_service]
@@ -40,7 +40,3 @@ console_command = 'php /var/www/html/artisan tinker'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-
-[mounts]
-  source = "storage_vol"
-  destination = "/var/www/html/storage_"

@@ -19,7 +19,7 @@
                 <!-- Sort -->
                 <div x-data="{ open: false }" class="relative" @mouseenter="open = true" @mouseleave="open = false">
                     <button
-                        class="filter-container flex items-center justify-between backdrop-blur-sm rounded-full px-4 h-10 text-slate-800 hover:text-slate-900 shadow-inner whitespace-nowrap"
+                        class="filter-container flex items-center justify-between backdrop-blur-sm rounded-full px-2 sm:px-4 h-10 text-slate-800 hover:text-slate-900 shadow-inner whitespace-nowrap text-base sm:text-lg"
                         :aria-expanded="open">
                         <span class="pl-2">{{ $sortOptions[$sort] }}</span>
                         <svg class="w-3 h-3 mr-2 fill-slate-500 ml-2" xmlns="http://www.w3.org/2000/svg" width="12"
@@ -37,7 +37,7 @@
                         @foreach ($sortOptions as $value => $label)
                             <li>
                                 <a href="#"
-                                    class="text-slate-800 hover:bg-slate-50 flex items-center p-2 rounded-lg"
+                                    class="text-slate-800 hover:bg-slate-50 flex items-center p-2 rounded-lg text-base sm:text-lg"
                                     wire:click.prevent="$set('sort', '{{ $value }}')">
                                     {{ $label }}
                                 </a>
@@ -50,7 +50,7 @@
                 <div
                     class="filter-container bg-white shadow-inner backdrop-blur-sm rounded-full p-1 w-[200px] h-10 flex-shrink-0">
                     <div class="flex items-center h-full">
-                        <span class="text-gray-600 mr-2 ml-3">
+                        <span class="text-gray-600 mr-2 ml-3 text-base sm:text-lg">
                             {{ Number::currency($price_range, 'CAD') }}
                         </span>
                         <input type="range" wire:model.live="price_range"
@@ -62,10 +62,10 @@
                 <!-- Categories -->
                 <div :class="{ 'w-full': isWrapped, 'w-auto': !isWrapped }" class="transition-all duration-300">
                     <div
-                        class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-1 overflow-x-auto h-10">
+                        class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-0.5 sm:space-x-1 overflow-x-auto h-10">
                         @foreach ($categories as $category)
                             <button wire:click="toggleCategory({{ $category->id }})"
-                                class="px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap
+                                class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-base sm:text-lg
                                        {{ in_array($category->id, $selected_categories) ? 'bg-black text-white' : 'text-gray-700 hover:bg-black/10' }}">
                                 {{ $category->name }}
                             </button>
@@ -86,12 +86,12 @@
                         <div class="bg-white h-full flex flex-col">
                             <div class="relative aspect-square overflow-hidden">
                                 <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full">
-                                    <img src="{{ Storage::disk('local')->url($product->images[0]) }}"
-                                        alt="{{ $product->name }}"
+
+                                    <!--  -->
+                                    <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
                                         class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
                                     @if (count($product->images) > 1)
-                                        <img src="{{ url('storage', $product->images[1]) }}"
-                                            alt="{{ $product->name }}"
+                                        <img src="{{ Storage::url($product->images[1]) }}" alt="{{ $product->name }}"
                                             class="object-cover w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
                                     @endif
                                 </a>

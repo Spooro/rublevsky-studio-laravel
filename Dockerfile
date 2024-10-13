@@ -125,9 +125,3 @@ RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint"]
-
-# Add this line to your Dockerfile
-COPY .fly/scripts /var/www/html/.fly/scripts
-
-# Add or update this line in your Dockerfile
-COPY storage_ /var/www/html/storage_

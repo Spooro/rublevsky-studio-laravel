@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ProductVariation;
 
 class Product extends Model
 {
@@ -18,11 +19,15 @@ class Product extends Model
         'price',
         'is_active',
         'is_featured',
-        'in_stock',
-        'on_sale'
+        'stock',
+        'on_sale',
+        'has_variations'
     ];
 
-    protected $casts = ['images' => 'array'];
+    protected $casts = [
+        'images' => 'array',
+        'has_variations' => 'boolean',
+    ];
 
     public function category()
     {
@@ -36,5 +41,11 @@ class Product extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    // Add this method
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
     }
 }

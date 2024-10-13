@@ -20,9 +20,9 @@ class CartPage extends Component
         $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
     }
 
-    public function removeItem($product_id)
+    public function removeItem($product_id, $variation_id = null)
     {
-        $this->cart_items = CartManagement::removeCartItem($product_id);
+        $this->cart_items = CartManagement::removeCartItem($product_id, $variation_id);
         $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
         $this->dispatch('update-cart-count', total_count: count($this->cart_items))->to(Navbar::class);
     }

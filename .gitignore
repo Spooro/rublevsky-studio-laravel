@@ -1,19 +1,19 @@
-# Ignore everything in storage and storage_
-#/storage
-#/storage_
+# Ignore everything in storage except the public directory
+/storage/*
+!/storage/.gitignore
+!/storage/app/.gitignore
+!/storage/app/public/.gitignore
+!/storage/framework/.gitignore
+!/storage/framework/cache/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+!/storage/logs/.gitignore
 
-# Only include storage_/app/public
-!/storage_/app
-!/storage_/app/public
+# Ignore framework and logs directories
+/storage/framework
+/storage/logs
 
-# But ignore any .key files in public
-/storage_/app/public/*.key
 
-# Explicitly ignore logs and framework directories
-/storage_/logs
-/storage_/framework
-
-# Keep other existing ignores
 /.phpunit.cache
 /node_modules
 /public/build

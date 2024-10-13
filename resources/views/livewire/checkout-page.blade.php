@@ -1,5 +1,5 @@
-<div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <h1 class="text-4xl font-bold text-gray-900 mb-8">Checkout</h1>
+<div class=" mx-auto py-8 px-6">
+    <h2 class="mb-8">Checkout</h2>
 
     <form wire:submit.prevent="placeOrder">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -125,10 +125,17 @@
                     <ul class="space-y-4">
                         @foreach ($cart_items as $ci)
                             <li class="flex items-center">
-                                <img src="{{ url('storage', $ci['image']) }}" alt="{{ $ci['name'] }}"
-                                    class="w-16 h-16 rounded-lg mr-4">
-                                <div>
-                                    <h3 class="font-semibold">{{ $ci['name'] }}</h3>
+                                <img src="{{ Storage::url($ci['image']) }}" alt="{{ $ci['name'] }}"
+                                    class="w-16 h-auto rounded-lg mr-4 object-cover">
+                                <div class="flex-grow">
+                                    <h6 class="font-semibold">{{ $ci['name'] }}</h6>
+                                    @if (isset($ci['attributes']))
+                                        <div class="text-sm text-gray-600 mt-1">
+                                            @foreach ($ci['attributes'] as $attribute => $value)
+                                                <span class="inline-block mr-3">{{ $value }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                     <p class="text-gray-600">Quantity: {{ $ci['quantity'] }}</p>
                                 </div>
                                 <div class="ml-auto">

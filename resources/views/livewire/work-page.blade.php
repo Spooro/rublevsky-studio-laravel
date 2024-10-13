@@ -1,6 +1,9 @@
 {{-- TODO: remove "your browser does not support the video tag" --}}
 
 {{-- TODO:
+
+implement redis caching?
+
 Beauty Floor Project:
 	•	Reposition screenshots to be slightly overlapping, creating a stacked effect.
 
@@ -17,6 +20,10 @@ Beauty Floor Project:
 	•	Mention Laravel experience on the Contact page.
 
 	•	Add bottom margin to every web project
+
+
+
+    In the Experience section of the Contact page, I want to add links to each of the cards as text after all of the info that's already there. Process has to be not visible fully in width because the page becomes scrollable horizontally. Which should not be the case.
      --}}
 
 <div class="relative px-4 sm:px-6 lg:px-8">

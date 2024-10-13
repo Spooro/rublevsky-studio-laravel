@@ -5,5 +5,3 @@
 /usr/bin/php /var/www/html/artisan view:cache --no-ansi -q
 
 php artisan migrate --force
-
-php artisan storage:link

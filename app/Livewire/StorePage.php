@@ -12,6 +12,7 @@ use Livewire\Attributes\Title;
 use App\Helpers\CartManagement;
 use App\Livewire\Partials\Navbar;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\ProductVariation;
 
 #[Title('Rublevsky Store')]
 class StorePage extends Component
@@ -37,7 +38,24 @@ class StorePage extends Component
     // add product to cart method
     public function addToCart($product_id)
     {
-        $total_count = CartManagement::addItemToCart($product_id);
+        $product = Product::findOrFail($product_id);
+
+        if ($product->has_variations) {
+            $variation = ProductVariation::where('product_id', $product_id)
+                ->where('stock', '>', 0)
+                ->orderBy('id')
+                ->first();
+
+            if ($variation) {
+                $total_count = CartManagement::addVariationToCartWithQuantity($product_id, $variation->id, 1);
+            } else {
+                $this->alert('error', 'No available variations for this product');
+                return;
+            }
+        } else {
+            $total_count = CartManagement::addItemToCart($product_id);
+        }
+
         $this->dispatch('update-cart-count', total_count: $total_count);
 
         $this->alert('success', 'Product added to cart', [
@@ -77,7 +95,7 @@ class StorePage extends Component
         return view(
             'livewire.store-page',
             [
-                'products' => $productQuery->paginate(12), // Changed from 6 to 12
+                'products' => $productQuery->paginate(12),
                 'brands' => Brand::where('is_active', 1)->get(['id', 'name', 'slug']),
                 'categories' => Category::where('is_active', 1)->get(['id', 'name', 'slug'])
             ]
