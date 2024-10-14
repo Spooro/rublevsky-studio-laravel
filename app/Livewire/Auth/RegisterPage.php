@@ -11,12 +11,10 @@ use Illuminate\Support\Facades\Auth;
 #[Title('Register')]
 class RegisterPage extends Component
 {
-
     public $name;
     public $email;
     public $password;
 
-    //register user
     public function save()
     {
         $this->validate([
@@ -32,7 +30,9 @@ class RegisterPage extends Component
         ]);
 
         Auth::login($user);
-        return redirect()->intended();
+
+        // Redirect to the store page after successful registration
+        return redirect()->route('store');
     }
 
     public function render()

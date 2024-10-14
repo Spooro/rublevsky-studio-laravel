@@ -39,7 +39,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/logout', function () {
         Auth::logout();
-        return redirect('/');
+        return redirect('/store');
     });
     Route::get('/checkout', CheckoutPage::class)->name('checkout');
     Route::get('/my-orders', MyOrdersPage::class)->name('my-orders');

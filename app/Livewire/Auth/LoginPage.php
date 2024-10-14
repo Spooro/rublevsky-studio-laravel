@@ -9,11 +9,8 @@ use Illuminate\Support\Facades\Auth;
 #[Title('Login')]
 class LoginPage extends Component
 {
-
     public $email;
     public $password;
-
-
 
     public function save()
     {
@@ -27,7 +24,8 @@ class LoginPage extends Component
             return;
         }
 
-        return redirect()->intended();
+        // Redirect to the store page after successful login
+        return redirect()->route('store');
     }
 
     public function render()

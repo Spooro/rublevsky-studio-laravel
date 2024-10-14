@@ -155,15 +155,16 @@ class CartManagement
 
 
     //decrement item quantity
-    static public function decrementQuantityToCartItem($product_id)
+    static public function decrementQuantityToCartItem($product_id, $variation_id = null)
     {
         $cart_items = self::getCartItemsFromCookie();
         foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
+            if ($item['product_id'] == $product_id && ($variation_id === null || $item['variation_id'] == $variation_id)) {
                 if ($cart_items[$key]['quantity'] > 1) {
                     $cart_items[$key]['quantity']--;
                     $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount'];
                 }
+                break;
             }
         }
         self::addCartItemsToCookie($cart_items);
@@ -210,6 +211,6 @@ class CartManagement
         }
 
         self::addCartItemsToCookie($cart_items);
-        return count($cart_items);
+        return $cart_items; // Return the updated cart items instead of the count
     }
 }

@@ -27,16 +27,22 @@ class CartPage extends Component
         $this->dispatch('update-cart-count', total_count: count($this->cart_items))->to(Navbar::class);
     }
 
-    public function increaseQty($product_id)
+    public function increaseQty($product_id, $variation_id = null)
     {
-        $this->cart_items = CartManagement::incrementQuantityToCartItem($product_id);
+        if ($variation_id) {
+            $this->cart_items = CartManagement::addVariationToCartWithQuantity($product_id, $variation_id, 1);
+        } else {
+            $this->cart_items = CartManagement::incrementQuantityToCartItem($product_id);
+        }
         $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
+        $this->dispatch('update-cart-count', total_count: count($this->cart_items))->to(Navbar::class);
     }
 
-    public function decreaseQty($product_id)
+    public function decreaseQty($product_id, $variation_id = null)
     {
-        $this->cart_items = CartManagement::decrementQuantityToCartItem($product_id);
+        $this->cart_items = CartManagement::decrementQuantityToCartItem($product_id, $variation_id);
         $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
+        $this->dispatch('update-cart-count', total_count: count($this->cart_items))->to(Navbar::class);
     }
 
     public function render()

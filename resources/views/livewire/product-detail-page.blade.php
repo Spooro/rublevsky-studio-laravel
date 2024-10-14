@@ -49,11 +49,33 @@
                                              @php
                                                  $isAvailable = $product->variations->contains(function (
                                                      $variation,
-                                                 ) use ($attributeName, $value) {
-                                                     return $variation->attributes
+                                                 ) use ($attributeName, $value, $selectedVariation) {
+                                                     $matchesAttribute = $variation->attributes
                                                          ->where('name', $attributeName)
                                                          ->where('value', $value)
                                                          ->isNotEmpty();
+
+                                                     if (!$selectedVariation) {
+                                                         return $matchesAttribute;
+                                                     }
+
+                                                     $otherAttributes = $selectedVariation->attributes->where(
+                                                         'name',
+                                                         '!=',
+                                                         $attributeName,
+                                                     );
+                                                     foreach ($otherAttributes as $otherAttribute) {
+                                                         if (
+                                                             !$variation->attributes
+                                                                 ->where('name', $otherAttribute->name)
+                                                                 ->where('value', $otherAttribute->value)
+                                                                 ->isNotEmpty()
+                                                         ) {
+                                                             return false;
+                                                         }
+                                                     }
+
+                                                     return $matchesAttribute;
                                                  });
                                                  $isSelected =
                                                      $selectedVariation &&
@@ -64,7 +86,8 @@
                                              @endphp
                                              <button
                                                  wire:click="selectVariation('{{ $attributeName }}', '{{ $value }}')"
-                                                 class="px-4 py-2 border rounded-md {{ $isSelected ? 'bg-black text-white' : ($isAvailable ? 'bg-white text-black' : 'bg-gray-200 text-gray-500') }} transition-colors duration-200">
+                                                 class="px-4 py-2 border rounded-md {{ $isSelected ? 'bg-black text-white' : ($isAvailable ? 'bg-white text-black' : 'bg-gray-200 text-gray-600') }} transition-colors duration-200 {{ $isAvailable ? '' : 'opacity-50' }}"
+                                                 title="{{ $isAvailable ? '' : 'This variation is currently unavailable' }}">
                                                  {{ $value }}
                                              </button>
                                          @endforeach
@@ -83,13 +106,13 @@
                      <div class="flex flex-wrap items-center gap-4">
                          <div class="flex items-center space-x-4">
                              <button wire:click="decreaseQty"
-                                 class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-2xl hover:bg-gray-200 transition duration-300 ease-in-out">-</button>
+                                 class="w-14 h-14 flex items-center justify-center text-2xl hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">-</button>
                              <span class="text-2xl">{{ $quantity }}</span>
                              <button wire:click="increaseQty"
-                                 class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-2xl hover:bg-gray-200 transition duration-300 ease-in-out">+</button>
+                                 class="w-14 h-14 flex items-center justify-center text-2xl hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">+</button>
                          </div>
                          <button wire:click='addToCart'
-                             class="flex-grow px-6 py-3 bg-black text-white rounded-full text-lg transition duration-300 ease-in-out hover:bg-gray-800"
+                             class="flex-grow px-6 py-3 bg-black text-white rounded-full text-lg border-2 border-black transition duration-300 ease-in-out hover:bg-white hover:text-black"
                              {{ $product->has_variations && !$selectedVariation ? 'disabled' : '' }}>
                              <span wire:loading.remove wire:target='addToCart'>Add to Cart</span>
                              <span wire:loading wire:target='addToCart'>Loading...</span>

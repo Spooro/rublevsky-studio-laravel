@@ -83,9 +83,8 @@ class ProductResource extends Resource
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (string $operation, $state, Set $set) {
                                 if ($operation !== 'create') {
-                                    return;
+                                    $set('slug', Str::slug($state));
                                 }
-                                $set('slug', Str::slug($state));
                             }),
 
                         TextInput::make('slug')

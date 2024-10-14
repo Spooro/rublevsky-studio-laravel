@@ -4,61 +4,56 @@
         <div class="flex flex-col md:flex-row gap-8">
             <div class="md:w-2/3">
                 <div class="bg-white overflow-x-auto rounded-lg mb-4">
-                    <table class="w-full">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="text-left font-normal text-gray-400 pb-4">Product</th>
-                                <th class="text-left font-normal text-gray-400 pb-4">Price</th>
-                                <th class="text-left font-normal text-gray-400 pb-4">Quantity</th>
-                                <th class="text-left font-normal text-gray-400 pb-4">Total</th>
-                                <th class="text-left font-normal text-gray-400 pb-4">Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($cart_items as $item)
-                                <tr wire:key="{{ $item['product_id'] . '-' . ($item['variation_id'] ?? '') }}"
-                                    class="border-b">
-                                    <td class="py-4">
-                                        <div class="flex items-center">
-                                            <img class="h-max w-16 mr-4 rounded-md"
-                                                src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}">
-                                            <div>
-                                                <span class="font-normal text-gray-500">{{ $item['name'] }}</span>
-                                                @if (isset($item['attributes']))
-                                                    <div class="text-sm text-gray-400 mt-1">
-                                                        @foreach ($item['attributes'] as $attribute => $value)
-                                                            <span class="inline-block mr-3">{{ $value }}</span>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                            </div>
+                    @forelse ($cart_items as $item)
+                        <div wire:key="{{ $item['product_id'] . '-' . ($item['variation_id'] ?? '') }}"
+                            class="flex items-start justify-between py-4 border-b">
+                            <div class="flex items-start flex-grow pr-4">
+                                <img class="w-24 h-auto object-cover mr-4 rounded-md"
+                                    src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}">
+                                <div>
+                                    <span class="font-normal text-gray-800">{{ $item['name'] }}</span>
+                                    @if (isset($item['attributes']))
+                                        <div class="text-sm text-gray-400 mt-1">
+                                            @foreach ($item['attributes'] as $attribute => $value)
+                                                <span class="inline-block mr-3">{{ $value }}</span>
+                                            @endforeach
                                         </div>
-                                    </td>
-                                    <td class="py-4 text-gray-500">{{ Number::currency($item['unit_amount'], 'CAD') }}
-                                    </td>
-                                    <td class="py-4 text-gray-500">{{ $item['quantity'] }}</td>
-                                    <td class="py-4 text-gray-500">{{ Number::currency($item['total_amount'], 'CAD') }}
-                                    </td>
-                                    <td class="py-4">
+                                    @endif
+                                    <div class="text-sm text-gray-400 mt-1">
+                                        {{ Number::currency($item['unit_amount'], 'CAD') }}
+                                    </div>
+                                    <div class="flex items-center space-x-4 mt-2">
                                         <button
-                                            wire:click="removeItem({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
-                                            class="bg-white border border-gray-300 rounded-md px-4 py-2 hover:bg-gray-100 text-gray-500">
-                                            Remove
-                                        </button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4 text-2xl font-normal text-gray-500">No
-                                        items in cart</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                            wire:click="decreaseQty({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
+                                            class="w-8 h-8 flex items-center justify-center text-lg hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">-</button>
+                                        <span class="text-lg">{{ $item['quantity'] }}</span>
+                                        <button
+                                            wire:click="increaseQty({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
+                                            class="w-8 h-8 flex items-center justify-center text-lg hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <button
+                                    wire:click="removeItem({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
+                                    class="group inline-flex items-center justify-center p-1 rounded-xl hover:bg-black transition-colors duration-200 mb-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.8rem" height="1.8rem"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                                        stroke-linecap="round" stroke-linejoin="round" class="group-hover:stroke-white">
+                                        <path d="M18 6L6 18M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                                <span
+                                    class="font-semibold text-black text-lg">{{ Number::currency($item['total_amount'], 'CAD') }}</span>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center py-4 text-2xl font-normal text-gray-500">No items in cart</div>
+                    @endforelse
                 </div>
             </div>
-            <div class="md:w-1/3">
-                <div class="bg-white rounded-lg p-6">
+            <div class="md:w-1/3 sm:w-full">
+                <div class="bg-white rounded-lg md:p-6">
                     <h2 class="text-xl font-normal mb-4">Summary</h2>
                     <div class="flex justify-between mb-2 text-gray-500">
                         <span>Subtotal</span>
@@ -79,7 +74,7 @@
                     </div>
                     @if ($cart_items)
                         <a href="/checkout"
-                            class="bg-black text-white py-3 px-4 rounded-lg w-full hover:bg-gray-800 transition duration-300 inline-block text-center">
+                            class="bg-black text-white py-3 px-4 rounded-lg w-full inline-block text-center border-2 border-black transition duration-300 hover:bg-white hover:text-black">
                             Checkout
                         </a>
                     @endif
