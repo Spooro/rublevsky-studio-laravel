@@ -56,6 +56,9 @@ RUN chmod 754 /usr/local/bin/start-nginx
 COPY . /var/www/html
 WORKDIR /var/www/html
 
+# Move the worker.conf into the supervisor conf.d directory
+RUN mv .fly/supervisor/conf.d/worker.conf /etc/supervisor/conf.d/worker.conf
+
 # 4. Setup application dependencies
 RUN composer install --optimize-autoloader --no-dev \
     && mkdir -p storage/logs \
@@ -124,25 +127,4 @@ RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
 # 5. Setup Entrypoint
 EXPOSE 8080
 
-# Install Supervisor
-RUN apt-get update && apt-get install -y supervisor
-
-# Copy Supervisor configuration
-COPY .fly/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
-
-# Make sure the Supervisor log directory exists
-RUN mkdir -p /var/log/supervisor
-
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
-
-# Create necessary directories for PHP-FPM
-RUN mkdir -p /run/php && chown www-data:www-data /run/php
-
-# Copy PHP-FPM configuration
-COPY .fly/php-fpm/www.conf /etc/php/8.2/fpm/pool.d/www.conf
-
-# Update the entrypoint
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+ENTRYPOINT ["/entrypoint"]
