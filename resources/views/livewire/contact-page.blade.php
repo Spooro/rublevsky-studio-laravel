@@ -1,23 +1,29 @@
-<div class="max-w-[95rem] mx-auto px-4 py-4 sm:px-6 lg:px-8">
+<!-- TODO:
+5. Overflow Issues:
+   • Fix any overflowing elements in the first section on mobile.
+   • Ensure the "process" section doesn’t overflow either, maintaining proper responsiveness.
+6. Padding Adjustments:
+   • Add padding at the bottom of the entire contact page for improved layout. the padding is the same as in other pages, pt-4 pb-36
+-->
+
+<div class="max-w-[95rem] mx-auto px-4 py-4 sm:px-6 lg:px-8 pt-4 pb-36"> <!-- Added padding classes -->
     {{-- Greeting Section --}}
-    <section class="mb-12">
+    <section class="mb-12 overflow-hidden"> <!-- Added overflow-hidden to prevent overflow -->
         <div class="flex flex-col md:flex-row items-start">
             <div class="md:w-2/3 pr-8">
-
-                <h3 class="web-description mb-4">Greetings. I am a visual web developer based in Ontario<sup>1</sup>, by
-                    way of New Zealand<sup>2</sup> and
-                    originally from
-                    Russia<sup>3</sup>. Just finished my time at Hamilton Public Library where I was helping with
-                    branding.</h3>
+                <h2 class="web-description mb-4 break-words"> <!-- Added break-words to allow text wrapping -->
+                    Greetings. I am a visual web developer based in Ontario<sup>1</sup>, by way of New
+                    Zealand<sup>2</sup> and originally from Russia<sup>3</sup>. Just finished my time at Hamilton Public
+                    Library where I was helping with branding.
+                </h2>
                 <div class="mt-4">
                     <p>1. Hamilton &nbsp; 2. Auckland &nbsp; 3. Vladivostok</p>
                 </div>
-                <div class="mt-4 flex space-x-8">
+                <div class="mt-4 flex flex-wrap space-x-4"> <!-- Changed to flex-wrap to allow wrapping -->
                     <h3><a href="#" class="blur-link">Email</a></h3>
                     <h3><a href="#" class="blur-link">LinkedIn</a></h3>
                     <h3><a href="#" class="blur-link">Telegram</a></h3>
                 </div>
-
             </div>
             <div class="md:w-1/3 mt-4 md:mt-0">
                 <img src="{{ Storage::disk('r2')->url('me.jpg') }}" alt="Profile picture" class="w-full rounded-lg">
@@ -61,7 +67,7 @@
     </section>
 
     {{-- My Expertise Section --}}
-    <section class="mb-12">
+    <section class="mb-32">
         <h2 class="mb-4">My expertise</h2>
         <p class="mb-4">With over three years of industry experience, I have collaborated with small businesses,
             individuals, and government organizations from concept to final deliverables.</p>
@@ -70,8 +76,8 @@
     </section>
 
     {{-- Experience Section --}}
-    <section class="mb-12">
-        <h2>Experience</h2>
+    <section class="mb-32">
+        <h2 class="mb-8">Experience</h2>
         <div class="column-layout">
             <div
                 class="bg-white p-8 rounded-[3rem] shadow border-2 border-[#f58025] hover:bg-[#f58025] hover:text-white transition-colors group mb-4">
@@ -124,8 +130,9 @@
     </section>
 
     {{-- Process Section --}}
-    <section class="section-features h-[500vh] relative">
-        <h2 class=" mb-4 sticky top-0 bg-white z-10 py-4">Process</h2>
+    <section class="section-features h-[500vh] w-screen -mx-4 relative">
+        <!-- Set width to 100vw and added -mx-2 -->
+        <h2 class="ml-4 mb-4 sticky top-4 bg-white z-10 py-4">Process</h2>
         <div class="features-wrapper h-screen">
             <div class="features-card-container h-4/5 px-4 flex flex-col items-center relative overflow-hidden">
                 <div class="features-card-wrapper relative w-full h-full flex items-center justify-center">
@@ -182,11 +189,11 @@
 
     {{-- Reach Out Section --}}
     <section class="mb-12 max-w-[50rem] mx-auto">
-        <h2 class="web-description mb-4">Want to reach out about a project, collaboration or just want to say
-            friendly hello?</h2>
-        <p class="text-xl mb-6">I will be texting you back shortly!</p>
+        <h3 class="web-description mb-4">Want to reach out about a project, collaboration or just want to say
+            friendly hello?</h3>
+        <h5 class="mb-6">I will be texting you back shortly!</h5>
         <form class="space-y-6" x-data="{ budget: 0 }">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <input type="text" placeholder="Your name" class="w-full p-2 border rounded">
                 <input type="text" placeholder="Company name" class="w-full p-2 border rounded">
                 <input type="email" placeholder="Your email" class="w-full p-2 border rounded">

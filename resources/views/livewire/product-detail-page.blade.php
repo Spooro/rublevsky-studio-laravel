@@ -1,6 +1,19 @@
  <!-- TODO:
     1. Add hover-lense-zoom for the main product image
     2. finish mobile version
+    ---
+    1. Main Image Visibility:
+   • Ensure the main image remains always visible on the screen.
+   • Align the image to the top of the image gallery and keep it fully visible regardless of screen size or aspect ratio.
+   • The main image should take up the maximum width available while maintaining the correct aspect ratio.
+   • Prevent the image from being hidden when the screen height decreases, keeping it always visible at the top.
+    2. Image Preview Column (Desktop):
+   • Prevent the image preview column from exceeding 100vh in height.
+   • If the column gets taller than the screen, implement a scroll bar to allow users to scroll through the previews.
+    3. Image Previews Overflowing:
+   • Limit the row of image previews from overflowing past the screen edges.
+   • Add overflow: hidden and enable scrolling for the preview row.
+
 -->
 
  <div class="min-h-screen flex flex-col">

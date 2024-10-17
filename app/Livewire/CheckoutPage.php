@@ -10,8 +10,10 @@ use App\Mail\OrderPlaced;
 use Stripe\Checkout\Session;
 use Livewire\Attributes\Title;
 use App\Helpers\CartManagement;
+use App\Mail\NewOrderNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 #[Title('Checkout')]
 class CheckoutPage extends Component
@@ -107,8 +109,11 @@ class CheckoutPage extends Component
         $address->save();
         $order->items()->createMany($cart_items);
 
+
+        Mail::to(Auth::user()->email)->queue(new OrderPlaced($order));
+        Mail::to(config('mail.admin_email'))->queue(new NewOrderNotification($order));
+
         CartManagement::clearCartItems();
-        Mail::to(Auth::user()->email)->send(new OrderPlaced($order));
         return $this->redirect($redirect_url);
     }
 

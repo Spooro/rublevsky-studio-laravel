@@ -1,5 +1,5 @@
 <div
-    class="fixed inset-x-0 bottom-0 flex justify-center items-center z-50 transition-all duration-300 ease-in-out px-2 pb-2">
+    class="fixed inset-x-0 bottom-0 flex justify-center items-center z-[9999] transition-all duration-300 ease-in-out px-2 pb-2">
     <div class="relative inline-flex items-center">
         <!-- User Button (visible on store pages) -->
         <div id="user-menu" class="absolute right-full mr-1 sm:mr-2">
@@ -20,7 +20,7 @@
                             x-transition:leave="transition ease-in duration-75"
                             x-transition:leave-start="opacity-100 transform scale-100"
                             x-transition:leave-end="opacity-0 transform scale-95"
-                            class="absolute bottom-full left-0 mb-2 w-48 bg-gray-200/70 backdrop-blur-sm rounded-md shadow-lg py-1 z-10">
+                            class="absolute bottom-full left-0 mb-2 w-48 bg-gray-200/70 backdrop-blur-sm rounded-md shadow-lg py-1 z-1000">
                             <div class="absolute w-full h-2 bottom-0 translate-y-full"></div>
                             <a href="{{ route('my-orders') }}" wire:navigate
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-400/50 rounded-md mx-1">
@@ -37,7 +37,7 @@
 
                         <!-- User Button -->
                         <button
-                            class="flex items-center justify-center h-10 sm:h-12 px-3 sm:px-4 rounded-full text-base sm:text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-gray-400/50">
+                            class="whitespace-nowrap flex items-center justify-center h-10 sm:h-12 px-3 sm:px-4 rounded-full text-base sm:text-lg transition-colors duration-200 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-gray-400/50">
                             {{ Auth::user()->name }}
                         </button>
                     </div>
@@ -77,7 +77,10 @@
                     </svg>
                     <!-- Cart Counter Badge -->
                     @if ($total_count > 0)
-                        <span {{ $total_count }} </span>
+                        <span
+                            class="absolute top-0 right-0 -mt-1 -mr-1 bg-black text-white text-xs font-semibold w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full">
+                            {{ $total_count }}
+                        </span>
                     @endif
                 </a>
             @endif

@@ -14,6 +14,8 @@ console_command = 'php /var/www/html/artisan tinker'
 
 [env]
   APP_ENV = 'production'
+  APP_URL = 'https://rublevsky-studio-laravel.fly.dev'
+  APP_NAME = 'Rublevsky Studio'
   LOG_CHANNEL = 'stderr'
   LOG_LEVEL = 'info'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
@@ -27,14 +29,20 @@ console_command = 'php /var/www/html/artisan tinker'
   R2_URL = "https://pub-e0cacce632b34b06ae852d50afaa9085.r2.dev"
   FILESYSTEM_DISK = 'r2'
   STRIPE_SECRET = "${STRIPE_SECRET}"
+  MAIL_MAILER="resend"
+  MAIL_FROM_ADDRESS="alexander@rublevsky.studio"
+  MAIL_FROM_NAME="Rublevsky Store"
+  RESEND_KEY="${RESEND_KEY}"
+  ADMIN_EMAIL="alexander.rublevskii@gmail.com"
+  QUEUE_CONNECTION="database"
+
 
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 1
-  processes = ['app']
 
 [[vm]]
   memory = '1gb'

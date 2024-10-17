@@ -1,4 +1,4 @@
-<div class="w-full px-6 py-10">
+<div class="w-full px-4 pt-4 pb-36 no-scrollbar">
     <div class="">
         <h1 class="text-4xl font-normal mb-8">Shopping Cart</h1>
         <div class="flex flex-col md:flex-row gap-8">

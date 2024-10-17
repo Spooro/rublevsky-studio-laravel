@@ -211,6 +211,6 @@ class CartManagement
         }
 
         self::addCartItemsToCookie($cart_items);
-        return $cart_items; // Return the updated cart items instead of the count
+        return count($cart_items); // Return the count instead of the cart items
     }
 }

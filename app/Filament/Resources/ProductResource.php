@@ -33,36 +33,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Hidden;
 
-/**
- * Product Variations Implementation Plan:
- *
- * 1. Database Schema:
- *    - [x] Modify the `products` table to include a `has_variations` boolean field.
- *    - [x] Create a new `product_variations` table to store variation details.
- *    - [x] Create a `variation_attributes` table to store attributes like color, size, etc.
- *
- * 2. Models:
- *    - [x] Update the `Product` model to include a relationship with `ProductVariation`.
- *    - [x] Create a `ProductVariation` model with relationships to `Product` and `VariationAttribute`.
- *    - [x] Create a `VariationAttribute` model.
- *
- * 3. Filament Resource:
- *    - [x] Update the `ProductResource` to include a new tab or section for managing variations.
- *    - [x] Create a repeater field for adding multiple variations with their respective attributes and stock.
- *    - [x] Implement logic to toggle the visibility of the variations section based on the `has_variations` field.
- *
- * 4. Product Details Page:
- *    - [ ] Modify the Livewire component to fetch and display product variations.
- *    - [ ] Create a set of buttons or dropdowns for selecting variation attributes.
- *    - [ ] Update the stock display and add-to-cart functionality to work with variations.
- *
- * 5. Stock Management:
- *    - [ ] Implement stock tracking at the variation level for products with variations.
- *    - [ ] For products without variations, continue using the existing stock field.
- *
- * 6. Cart and Checkout:
- *    - [ ] Update the cart management system to handle product variations.
- */
+
 
 class ProductResource extends Resource
 {
@@ -183,6 +154,7 @@ class ProductResource extends Resource
                                             ->options([
                                                 'apparel_type' => 'Apparel Type',
                                                 'size' => 'Size',
+                                                'color' => 'Color',
                                             ])
                                             ->required(),
                                         TextInput::make('value')

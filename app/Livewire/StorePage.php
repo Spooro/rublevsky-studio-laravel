@@ -24,7 +24,7 @@ class StorePage extends Component
     public $selected_categories = [];
 
     #[Url]
-    public $price_range = 550;
+    public $price_range = 100;
 
     #[Url]
     public $sort = 'latest';
@@ -56,7 +56,7 @@ class StorePage extends Component
             $total_count = CartManagement::addItemToCart($product_id);
         }
 
-        $this->dispatch('update-cart-count', total_count: $total_count);
+        $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
 
         $this->alert('success', 'Product added to cart', [
             'position' => 'bottom-end',

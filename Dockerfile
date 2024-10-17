@@ -124,4 +124,25 @@ RUN rsync -ar /var/www/html/public-npm/ /var/www/html/public/ \
 # 5. Setup Entrypoint
 EXPOSE 8080
 
-ENTRYPOINT ["/entrypoint"]
+# Install Supervisor
+RUN apt-get update && apt-get install -y supervisor
+
+# Copy Supervisor configuration
+COPY .fly/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+
+# Make sure the Supervisor log directory exists
+RUN mkdir -p /var/log/supervisor
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html/storage \
+    && chmod -R 755 /var/www/html/bootstrap/cache
+
+# Create necessary directories for PHP-FPM
+RUN mkdir -p /run/php && chown www-data:www-data /run/php
+
+# Copy PHP-FPM configuration
+COPY .fly/php-fpm/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+
+# Update the entrypoint
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

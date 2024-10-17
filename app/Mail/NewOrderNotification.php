@@ -2,49 +2,39 @@
 
 namespace App\Mail;
 
-
-use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Models\Order;
+use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Order;
 
-class OrderPlaced extends Mailable implements ShouldQueue
+class NewOrderNotification extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
     public $order;
 
-    /**
-     * Create a new message instance.
-     */
     public function __construct(Order $order)
     {
         $this->order = $order;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Order Has Been Placed — Rublevsky Store',
+            subject: 'New Order Placed — Rublevsky Store',
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.orders.placed',
+            markdown: 'mail.orders.notification',
             with: [
-                'url' => route('my-orders.show', $this->order->id),
                 'order' => $this->order,
+                'url' => route('my-orders.show', $this->order->id),
                 'user' => $this->order->user,
                 'items' => $this->order->items,
                 'address' => $this->order->address,
@@ -52,11 +42,6 @@ class OrderPlaced extends Mailable implements ShouldQueue
         );
     }
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
     public function attachments(): array
     {
         return [];

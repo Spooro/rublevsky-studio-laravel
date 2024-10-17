@@ -17,10 +17,12 @@ class OrderItem extends Model
         "total_amount",
     ];
 
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo(Order::class);
     }
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
 }

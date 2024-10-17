@@ -21,12 +21,24 @@ Beauty Floor Project:
 
 	•	Add bottom margin to every web project
 
+    7. Beauty Floor Screenshots:
+   • Adjust the layout so that the Beauty Floor screenshots slightly overlap each other for visual effect.
+   • Increase the size of the mobile screenshot for better prominence.
+8. Testimonial Animations:
+   • Add a revealing animation for the testimonials to create a dynamic appearance when scrolling or loading.
+9. HPL Logo Animation:
+   • Add the Hamilton Public Library (HPL) logo into the branding section animation.
+   • Include the HPL logo in the photos you took for HPL as well.
+10. Hover Effects:
+   • Implement hover-down and hover-up effects for certain elements (perhaps logo, images, or sections).
+11. Uniform Descriptions:
+   • Ensure consistent description styling across both the branding and photos sections for uniformity.
 
 
-    In the Experience section of the Contact page, I want to add links to each of the cards as text after all of the info that's already there. Process has to be not visible fully in width because the page becomes scrollable horizontally. Which should not be the case.
-     --}}
 
-<div class="relative px-4 sm:px-6 lg:px-8">
+    --}}
+
+<div class="relative px-4 sm:px-6 lg:px-8 pb-36">
     {{-- Spline viewer section (updated) --}}
     <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
@@ -55,16 +67,19 @@ Beauty Floor Project:
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
                                 class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
                         </div>
-                        <h3><a href="#" class="blur-link">Live website</a></h3>
+                        <h3><a href="https://aps-cb63ae.webflow.io/" class="blur-link" target="_blank">Live website</a>
+                        </h3>
                     </div>
 
                     <div class="col-span-12 lg:col-span-4 mb-6 lg:mb-0">
-                        <div class="max-w-[300px] mx-auto lg:max-w-none"> <!-- Added this wrapper div -->
-                            <a href="#" class="block w-full relative aspect-[9/19.5]">
+                        <div class="max-w-[300px] mx-auto lg:max-w-none">
+                            <a href="https://aps-cb63ae.webflow.io/" class="block w-full relative aspect-[9/19.5]"
+                                target="_blank">
                                 <img src="{{ Storage::disk('r2')->url('iphone-mockup.svg') }}" alt="iPhone Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
-                                <video class="absolute inset-[3%] w-[94%] h-[94%] object-cover rounded-[12%]" autoplay
-                                    loop muted playsinline>
+                                <video
+                                    class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
+                                    autoplay loop muted playsinline>
                                     <source src="{{ Storage::disk('r2')->url('aps_iphone.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -73,7 +88,8 @@ Beauty Floor Project:
                     </div>
                     <div class="col-span-12 lg:col-span-8">
                         <div class="lg:sticky lg:top-8">
-                            <a href="#" class="block w-full relative aspect-[4/3]">
+                            <a href="https://aps-cb63ae.webflow.io/" class="block w-full relative aspect-[4/3]"
+                                target="_blank">
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
@@ -195,8 +211,9 @@ Beauty Floor Project:
                             <a href="#" class="block w-full relative aspect-[9/19.5]">
                                 <img src="{{ Storage::disk('r2')->url('iphone-mockup.svg') }}" alt="iPhone Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
-                                <video class="absolute inset-[3%] w-[94%] h-[94%] object-cover rounded-[12%]" autoplay
-                                    loop muted playsinline>
+                                <video
+                                    class="absolute inset-[3%] bottom-[4.5%] w-[94%] h-[92.5%] object-cover rounded-[12%]"
+                                    autoplay loop muted playsinline>
                                     <source src="{{ Storage::disk('r2')->url('femtech_iphone.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -238,7 +255,7 @@ Beauty Floor Project:
                     attention to detail and prompt adjustments were commendable, resulting in a functional and
                     aesthetically pleasing website. Highly recommended."
                 </p>
-                <div class="flex items-center">
+                <div class="mt-6 flex items-center">
                     <img src="{{ Storage::disk('r2')->url('roman.jpg') }}" alt="Roman Galavura"
                         class="w-12 h-12 rounded-full mr-4">
                     <div>
@@ -249,7 +266,7 @@ Beauty Floor Project:
             </div>
 
             {{-- Testimonial 2 --}}
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class=" bg-white p-6 rounded-lg shadow-md">
                 <p>
                     "In our interaction I liked Alexander's attentiveness to my requests, detailed analysis of my
                     activity and his desire to find unusual and yet functional design solutions, suitable for the
@@ -257,7 +274,7 @@ Beauty Floor Project:
                     end of our work I received a ready to promote on the Internet business card site with an unusual
                     visual solution, and the necessary functionality."
                 </p>
-                <div class="flex items-center">
+                <div class="flex items-center mt-6">
                     <img src="{{ Storage::disk('r2')->url('diana.jpg') }}" alt="Diana Egorova"
                         class="w-12 h-12 rounded-full mr-4">
                     <div>
@@ -269,27 +286,19 @@ Beauty Floor Project:
         </div>
     </section>
 
-    {{-- Screen Printing Section --}}
-    <section id="screen-printing">
-        <div class="pb-32 pt-20">
-            <h1 class="text-center">Screen Printing</h1>
-        </div>
-        {{-- Add screen printing content here --}}
-    </section>
-
     {{-- Branding Section --}}
     <section id="branding" class="mb-24">
         <div class="pb-32 pt-20">
             <h1 class="text-center">Branding</h1>
         </div>
-        <div class="grid grid-cols-12 gap-4">
+        <div class="masonry-grid">
             <!-- ChickFila -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('ChickFila', ['1-chickfila.jpg', '2-chickfila.jpg', '3-chickfila.jpg', '4-chickfila.jpg', '5-chickfila.jpg'], 'ChickFila branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="chickfila-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -300,12 +309,12 @@ Beauty Floor Project:
             </div>
 
             <!-- Adobe -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Adobe', ['1-adobe.jpg', '2-adobe.jpg', '3-adobe.jpg'], 'Adobe branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="adobe-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -316,12 +325,12 @@ Beauty Floor Project:
             </div>
 
             <!-- Chrysalis -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Chrysalis', ['1-chrysalis.jpg', '2-chrysalis.jpg'], 'Chrysalis branding project')"
-                    class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group aspect-[3/4]"
+                    class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="chrysalis-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -332,12 +341,12 @@ Beauty Floor Project:
             </div>
 
             <!-- Cayuga -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Cayuga', ['1-cayuga.jpg', '2-cayuga.jpg', '3-cayuga.jpg'], 'Cayuga branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="cayuga-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -348,12 +357,12 @@ Beauty Floor Project:
             </div>
 
             <!-- Nutrition Box -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Nutrition Box', ['1-nutrition-box.jpg', '2-nutrition-box.jpg', '3-nutrition-box.jpg', '4-nutrition-box.jpg', '5-nutrition-box.jpg', '6-nutrition-box.jpg'], 'Nutrition Box branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="nutrition-box-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -364,12 +373,15 @@ Beauty Floor Project:
             </div>
 
             <!-- Emmanuel -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Emmanuel', ['1-emmanuel.jpg', '2-emmanuel.jpg'], 'Emmanuel branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="emmanuel-modal">
-                    <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                    <div class="aspect-square overflow-hidden">
+                        <img :src="currentImage" :alt="name"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                            :style="currentImageIndex === 1 ? 'object-contain' : ''">
+                    </div>
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -380,27 +392,35 @@ Beauty Floor Project:
             </div>
 
             <!-- HPL Animation -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
-                <div x-data="brandingCard('HPL Animation', ['hpl-animation-preview.jpg'], 'HPL Animation project', true)"
+            <div class="masonry-item mb-4">
+                <div x-data="{ isHovered: false }"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
-                    @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="hpl-animation-modal">
-                    <img :src="currentImage" :alt="name" class="w-full h-full object-cover">
+                    @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+                    <img src="{{ Storage::disk('r2')->url('hpl-animation-preview.jpg') }}"
+                        alt="HPL Animation Preview"
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out"
+                        :class="{ 'scale-110': isHovered }">
+                    <video x-show="isHovered" x-cloak class="absolute inset-0 w-full h-full object-cover"
+                        src="{{ Storage::disk('r2')->url('hpl-animation.mp4') }}" muted playsinline
+                        x-init="$watch('isHovered', value => value ? $el.play() : $el.pause())">
+                        Your browser does not support the video tag.
+                    </video>
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
                                 group-hover:opacity-100">
-                        <h5 x-text="name"></h5>
+                        <h5>HPL Animation</h5>
                     </div>
                 </div>
             </div>
 
             <!-- Querido -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Querido', ['1-querido.jpg', '2-querido.jpg', '3-querido.jpg', '4-querido.jpg'], 'Querido branding project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="querido-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -411,12 +431,12 @@ Beauty Floor Project:
             </div>
 
             <!-- Design Shirt -->
-            <div class="col-span-12 md:col-span-6 lg:col-span-4">
+            <div class="masonry-item mb-4">
                 <div x-data="brandingCard('Design Shirt', ['1-design-shirt.jpg', '2-design-shirt.jpg'], 'Design Shirt project')"
                     class="relative overflow-hidden rounded-lg shadow-md cursor-pointer group"
                     @mouseenter="startSlideshow" @mouseleave="stopSlideshow" modal-button="design-shirt-modal">
                     <img :src="currentImage" :alt="name"
-                        class="w-full h-full object-cover transition-opacity duration-800">
+                        class="w-full h-auto object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
                     <div
                         class="absolute inset-x-0 bottom-0 h-20 bg-white/70 backdrop-blur-sm flex items-center px-6
                                 opacity-0 transition-opacity duration-300 ease-in-out
@@ -578,6 +598,7 @@ Beauty Floor Project:
             'quite.jpg',
             'skate-contest.jpg',
             'thin-and-fragile.jpg',
+            'painting.jpg',
             // Add more poster filenames as needed
         ];
     @endphp
@@ -602,152 +623,10 @@ Beauty Floor Project:
         <x-lightbox-gallery />
     </section>
 
-    {{-- Things Section --}}
-    <section id="things">
-        <div class="pb-32 pt-20">
-            <h1 class="text-center">Things</h1>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            @foreach ($things as $thing)
-                <div class="thing-item">
-                    <img src="{{ Storage::disk('r2')->url($thing) }}" alt="Thing"
-                        class="w-full h-auto rounded-lg shadow-md">
-                </div>
-            @endforeach
-        </div>
-    </section>
 
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', initializeAnimations);
-    document.addEventListener('livewire:navigated', initializeAnimations);
-
-    function initializeAnimations() {
-        gsap.registerPlugin(ScrollTrigger);
-        animateHeadings();
-        document.querySelectorAll('[reveal-type]').forEach(animateRevealTypeByLetters);
-        hideHeadingElements();
-    }
-
-    function animateRevealTypeByLetters(element) {
-        const text = new SplitType(element, {
-            types: ['words']
-        });
-        gsap.from(text.words, {
-            scrollTrigger: {
-                trigger: element,
-                start: 'top 50%',
-                end: 'top 30%',
-                scrub: true,
-                markers: false
-            },
-            opacity: 0.2,
-            stagger: 0.1,
-        });
-    }
-
-    function animateHeadings() {
-        const headings = document.querySelectorAll('h1');
-        headings.forEach(heading => {
-            gsap.fromTo(heading, {
-                y: 50,
-                opacity: 0
-            }, {
-                y: 0,
-                opacity: 1,
-                duration: 0.5,
-                delay: 0.3, // Added delay of 0.3 seconds
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: heading,
-                    start: "top 80%",
-                    once: true
-                }
-            });
-        });
-    }
-
-    function hideHeadingElements() {
-        const headingElements = document.querySelectorAll('[heading-hide]');
-        headingElements.forEach(element => {
-            gsap.fromTo(element, {
-                opacity: 1
-            }, {
-                opacity: 0,
-                scrollTrigger: {
-                    trigger: element,
-                    start: 'top 15%',
-                    end: 'top 5%',
-                    scrub: true,
-                    markers: false
-                }
-            });
-        });
-    }
-
-    function imageGallery(type, images) {
-        return {
-            type,
-            images,
-            isOpen: false,
-            currentIndex: 0,
-            getImageUrl(image) {
-                return `{{ Storage::disk('r2')->url('') }}${image}`;
-            },
-            get currentImage() {
-                return this.getImageUrl(this.images[this.currentIndex]);
-            },
-            openGallery(index) {
-                this.currentIndex = index;
-                this.isOpen = true;
-            },
-            closeGallery() {
-                this.isOpen = false;
-            },
-            nextImage() {
-                this.currentIndex = (this.currentIndex + 1) % this.images.length;
-            },
-            prevImage() {
-                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-            }
-        }
-    }
-
-    function getImageUrl(image) {
-        return `{{ Storage::disk('r2')->url('') }}${image}`;
-    }
-
-    function brandingCard(name, images, description, isStatic = false) {
-        return {
-            name,
-            images: images.map(getImageUrl),
-            description,
-            currentImageIndex: 0,
-            interval: null,
-            isStatic,
-            get currentImage() {
-                return this.images[this.currentImageIndex];
-            },
-            startSlideshow() {
-                if (this.isStatic) return;
-                // Immediately show the second image
-                this.currentImageIndex = 1;
-                // Then start the regular interval
-                this.interval = setInterval(() => {
-                    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-                }, 800);
-            },
-            stopSlideshow() {
-                if (this.interval) {
-                    clearInterval(this.interval);
-                    this.interval = null;
-                }
-                this.currentImageIndex = 0;
-            }
-        }
-    }
-</script>
+<script src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
 
 </body>
 

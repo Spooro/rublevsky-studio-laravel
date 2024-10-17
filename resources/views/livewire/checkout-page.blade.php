@@ -1,4 +1,4 @@
-<div class=" mx-auto py-8 px-6">
+<div class=" mx-auto pt-4 pb-36 px-4">
     <h2 class="mb-8">Checkout</h2>
 
     <form wire:submit.prevent="placeOrder">
