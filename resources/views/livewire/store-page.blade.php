@@ -125,7 +125,11 @@
                             <div class="p-4 flex-grow">
                                 <div class="flex flex-col gap-1">
                                     <span class="text-lg font-light text-black whitespace-nowrap">
-                                        {{ Number::currency($product->price, 'CAD') }}
+                                        @if ($product->has_variations && $product->variations->isNotEmpty())
+                                            {{ Number::currency($product->variations->first()->price, 'CAD') }}
+                                        @else
+                                            {{ Number::currency($product->price, 'CAD') }}
+                                        @endif
                                     </span>
                                     <h3 class="text-sm text-gray-700 truncate">
                                         {{ $product->name }}

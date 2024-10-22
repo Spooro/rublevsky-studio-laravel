@@ -92,36 +92,3 @@ document.addEventListener('DOMContentLoaded', initializeAnimations);
         }
     }
 
-    function getImageUrl(image) {
-        return `{{ Storage::disk('r2')->url('') }}${image}`;
-    }
-
-    function brandingCard(name, images, description, isStatic = false) {
-        return {
-            name,
-            images: images.map(getImageUrl),
-            description,
-            currentImageIndex: 0,
-            interval: null,
-            isStatic,
-            get currentImage() {
-                return this.images[this.currentImageIndex];
-            },
-            startSlideshow() {
-                if (this.isStatic) return;
-                // Immediately show the second image
-                this.currentImageIndex = 1;
-                // Then start the regular interval
-                this.interval = setInterval(() => {
-                    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-                }, 800);
-            },
-            stopSlideshow() {
-                if (this.interval) {
-                    clearInterval(this.interval);
-                    this.interval = null;
-                }
-                this.currentImageIndex = 0;
-            }
-        }
-    }

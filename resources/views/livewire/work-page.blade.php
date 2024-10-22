@@ -2,7 +2,7 @@
 
 {{-- TODO:
 
-implement redis caching?
+- implement redis caching?
 
 Beauty Floor Project:
 	•	Reposition screenshots to be slightly overlapping, creating a stacked effect.
@@ -38,7 +38,7 @@ Beauty Floor Project:
 
     --}}
 
-<div class="relative px-4 sm:px-6 lg:px-8 pb-36">
+<div class="relative px-4 sm:px-6 lg: pb-36">
     {{-- Spline viewer section (updated) --}}
     <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
@@ -57,7 +57,8 @@ Beauty Floor Project:
             <div class="mb-28">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 lg:col-span-8 mb-6 lg:mb-0">
-                        <h3 class="web-description" reveal-type>Website design and development for Africa Power Supply,
+                        <h3 class="large-text-description" reveal-type>Website design and development for Africa Power
+                            Supply,
                             a fresh
                             Canadian startup planning to revolutionize the African clean energy industry.</h3>
                     </div>
@@ -107,7 +108,7 @@ Beauty Floor Project:
             <div class="mb-28">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 lg:col-span-8 mb-6 lg:mb-0">
-                        <h3 class="web-description" reveal-type>Website design and development for BeautyFloor, a
+                        <h3 class="large-text-description" reveal-type>Website design and development for BeautyFloor, a
                             premium flooring
                             company specializing in high-quality laminate and hardwood floors.</h3>
                     </div>
@@ -156,7 +157,8 @@ Beauty Floor Project:
             <div class="mb-28">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 lg:col-span-6 mb-6 lg:mb-0">
-                        <h3 class="web-description" reveal-type>Website design and development for a dentist clinic
+                        <h3 class="large-text-description" reveal-type>Website design and development for a dentist
+                            clinic
                             32KARATA</h3>
                         <div class="mt-8">
                             <h4>Tools used:</h4>
@@ -191,7 +193,7 @@ Beauty Floor Project:
             <div class="mb-28">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 lg:col-span-8 mb-6 lg:mb-0">
-                        <h3 class="web-description" reveal-type>Website design and development for FemTech, an
+                        <h3 class="large-text-description" reveal-type>Website design and development for FemTech, an
                             innovative company
                             focused on women's health technology solutions.</h3>
                     </div>
@@ -288,10 +290,11 @@ Beauty Floor Project:
 
     {{-- Branding Section --}}
     <section id="branding" class="mb-24">
-        <div class="pb-32 pt-20">
-            <h1 class="text-center">Branding</h1>
-        </div>
-        <div class="masonry-grid">
+
+        <h1 class="text-center pb-32 pt-20">Branding</h1>
+
+        <div class="column-layout">
+
             <!-- ChickFila -->
             <div class="masonry-item mb-4">
                 <div x-data="brandingCard('ChickFila', ['1-chickfila.jpg', '2-chickfila.jpg', '3-chickfila.jpg', '4-chickfila.jpg', '5-chickfila.jpg'], 'ChickFila branding project')"
@@ -568,9 +571,9 @@ Beauty Floor Project:
         <div class="pb-32 pt-20">
             <h1 class="text-center">Photos</h1>
         </div>
-        <div class="masonry-grid">
+        <div class="column-layout">
             <template x-for="(photo, index) in images" :key="index">
-                <div class="masonry-item">
+                <div class="work-visual-item">
                     <div class="photo-item rounded-lg overflow-hidden">
                         <img :src="getImageUrl(photo)" :alt="'Photo ' + (index + 1)"
                             class="w-full h-auto cursor-zoom-in transition-transform duration-500 ease-in-out hover:scale-105"
@@ -608,9 +611,9 @@ Beauty Floor Project:
         <div class="pb-32 pt-20">
             <h1 class="text-center">Posters</h1>
         </div>
-        <div class="masonry-grid">
+        <div class="column-layout">
             <template x-for="(poster, index) in images" :key="index">
-                <div class="masonry-item">
+                <div class="work-visual-item">
                     <div class="poster-item rounded-lg overflow-hidden">
                         <img :src="getImageUrl(poster)" :alt="'Poster ' + (index + 1)"
                             class="w-full h-auto cursor-zoom-in transition-transform duration-500 ease-in-out hover:scale-105"
@@ -626,7 +629,38 @@ Beauty Floor Project:
 
 </div>
 
-<script src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
+
+
+<script>
+    function imageGallery(type, images) {
+        return {
+            type,
+            images,
+            isOpen: false,
+            currentIndex: 0,
+            getImageUrl(image) {
+                // Remove ${this.type}/ from the URL
+                return `https://pub-e0cacce632b34b06ae852d50afaa9085.r2.dev/${image}`;
+            },
+            get currentImage() {
+                return this.getImageUrl(this.images[this.currentIndex]);
+            },
+            openGallery(index) {
+                this.currentIndex = index;
+                this.isOpen = true;
+            },
+            closeGallery() {
+                this.isOpen = false;
+            },
+            nextImage() {
+                this.currentIndex = (this.currentIndex + 1) % this.images.length;
+            },
+            prevImage() {
+                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+            }
+        }
+    }
+</script>
 
 </body>
 

@@ -101,6 +101,10 @@ class ProductResource extends Resource
                         Hidden::make('price')
                             ->default(0)
                             ->visible(fn(Get $get): bool => $get('has_variations')),
+
+                        Forms\Components\Placeholder::make('price_instruction')
+                            ->content('For products with variations, please set prices in the Variations section below.')
+                            ->visible(fn(Get $get): bool => $get('has_variations'))
                     ]),
                     Section::make('Associations')->schema([
                         Select::make('category_id')

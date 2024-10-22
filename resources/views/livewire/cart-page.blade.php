@@ -73,8 +73,7 @@
                         <span class="font-normal">{{ Number::currency($grand_total * 1.13, 'CAD') }}</span>
                     </div>
                     @if ($cart_items)
-                        <a href="/checkout"
-                            class="bg-black text-white py-3 px-4 rounded-lg w-full inline-block text-center border-2 border-black transition duration-300 hover:bg-white hover:text-black">
+                        <a href="/checkout" class="main-button w-full">
                             Checkout
                         </a>
                     @endif

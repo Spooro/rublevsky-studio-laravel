@@ -26,7 +26,7 @@
 
     <x-livewire-alert::scripts />
     @stack('scripts')
-
+    <script src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
 </body>
 
 </html>

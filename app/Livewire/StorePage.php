@@ -35,16 +35,12 @@ class StorePage extends Component
         'price_desc' => 'Price: High to Low',
     ];
 
-    // add product to cart method
     public function addToCart($product_id)
     {
         $product = Product::findOrFail($product_id);
 
         if ($product->has_variations) {
-            $variation = ProductVariation::where('product_id', $product_id)
-                ->where('stock', '>', 0)
-                ->orderBy('id')
-                ->first();
+            $variation = $product->variations()->where('stock', '>', 0)->orderBy('price')->first();
 
             if ($variation) {
                 $total_count = CartManagement::addVariationToCartWithQuantity($product_id, $variation->id, 1);
@@ -70,14 +66,22 @@ class StorePage extends Component
 
     public function render()
     {
-        $productQuery = Product::query()->where('is_active', 1);
+        $productQuery = Product::query()->where('is_active', 1)
+            ->with(['variations' => function ($query) {
+                $query->where('stock', '>', 0)->orderBy('price')->limit(1);
+            }]);
 
         if (!empty($this->selected_categories)) {
             $productQuery->whereIn('category_id', $this->selected_categories);
         }
 
         if ($this->price_range !== null) {
-            $productQuery->whereBetween('price', [0, $this->price_range]);
+            $productQuery->where(function ($query) {
+                $query->where('price', '<=', $this->price_range)
+                    ->orWhereHas('variations', function ($q) {
+                        $q->where('price', '<=', $this->price_range);
+                    });
+            });
         }
 
         switch ($this->sort) {
@@ -92,10 +96,12 @@ class StorePage extends Component
                 break;
         }
 
+        $products = $productQuery->paginate(12);
+
         return view(
             'livewire.store-page',
             [
-                'products' => $productQuery->paginate(12),
+                'products' => $products,
                 'brands' => Brand::where('is_active', 1)->get(['id', 'name', 'slug']),
                 'categories' => Category::where('is_active', 1)->get(['id', 'name', 'slug'])
             ]

@@ -1,3 +1,4 @@
+/* FONTS */
 :root {
     --font-sans: "Overused Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     --font-serif: Georgia, Times, serif;
@@ -16,18 +17,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Apply Overused Grotesk to all elements */
 body {
     font-family: "Overused Grotesk", sans-serif;
 }
-/* Hide scrollbar on Safari */
 
-body::-webkit-scrollbar {
-    width:0em;
-  }
+/*
+html, body {
+ overflow-x: hidden;
+}
+*/
+main {
+    height: 100%
+}
+
+html { font-size: calc(1rem + 0.20833333333333331vw); }
+@media screen and (max-width:1920px) { html { font-size: calc(1rem + 0.20833333333333337vw); } }
+@media screen and (max-width:1440px) { html { font-size: calc(1.0001951092611863rem + 0.20811654526534862vw); } }
+@media screen and (max-width:479px) { html { font-size: calc(0.9372384937238494rem + 0.41841004184100417vw); } }
 
 
-/* Custom heading styles */
+/* TEXT */
 h1, h2, h3, h4, h5, h6 {
     font-family: "Overused Grotesk", sans-serif;
 }
@@ -38,14 +47,14 @@ h1 {
     line-height: 0.9;
 }
 
-
 h2 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 300;
+    line-height: 1.2;
 }
 
 h3 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     line-height: 1.2;
     font-weight: 100;
 }
@@ -55,6 +64,7 @@ h4 {
     line-height: 1.2;
     font-weight: 100;
 }
+
 h5 {
     font-size: 1.4rem;
     line-height: 1.2;
@@ -83,43 +93,77 @@ p{
     }
 }
 
-.web-description {
+.large-text-description {
     line-height: 1.1;
     font-weight: 100;
 }
 
-/* Input styles */
+.blur-link {
+    text-decoration: underline; /* Keep underline */
+    text-underline-offset: 0.3rem; /* Adjust position of the underline */
+    text-decoration-thickness: 0.15rem; /* Make the underline thinner */
+    transition: filter 0.3s ease; /* Ensure smooth transition */
+}
+
+.blur-link:hover {
+    filter: blur(0.3rem); /* Apply blur effect on hover */
+}
+
+
+
+/* SCROLLBAR */
+
+/* Hide scrollbar on Safari */
+body::-webkit-scrollbar {
+    width:0em;
+  }
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+   /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+  }
+}
+
+
+/* INPUTS */
 input[type="checkbox"] {
     accent-color: #ff6f61;
 }
 
 input[type="range"] {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
-    height: 4px;
+    height: 0.2rem;
     background: #e8e8e8;
-    border-radius: 100rem;
     outline: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.3rem;
+    height: 1.3rem;
     background: black;
     border-radius: 100%;
     cursor: pointer;
+    box-shadow: none;
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.3rem;
+    height: 1.3rem;
     background: black;
-    border: none; /* Remove border */
+    border: none;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: none; /* Remove shadow */
+    box-shadow: none;
 }
 
 input[type="range"]::-ms-thumb {
@@ -129,154 +173,89 @@ input[type="range"]::-ms-thumb {
     border: none; /* Remove border */
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: none; /* Remove shadow */
+    background: #e8e8e8;
+    border-radius: 1px;
 }
 
-/* Navbar and filter styles */
+/* Ensure the thumb doesn't have any default styles */
+input[type="range"]::-webkit-slider-thumb:hover,
+input[type="range"]::-webkit-slider-thumb:active {
+    box-shadow: none;
+}
+
+input[type="range"]::-moz-range-thumb:hover,
+input[type="range"]::-moz-range-thumb:active {
+    box-shadow: none;
+}
+
+
+
+
+[x-cloak] { display: none !important; }
+
+
+
+
+
+/* BUTTONS */
+.main-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.main-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+
+/* STORE FILTERS */
 .filter-container {
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
     border-radius: 9999px;
     padding: 0.25rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), inset 0 0px 0.3rem rgba(0, 0, 0, 0.06);
 }
 
 
-/* Poster and Photo reveal animation */
-.poster-item,
-.photo-item {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
-
-@supports (animation-timeline: view()) {
-    .poster-item,
-    .photo-item {
-        view-timeline-name: --item-reveal;
-        view-timeline-axis: block;
-        animation-timeline: --item-reveal;
-        animation-name: item-appear;
-        animation-range: entry 10% contain 25%;
-        animation-fill-mode: both;
-        animation-duration: 1ms; /* Firefox requires this to apply the animation */
-    }
-
-    @keyframes item-appear {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-}
-
-/* Branding grid */
-#branding .grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 0.5rem;
-    width: 100%;
-}
-
-.branding-item {
-    min-height: 200px;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-.branding-item img {
-    transition: opacity 0.3s ease-in-out;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.branding-item .slideshow-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-}
-
-/* Grid item hover effect */
-.branding-item,
-.photo-item,
-.poster-item,
-.thing-item {
-    transition: transform 0.3s ease;
-}
 
 
-/* Masonry grid for posters */
-.masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
-}
 
-@media (min-width: 640px) {
-    .masonry-grid {
-        column-count: 2;
-    }
-}
 
-@media (min-width: 1024px) {
-    .masonry-grid {
-        column-count: 3;
-    }
-}
 
-.masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
-}
 
-.masonry-item > div {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
 
-.masonry-item img {
-    transition: transform 0.3s ease;
-}
 
-.masonry-item:hover img {
-    transform: scale(1.1);
-}
 
-/* Ensure images are visible */
-.masonry-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
-/* Increased shadow and hover effect for all visual items */
-.poster-item,
-.photo-item,
-.branding-item,
-.thing-item {
+
+.work-visual-item img {
     box-shadow: 0 0px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    transition:
+        transform 0.5s ease-out,
+        box-shadow 0.3s ease,
+        opacity 0.5s ease-out;
 
 
-/* Poster and Photo reveal animation */
-.poster-item,
-.photo-item,
-.branding-item,
-.thing-item {
-    opacity: 0;
-    transform: scale(0.8);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.3s ease;
 }
+
 
 @supports (animation-timeline: view()) {
     .poster-item,
@@ -305,15 +284,16 @@ input[type="range"]::-ms-thumb {
     }
 }
 
-/* ... (remaining styles unchanged) ... */
 
-@layer components {
-  .blur-link {
-    @apply hover:blur-sm transition-all duration-300;
-  }
-}
 
-/* Services Offered Section Styles */
+
+
+
+
+
+
+
+/* Services Offered on contact page */
 .services-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -359,47 +339,16 @@ input[type="range"]::-ms-thumb {
     color: white; /* Change text color on hover if desired */
 }
 
-.column-layout {
-    column-count: 1;
-    column-gap: 1rem;
-}
 
-@media (min-width: 640px) {
-    .column-layout {
-        column-count: 2;
-    }
-}
 
-@media (min-width: 1024px) {
-    .column-layout {
-        column-count: 3;
-    }
-}
 
-.column-layout > div {
-    display: inline-block;
-    width: 100%;
-}
 
-/* Add this to your existing CSS */
-@media (max-width: 640px) {
-    .column-layout > div .flex-wrap {
-        flex-direction: column-reverse;
-    }
 
-    .column-layout > div .flex-wrap > div:last-child {
-        margin-bottom: 1rem;
-    }
-}
 
-html { font-size: calc(1rem + 0.20833333333333331vw); }
-@media screen and (max-width:1920px) { html { font-size: calc(1rem + 0.20833333333333337vw); } }
-@media screen and (max-width:1440px) { html { font-size: calc(1.0001951092611863rem + 0.20811654526534862vw); } }
-@media screen and (max-width:479px) { html { font-size: calc(0.9372384937238494rem + 0.41841004184100417vw); } }
 
-/* Add this at the end of your app.css file */
 
-/* Styles for the modal pop-up */
+
+/* MODALS */
 .modal-popup {
   animation: fade-out 0.3s ease-out;
 }
@@ -461,99 +410,102 @@ html { font-size: calc(1rem + 0.20833333333333331vw); }
   }
 }
 
-/* Add or update these styles */
 
-.masonry-item > div {
-    overflow: hidden;
+
+
+/* Visual items on work page */
+
+
+.work-visual-item {
+    margin-bottom: 0.5rem;
 }
 
-.masonry-item img {
-    transition: transform 0.3s ease;
+.work-visual-item img {
+    transition: transform 0.5s ease-out;
 }
 
-.masonry-item:hover img {
-    transform: scale(1.1);
+.work-visual-item:hover img {
+    transform: scale(1.05);
 }
 
-/* Ensure consistent aspect ratio for all branding items */
-.aspect-w-16 {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+
+
+
+/* experience card on contact page */
+.experience-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 3rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
 }
 
-.aspect-w-16 > img {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    object-fit: cover;
+.experience-card img {
+    transition: all 0.2s ease-in-out;
 }
 
-.group:hover img {
-    transform: scale(1.1);
+.experience-card:hover img {
+    transform: none;
 }
 
-/* Update or add these styles */
 
-.masonry-grid {
-    column-count: 1;
-    column-gap: 1rem;
+
+
+
+/* column layout */
+.container {
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 @media (min-width: 640px) {
-    .masonry-grid {
+    .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.column-layout {
+    column-count: 1;
+    column-gap: 0.5rem;
+}
+
+.column-layout > div {
+    display: inline-block;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .column-layout {
         column-count: 2;
     }
 }
 
 @media (min-width: 1024px) {
-    .masonry-grid {
+    .column-layout {
         column-count: 3;
     }
 }
 
-.masonry-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
+@media (max-width: 640px) {
+    .column-layout > div .flex-wrap {
+        flex-direction: column-reverse;
+    }
+
+    .column-layout > div .flex-wrap > div:last-child {
+        margin-bottom: 1rem;
+    }
 }
 
-.masonry-item > div {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
 
-.masonry-item img {
-    transition: transform 0.3s ease;
-}
 
-.masonry-item:hover img {
-    transform: scale(1.1);
-}
 
-/* Ensure images are visible */
-.masonry-item img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
-/* Special handling for Emmanuel project */
-.masonry-item .aspect-square {
-    position: relative;
-    padding-bottom: 100%;
-}
-
-.masonry-item .aspect-square img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-[x-cloak] { display: none !important; }

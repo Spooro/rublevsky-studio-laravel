@@ -2,7 +2,7 @@
     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="closeGallery"
     @keydown.escape.window="closeGallery"
-    class="fixed inset-0 z-[99] flex items-center justify-center bg-black bg-opacity-50 select-none cursor-zoom-out p-4"
+    class="fixed inset-0 z-[10000] flex items-center justify-center bg-black bg-opacity-50 select-none cursor-zoom-out p-4"
     x-cloak x-init="$watch('isOpen', value => document.body.style.overflow = value ? 'hidden' : '')">
     <div class="relative flex items-center justify-center w-full h-full max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]"
         @click.stop="closeGallery">
