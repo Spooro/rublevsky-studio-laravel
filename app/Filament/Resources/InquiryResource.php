@@ -2,15 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\InquiryResource\Pages;
 use App\Models\Inquiry;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Resources\Pages\CreateRecord;
-use Filament\Resources\Pages\EditRecord;
 
 class InquiryResource extends Resource
 {
@@ -85,31 +83,9 @@ class InquiryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListInquiries::route('/'),
-            'create' => CreateInquiry::route('/create'),
-            'edit' => EditInquiry::route('/{record}/edit'),
-        ];
-    }
-}
-
-class ListInquiries extends ListRecords
-{
-    protected static string $resource = InquiryResource::class;
-}
-
-class CreateInquiry extends CreateRecord
-{
-    protected static string $resource = InquiryResource::class;
-}
-
-class EditInquiry extends EditRecord
-{
-    protected static string $resource = InquiryResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            \Filament\Actions\DeleteAction::make(),
+            'index' => Pages\ListInquiries::route('/'),
+            'create' => Pages\CreateInquiry::route('/create'),
+            'edit' => Pages\EditInquiry::route('/{record}/edit'),
         ];
     }
 }

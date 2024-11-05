@@ -12,12 +12,14 @@ class Navbar extends Component
     public $total_count = 0;
     public $isStorePage = false;
     public $currentRoute;
+    public $anchors = [];
 
     public function mount()
     {
         $this->total_count = count(CartManagement::getCartItemsFromCookie());
         $this->isStorePage = $this->checkIsStorePage();
         $this->currentRoute = request()->route()->getName();
+        $this->setAnchors();
     }
 
     #[On('update-cart-count')]
@@ -31,6 +33,7 @@ class Navbar extends Component
     {
         $this->currentRoute = $route;
         $this->isStorePage = $this->checkIsStorePage();
+        $this->setAnchors();
     }
 
     public function render()
@@ -41,6 +44,32 @@ class Navbar extends Component
     private function checkIsStorePage()
     {
         $routeName = request()->route()->getName();
-        return in_array($routeName, ['store', 'store.product', 'cart', 'checkout', 'success', 'cancel']);
+        return in_array($routeName, ['store', 'store.product', 'cart', 'checkout', 'success', 'cancel', 'my-orders', 'my-orders.show', 'my-account']);
+    }
+
+    private function setAnchors()
+    {
+        switch ($this->currentRoute) {
+            case 'work':
+                $this->anchors = [
+                    ['label' => 'Web', 'href' => '#web'],
+                    ['label' => 'Branding', 'href' => '#branding'],
+                    ['label' => 'Photos', 'href' => '#photos'],
+                ];
+                break;
+            case 'contact':
+                $this->anchors = [
+                    ['label' => 'Send me a message', 'href' => '#reach-out'],
+                    [
+                        'label' => 'Book a call',
+                        'href' => 'https://cal.com/rublevsky',
+                        'isExternal' => true,
+                        'isAccent' => true
+                    ],
+                ];
+                break;
+            default:
+                $this->anchors = [];
+        }
     }
 }

@@ -2,42 +2,52 @@
 
 namespace App\Livewire;
 
-use Stripe\Stripe;
 use App\Models\Order;
+use App\Models\Address;
 use Livewire\Component;
-use Livewire\Attributes\Url;
-use Stripe\Checkout\Session;
+use App\Models\OrderItem;
 use Livewire\Attributes\Title;
-use Illuminate\Support\Facades\Auth;
 
 #[Title('Success')]
 class SuccessPage extends Component
 {
-    #[Url]
-    public $session_id;
+    public $order_id;
+    public $isLoading = true;
+    public $attempts = 0;
+    public $maxAttempts = 50;
+
+    public function mount($order_id)
+    {
+        $this->order_id = $order_id;
+    }
+
+    public function checkOrder()
+    {
+        $this->attempts++;
+
+        $order = Order::find($this->order_id);
+
+        if ($order) {
+            $this->isLoading = false;
+        } elseif ($this->attempts >= $this->maxAttempts) {
+            abort(404, 'Order not found');
+        }
+    }
 
     public function render()
     {
-        $latestOrder = Order::with('address')->where('user_id', Auth::user()->id)->latest()->first();
-
-        if ($this->session_id) {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            $session_info = Session::retrieve($this->session_id);
-
-            if ($session_info->payment_status == 'paid') {
-                $latestOrder->payment_status = 'paid';
-                $latestOrder->save();
-            } else {
-                // TODO:  failed payment is not being set?
-                $latestOrder->payment_status = 'failed';
-                $latestOrder->save();
-                return redirect()->route('cancel');
-            }
+        if ($this->isLoading) {
+            return view('livewire.success-page-loading');
         }
 
-        return view(
-            'livewire.success-page',
-            ['order' => $latestOrder]
-        );
+        $order = Order::findOrFail($this->order_id);
+        $order_items = OrderItem::with(['product'])->where('order_id', $this->order_id)->get();
+        $address = Address::where('order_id', $this->order_id)->first();
+
+        return view('livewire.success-page', [
+            'order' => $order,
+            'order_items' => $order_items,
+            'address' => $address
+        ]);
     }
 }

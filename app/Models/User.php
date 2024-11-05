@@ -48,6 +48,9 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
+    /**
+     * Get the orders for the user.
+     */
     public function orders()
     {
         return $this->hasMany(Order::class);
@@ -56,5 +59,13 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->email == 'alexander.rublevskii@gmail.com';
+    }
+
+    /**
+     * Get the addresses for the user through their orders.
+     */
+    public function addresses()
+    {
+        return $this->hasManyThrough(Address::class, Order::class);
     }
 }

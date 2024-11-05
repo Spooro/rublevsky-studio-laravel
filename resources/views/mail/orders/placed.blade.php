@@ -1,12 +1,8 @@
-<!-- TODO:
-4. Queue & Worker Setup:
-   • Set up and configure queues and workers for email functionality using Fly.io, which is your current hosting provider.
--->
-
 <x-mail::message>
 <div class="email-content">
 <h1 style="color: #000000; margin-bottom: 15px;">Order placed successfully!</h1>
 <p style="color: #000000; margin-bottom: 30px;"> Thank you for your order, {{ $order->address->first_name }}! Your order number is {{ $order->id }}.</p>
+<p style="color: #000000; margin-bottom: 30px;">You will be contacted shortly regarding delivery and payment.</p>
 <table class="order-details" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 40px; margin-bottom: 40px;">
 <tr>
 <th align="left" style="color: #718096; font-weight: normal; padding-bottom: 8px;">Item</th>

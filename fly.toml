@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for rublevsky-studio-laravel on 2024-10-10T14:18:32-04:00
+# fly.toml app configuration file generated for rublevsky-studio on 2024-10-24T14:10:22-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'rublevsky-studio-laravel'
+app = 'rublevsky-studio'
 primary_region = 'yyz'
 console_command = 'php /var/www/html/artisan tinker'
 
@@ -13,29 +13,33 @@ console_command = 'php /var/www/html/artisan tinker'
     PHP_VERSION = '8.2'
 
 [env]
+  ADMIN_EMAIL = 'alexander.rublevskii@gmail.com'
   APP_ENV = 'production'
-  APP_URL = 'https://rublevsky-studio-laravel.fly.dev'
   APP_NAME = 'Rublevsky Studio'
+  APP_URL = 'https://www.rublevsky.studio/'
+  FILAMENT_FILESYSTEM_DISK = 'r2'
+  FILESYSTEM_DISK = 'r2'
   LOG_CHANNEL = 'stderr'
   LOG_LEVEL = 'info'
   LOG_STDERR_FORMATTER = 'Monolog\Formatter\JsonFormatter'
+  MAIL_FROM_ADDRESS = 'alexander@rublevsky.studio'
+  MAIL_FROM_NAME = 'Rublevsky Store'
+  MAIL_MAILER = 'resend'
+  QUEUE_CONNECTION = 'database'
+  R2_ACCESS_KEY = '${R2_ACCESS_KEY}'
+  R2_BUCKET = 'rublevsky-studio-storage'
+  R2_ENDPOINT = 'https://your-endpoint.r2.cloudflarestorage.com'
+  R2_REGION = 'auto'
+  R2_SECRET_KEY = '${R2_SECRET_KEY}'
+  R2_URL = 'https://pub-e0cacce632b34b06ae852d50afaa9085.r2.dev'
+  RESEND_KEY = '${RESEND_KEY}'
   SESSION_DRIVER = 'cookie'
   SESSION_SECURE_COOKIE = 'true'
-  R2_ACCESS_KEY = "${R2_ACCESS_KEY}"
-  R2_SECRET_KEY = "${R2_SECRET_KEY}"
-  R2_BUCKET = "rublevsky-studio-storage"
-  R2_ENDPOINT = "https://your-endpoint.r2.cloudflarestorage.com"
-  R2_REGION = "auto"
-  R2_URL = "https://pub-e0cacce632b34b06ae852d50afaa9085.r2.dev"
-  FILESYSTEM_DISK = 'r2'
-  STRIPE_SECRET = "${STRIPE_SECRET}"
-  MAIL_MAILER="resend"
-  MAIL_FROM_ADDRESS="alexander@rublevsky.studio"
-  MAIL_FROM_NAME="Rublevsky Store"
-  RESEND_KEY="${RESEND_KEY}"
-  ADMIN_EMAIL="alexander.rublevskii@gmail.com"
-  QUEUE_CONNECTION="database"
+  STRIPE_SECRET = '${STRIPE_SECRET}'
 
+[processes]
+  app = ''
+  worker = 'php artisan queue:listen'
 
 [http_service]
   internal_port = 8080
@@ -50,6 +54,4 @@ console_command = 'php /var/www/html/artisan tinker'
   cpu_kind = 'shared'
   cpus = 1
 
-[processes]
-  app = ""
-  worker = "php artisan queue:listen"
+

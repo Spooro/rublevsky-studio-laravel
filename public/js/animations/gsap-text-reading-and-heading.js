@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', initializeAnimations);
     }
 
     function animateHeadings() {
-        const headings = document.querySelectorAll('h1');
+        const headings = document.querySelectorAll('[heading-reveal]');
         headings.forEach(heading => {
             gsap.fromTo(heading, {
                 y: 50,
@@ -63,32 +63,3 @@ document.addEventListener('DOMContentLoaded', initializeAnimations);
             });
         });
     }
-
-    function imageGallery(type, images) {
-        return {
-            type,
-            images,
-            isOpen: false,
-            currentIndex: 0,
-            getImageUrl(image) {
-                return `{{ Storage::disk('r2')->url('') }}${image}`;
-            },
-            get currentImage() {
-                return this.getImageUrl(this.images[this.currentIndex]);
-            },
-            openGallery(index) {
-                this.currentIndex = index;
-                this.isOpen = true;
-            },
-            closeGallery() {
-                this.isOpen = false;
-            },
-            nextImage() {
-                this.currentIndex = (this.currentIndex + 1) % this.images.length;
-            },
-            prevImage() {
-                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-            }
-        }
-    }
-

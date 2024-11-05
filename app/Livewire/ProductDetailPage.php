@@ -83,57 +83,64 @@ class ProductDetailPage extends Component
 
     public function addToCart()
     {
-        if ($this->quantity > $this->availableStock) {
-            $this->alert('error', 'Not enough stock available', [
+        try {
+            // Validate stock before proceeding
+            if (!$this->product->unlimited_stock && $this->quantity > $this->availableStock) {
+                $this->alert('error', 'Not enough stock available', [
+                    'position' => 'bottom-end',
+                    'timer' => 3000,
+                    'toast' => true,
+                    'showCancelButton' => false,
+                    'showConfirmButton' => false,
+                ]);
+                return;
+            }
+
+            if ($this->product->has_variations && $this->selectedVariation) {
+                $total_count = CartManagement::addVariationToCartWithQuantity(
+                    $this->product->id,
+                    $this->selectedVariation->id,
+                    $this->quantity
+                );
+                if (!$this->product->unlimited_stock) {
+                    $this->selectedVariation->decrement('stock', $this->quantity);
+                    $this->availableStock = $this->selectedVariation->fresh()->stock;
+                }
+            } else {
+                $total_count = CartManagement::addItemToCartWithQuantity($this->product->id, $this->quantity);
+                if (!$this->product->unlimited_stock) {
+                    $this->product->decrement('stock', $this->quantity);
+                    $this->availableStock = $this->product->fresh()->stock;
+                }
+            }
+
+            $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
+
+            $this->alert('success', 'Product added to cart', [
+                'position' => 'bottom-end',
+                'timer' => 2000,
+                'toast' => true,
+                'text' => '',
+                'showCancelButton' => false,
+                'showConfirmButton' => false,
+            ]);
+
+            // Reset quantity after successful addition
+            $this->quantity = 1;
+        } catch (\Exception $e) {
+            $this->alert('error', 'Failed to add product to cart', [
                 'position' => 'bottom-end',
                 'timer' => 3000,
                 'toast' => true,
+                'showCancelButton' => false,
+                'showConfirmButton' => false,
             ]);
-            return;
-        }
-
-        if ($this->product->has_variations && $this->selectedVariation) {
-            $total_count = CartManagement::addVariationToCartWithQuantity(
-                $this->product->id,
-                $this->selectedVariation->id,
-                $this->quantity
-            );
-            $this->selectedVariation->decrement('stock', $this->quantity);
-        } else {
-            $total_count = CartManagement::addItemToCartWithQuantity($this->product->id, $this->quantity);
-            $this->product->decrement('stock', $this->quantity);
-        }
-
-        $this->updateAvailableStock();
-
-        $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
-
-        $this->alert('success', 'Product added to cart', [
-            'position' => 'bottom-end',
-            'timer' => 2000,
-            'toast' => true,
-            'text' => 'Product added to cart',
-            'showCancelButton' => false,
-            'showConfirmButton' => false,
-        ]);
-    }
-
-    public function increaseQty()
-    {
-        $this->quantity++;
-    }
-
-    public function decreaseQty()
-    {
-
-        if ($this->quantity > 1) {
-            $this->quantity--;
         }
     }
 
     public function updatedQuantity($value)
     {
-        $this->quantity = max(1, intval($value));
+        $this->quantity = max(1, min($this->availableStock, intval($value)));
     }
 
     public function render()
@@ -143,6 +150,12 @@ class ProductDetailPage extends Component
 
     public function updateAvailableStock()
     {
+        // For unlimited stock products, set a high number or null
+        if ($this->product->unlimited_stock) {
+            $this->availableStock = PHP_INT_MAX; // Or any other large number
+            return;
+        }
+
         $this->availableStock = $this->product->has_variations && $this->selectedVariation
             ? $this->selectedVariation->stock
             : $this->product->stock;

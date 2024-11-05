@@ -1,45 +1,50 @@
-<!-- TODO:
-5. Overflow Issues:
-   • Fix any overflowing elements in the first section on mobile.
-   • Ensure the "process" section doesn’t overflow either, maintaining proper responsiveness.
-6. Padding Adjustments:
-   • Add padding at the bottom of the entire contact page for improved layout. the padding is the same as in other pages, pt-4 pb-36
--->
-
-<div class="relative pb-36"> <!-- Removed lg: prefix -->
+<div class="relative pb-36">
     {{-- Greeting Section --}}
-    <section class="pt-4 mb-32 overflow-visible px-4 sm:px-6">
-        <div class="clearfix">
-            <div class="float-right w-full min-w-[20rem] sm:w-1/2 md:w-1/3 ml-0 sm:ml-4 mb-4 pl-0 sm:pl-4">
-                <div class="masonry-item rounded-lg overflow-hidden">
-                    <!-- Added masonry-item class and other necessary classes -->
-                    <img src="{{ Storage::disk('r2')->url('me.jpg') }}" alt="Profile picture" class="w-full h-auto">
+    <section class="pt-4 overflow-visible px-4 sm:px-6">
+        <div class="flex flex-col md:grid md:grid-cols-3 md:gap-4 md:relative">
+            {{-- Content column with flex layout --}}
+            <div class="md:col-span-2 md:h-full md:flex md:flex-col">
+                {{-- Top content group --}}
+                <div>
+                    <h3 class="large-text-description mb-4 break-words">
+                        Greetings. I am a visual web developer based in Ontario<sup>1</sup>, by way of New
+                        Zealand<sup>2</sup> and originally from Russia<sup>3</sup>. Just finished my time at Hamilton
+                        Public
+                        Library where I was helping with branding.
+                    </h3>
+                    <div class="mt-4">
+                        <div class="flex flex-wrap gap-8">
+                            <p>1. Hamilton</p>
+                            <p>2. Auckland</p>
+                            <p>3. Vladivostok</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Links row aligned to bottom --}}
+                <div class="my-4 md:mt-auto md:mb-0 flex flex-wrap -ml-6">
+                    <h3 class="ml-6"><a href="mailto:alexander.rublevskii@gmail.com" class="blur-link">Email</a></h3>
+                    <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link"
+                            target="_blank">LinkedIn</a></h3>
+                    <h3 class="ml-6"><a href="https://t.me/alexrublevsky" class="blur-link"
+                            target="_blank">Telegram</a></h3>
+                    <h3 class="ml-6"><a href="https://www.instagram.com/alexander.rublevsky/" class="blur-link"
+                            target="_blank">Instagram</a></h3>
                 </div>
             </div>
-            <div>
-                <h2 class="large-text-description mb-4 break-words">
-                    Greetings. I am a visual web developer based in Ontario<sup>1</sup>, by way of New
-                    Zealand<sup>2</sup> and originally from Russia<sup>3</sup>. Just finished my time at Hamilton Public
-                    Library where I was helping with branding.
-                </h2>
-                <div class="flex flex-col justify-start">
-                    <div <div class="mt-4">
-                        <p>1. Hamilton &nbsp; 2. Auckland &nbsp; 3. Vladivostok</p>
-                    </div>
-                    <div class="my-4 flex flex-wrap -ml-6"> <!-- Added negative left margin -->
-                        <h3 class="ml-6 mb-4"><a href="#" class="blur-link">Email</a></h3>
-                        <h3 class="ml-6 mb-4"><a href="#" class="blur-link">LinkedIn</a></h3>
-                        <h3 class="ml-6 mb-4"><a href="#" class="blur-link">Telegram</a></h3>
-                    </div>
+
+            {{-- Image column --}}
+            <div class="w-full mb-4 md:mb-0 md:col-span-1 -order-1 md:order-none">
+                <div class="work-visual-item rounded-lg overflow-hidden">
+                    <img src="{{ Storage::url('me.jpg') }}" alt="Profile picture" class="w-full h-auto">
                 </div>
             </div>
         </div>
-
     </section>
 
     {{-- Services Offered Section --}}
-    <section class="mb-40 px-4 sm:px-6">
-        <h2 class="mb-10">Services offered</h2>
+    <section class="px-4 sm:px-6">
+        <h2 class="mb-10" heading-reveal>Services offered</h2>
         <div class="services-grid">
             <div class="service-row">
                 <div class="service-item">Accessibility audit & optimization</div>
@@ -73,27 +78,27 @@
     </section>
 
     {{-- My Expertise Section --}}
-    <section class="mb-40 px-4 sm:px-6">
-        <h2 class="mb-10">My expertise</h2>
-        <div class="grid grid-cols-10 gap-4 items-center mb-8">
-            <div class="col-span-6">
+    <section class="w-full px-4 sm:px-6 " wire:ignore>
+        <h2 class="mb-10" heading-reveal>My expertise</h2>
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center mb-8">
+            <div class="md:col-span-6 order-2 md:order-1">
                 <h3 class="large-text-description" reveal-type>With over three years of industry experience, I have
                     collaborated with small businesses, individuals, and government organizations from concept to final
                     deliverables.</h3>
             </div>
-            <div class="col-span-4 flex justify-center items-center">
+            <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
                 <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
                     class="min-h-[10rem] w-auto">
             </div>
         </div>
-        <div class="grid grid-cols-10 gap-4 items-center">
-            <div class="col-span-4 flex justify-center items-center">
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center">
+            <div class="md:col-span-4 flex justify-center md:justify-end items-center order-3 md:order-1">
                 <div class="h-18 w-full">
                     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
                     <spline-viewer url="https://prod.spline.design/QXnaSK-s1c-VXGpm/scene.splinecode"></spline-viewer>
                 </div>
             </div>
-            <div class="col-span-6">
+            <div class="md:col-span-6 order-4 md:order-2 md:text-right">
                 <h3 class="large-text-description" reveal-type>Our studio primarily uses Laravel and Webflow,
                     implementing Finsweet for industry-standard
                     accessibility solutions,
@@ -104,57 +109,65 @@
 
     {{-- Experience Section --}}
     <section class="mb-32 px-4 sm:px-6">
-        <h2 class="mb-10">Experience</h2>
+        <h2 class="mb-10" heading-reveal>Experience</h2>
         <div class="column-layout">
             <div class="experience-card border-2 border-[#f58025] hover:bg-[#f58025] hover:text-white group mb-4">
                 <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo"
-                    class="w-full mb-4 group-hover:filter group-hover:brightness-0 group-hover:invert">
+                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
                 <p class="mb-2">01/2022 — 04/2024</p>
-                <h4 class="font-semibold">Graphic design advanced 3 year program</h4>
+                <h5 class="font-semibold">Graphic design advanced 3 year program</h5>
                 <p>Gained hands-on experience in various aspects of graphic design, including print, branding, web
                     design, through a comprehensive 3-year advanced program.</p>
             </div>
             <div class="experience-card border-2 border-[#821c1c] hover:bg-[#821c1c] hover:text-white  group mb-4">
                 <img src="{{ Storage::disk('r2')->url('beautyfloor.svg') }}" alt="Beauty Floor Logo"
-                    class="w-full mb-4 group-hover:filter group-hover:brightness-0 group-hover:invert">
+                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
                 <p class="mb-2">05/2023 - 09/2023</p>
-                <h4 class="font-semibold">Flooring Business</h4>
+                <h5 class="font-semibold">Flooring Business</h5>
                 <p>I have designed an e-commerce website for a flooring Business.</p>
             </div>
             {{-- For the HPL card --}}
             <div class="experience-card border-2 border-[#23598e] hover:bg-[#23598e] hover:text-white  group mb-4">
                 <img src="{{ Storage::disk('r2')->url('hpl.svg') }}" alt="Hamilton Public Library Logo"
-                    class="h-24 w-auto mb-4 group-hover:filter group-hover:brightness-0 group-hover:invert">
+                    class="h-24 w-auto mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
                 <p class="mb-2">01/2024 - 04/2024</p>
-                <h4 class="font-semibold">Government-funded public organization</h4>
+                <h5 class="font-semibold">Government-funded public organization</h5>
                 <p>I was in charge of creating brand identities for the library events in various mediums from print
                     materials to web and social media.</p>
             </div>
             <div class="experience-card border-2 border-black hover:bg-black hover:text-white  group mb-4">
-                <div class="w-24 h-24 mb-4">
-                    <img src="{{ Storage::disk('r2')->url('inksoul.svg') }}" alt="Inksoul Logo"
-                        class="w-full h-full object-contain">
-                </div>
+
+                <img src="{{ Storage::disk('r2')->url('inksoul.svg') }}" alt="Inksoul Logo"
+                    class="w-24 h-24 mb-8 object-contain">
+
                 <p class="mb-2">01/2024 - 04/2024</p>
-                <h4 class="font-semibold">Tattoo studio</h4>
+                <h5 class="font-semibold">Tattoo studio</h5>
                 <p>I have designed and developed a website for a tattoo studio based in Vladivostok, Russia.</p>
             </div>
             {{-- For the Africa Power Supply card --}}
             <div class="experience-card border-2 border-[#669933] hover:bg-[#669933] hover:text-white  group mb-4">
                 <img src="{{ Storage::disk('r2')->url('aps.svg') }}" alt="Africa Power Supply Logo"
-                    class="h-24 w-auto mb-4 group-hover:brightness-0 group-hover:invert">
+                    class="h-24 w-auto mb-8 group-hover:brightness-0 group-hover:invert">
                 <p class="mb-2">04/2024 - 05/2024</p>
-                <h4 class="font-semibold">Africa Power Supply</h4>
+                <h5 class="font-semibold">Africa Power Supply</h5>
                 <p>I have designed and developed a website for a Canadian startup that strives to revolutionize African
                     waste-to-energy systems.</p>
+            </div>
+            <div class="experience-card border-2 border-black hover:bg-black hover:text-white group mb-4">
+                <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
+                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
+                <p class="mb-2">01/2024 - 04/2024</p>
+                <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
+                <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth program.
+                </p>
             </div>
         </div>
     </section>
 
     {{-- Process Section --}}
-    <section class="section-features h-[500vh] relative">
+    <section class="section-features h-[500vh] relative" wire:ignore>
         <!-- Removed w-screen and -mx-4 -->
-        <h2 class="pl-4 sticky top-4 z-10">Process</h2>
+        <h2 class="pl-4 sticky top-4 z-10" heading-reveal>Process</h2>
         <div class="features-wrapper h-screen">
             <div class="features-card-container h-4/5 flex flex-col items-center relative overflow-hidden">
                 <!-- Removed px-4 -->
@@ -183,17 +196,11 @@
 
 
     {{-- Reach Out Section --}}
-    <section class="mb-12 max-w-[50rem] mx-auto px-4 sm:px-6">
+    <section class="max-w-[50rem] mx-auto px-4 sm:px-6" id="reach-out">
         <h3 class="large-text-description mb-4">Want to reach out about a project, collaboration or just want to say
             friendly hello?</h3>
         <h5 class="mb-6">I will be texting you back shortly!</h5>
         <form wire:submit.prevent="submitForm" class="space-y-6">
-            @if (session()->has('message'))
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                    role="alert">
-                    <span class="block sm:inline">{{ session('message') }}</span>
-                </div>
-            @endif
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div>
                     <input type="text" wire:model="name" placeholder="Your name"
@@ -219,13 +226,20 @@
                 </div>
             </div>
             <div>
-                <div class="flex items-baseline mb-2">
-                    <label for="budget" class="mr-2">Your budget CAD</label>
-                    <h5>${{ number_format($budget, 0) }}</h5>
-                </div>
-                <div class="relative pb-8"> <!-- Added padding-bottom -->
-                    <input type="range" id="budget" wire:model.live="budget" min="500" max="100000"
-                        step="500" class="w-full @error('budget') border-red-500 @enderror">
+                <div x-data="{
+                    localBudget: @entangle('budget').live,
+                    formatBudget(value) {
+                        return new Intl.NumberFormat().format(value);
+                    }
+                }" class="relative pb-8">
+                    <div class="flex items-baseline mb-2">
+                        <label for="budget" class="mr-2">Your budget CAD</label>
+                        <h5>$<span x-text="formatBudget(localBudget)"></span></h5>
+                    </div>
+                    <input type="range" id="budget" x-model="localBudget"
+                        @input="$wire.set('budget', Math.max(500, Math.min(100000, parseInt($event.target.value))))"
+                        min="500" max="100000" step="500"
+                        class="w-full @error('budget') border-red-500 @enderror">
                 </div>
                 @error('budget')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -239,6 +253,12 @@
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
             </div>
+            @if (session()->has('message'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                    role="alert">
+                    <span class="block sm:inline">{{ session('message') }}</span>
+                </div>
+            @endif
             <button type="submit" class="main-button w-full">Submit</button>
             <div class="flex items-center space-x-2 text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -251,8 +271,8 @@
     </section>
 
     {{-- FAQ Section --}}
-    <section class="mb-12 px-4 sm:px-6" x-data="{ openQuestion: null }">
-        <h2>FAQ</h2>
+    <section class="px-4 sm:px-6" x-data="{ openQuestion: null }">
+        <h2 heading-reveal>FAQ</h2>
         <div class="space-y-4">
             <div class="border-b border-gray-200">
                 <button @click="openQuestion = openQuestion === 1 ? null : 1"
@@ -322,6 +342,20 @@
             </div>
         </div>
     </section>
+
+    {{-- About Me Section --}}
+    <section class="px-4 sm:px-6 mb-32">
+        <h2 class="mb-10" heading-reveal>About me</h2>
+        <div class="large-text-description">
+            <p class="mb-6 max-w-[40ch]">When I'm not coding or designing, you can find me exploring
+                Chinese tea and organizing ceremony events, or rhyming over beats.</p>
+            <div class="flex flex-wrap -ml-6">
+                <h3 class="ml-6 mb-4"><a href="https://soundcloud.com/alexrublevsky" class="blur-link">SoundCloud</a>
+                </h3>
+            </div>
+        </div>
+    </section>
+
 </div>
 <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
 

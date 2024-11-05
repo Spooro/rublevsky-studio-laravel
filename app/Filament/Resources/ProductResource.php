@@ -32,8 +32,7 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Hidden;
-
-
+use Filament\Forms\Components\Placeholder;
 
 class ProductResource extends Resource
 {
@@ -53,9 +52,7 @@ class ProductResource extends Resource
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(function (string $operation, $state, Set $set) {
-                                if ($operation !== 'create') {
-                                    $set('slug', Str::slug($state));
-                                }
+                                $set('slug', Str::slug($state));
                             }),
 
                         TextInput::make('slug')
@@ -72,12 +69,7 @@ class ProductResource extends Resource
                         TextInput::make('stock')
                             ->numeric()
                             ->default(0)
-                            ->required()
-                            ->hidden(fn(Get $get): bool => $get('has_variations')),
-
-                        Hidden::make('stock')
-                            ->default(0)
-                            ->visible(fn(Get $get): bool => $get('has_variations')),
+                            ->hidden(fn(Get $get): bool => (bool) $get('has_variations') || (bool) $get('unlimited_stock')),
 
                     ])->columns(2),
                     Section::make("Images")->schema([
@@ -94,15 +86,15 @@ class ProductResource extends Resource
                     Section::make('Price')->schema([
                         TextInput::make('price')
                             ->numeric()
-                            ->required()
+                            ->required(fn(Get $get): bool => !$get('has_variations')) // Only required if no variations
                             ->prefix('CAD')
                             ->hidden(fn(Get $get): bool => $get('has_variations')),
 
-                        Hidden::make('price')
-                            ->default(0)
-                            ->visible(fn(Get $get): bool => $get('has_variations')),
+                        TextInput::make('volume')
+                            ->required(fn(Get $get): bool => $get('has_volume'))
+                            ->hidden(fn(Get $get): bool => !$get('has_volume') || $get('has_variations')),
 
-                        Forms\Components\Placeholder::make('price_instruction')
+                        Placeholder::make('price_instruction')
                             ->content('For products with variations, please set prices in the Variations section below.')
                             ->visible(fn(Get $get): bool => $get('has_variations'))
                     ]),
@@ -125,6 +117,11 @@ class ProductResource extends Resource
                             ->default(false)
                             ->reactive(),
 
+                        Toggle::make('has_volume')
+                            ->label('Has Volume')
+                            ->default(false)
+                            ->reactive(),
+
                         Toggle::make('is_active')
                             ->required()
                             ->default(true),
@@ -133,13 +130,21 @@ class ProductResource extends Resource
                             ->required(),
 
                         Toggle::make('on_sale')
-                            ->required()
+                            ->required(),
+
+                        Toggle::make('unlimited_stock')
+                            ->label('Unlimited Stock')
+                            ->default(false)
+                            ->reactive(),
                     ])
                 ])->columnSpan(1),
                 Section::make('Variations')
                     ->schema([
                         Repeater::make('variations')
                             ->relationship()
+                            ->reorderable()
+                            ->reorderableWithButtons()
+                            ->orderColumn('sort')
                             ->schema([
                                 TextInput::make('sku')
                                     ->required()
@@ -150,15 +155,19 @@ class ProductResource extends Resource
                                     ->prefix('CAD'),
                                 TextInput::make('stock')
                                     ->numeric()
-                                    ->required(),
+                                    ->default(0)
+                                    ->hidden(function (Get $get): bool {
+                                        return (bool) $get('../../unlimited_stock');
+                                    }),
                                 Repeater::make('attributes')
                                     ->relationship()
                                     ->schema([
                                         Select::make('name')
                                             ->options([
                                                 'apparel_type' => 'Apparel Type',
-                                                'size' => 'Size',
+                                                'size' => 'Size cm',
                                                 'color' => 'Color',
+                                                'volume' => 'Volume',
                                             ])
                                             ->required(),
                                         TextInput::make('value')

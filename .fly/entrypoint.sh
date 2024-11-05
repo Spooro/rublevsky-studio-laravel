@@ -11,3 +11,7 @@ if [ $# -gt 0 ]; then
 else
     exec supervisord -c /etc/supervisor/supervisord.conf
 fi
+
+for f in /var/www/html/.fly/scripts/*.sh; do
+    bash "$f" || break
+ done

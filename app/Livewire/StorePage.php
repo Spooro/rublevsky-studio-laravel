@@ -40,7 +40,10 @@ class StorePage extends Component
         $product = Product::findOrFail($product_id);
 
         if ($product->has_variations) {
-            $variation = $product->variations()->where('stock', '>', 0)->orderBy('price')->first();
+            $variation = $product->variations()
+                ->when(!$product->unlimited_stock, fn($query) => $query->where('stock', '>', 0))
+                ->orderBy('price')
+                ->first();
 
             if ($variation) {
                 $total_count = CartManagement::addVariationToCartWithQuantity($product_id, $variation->id, 1);
@@ -68,7 +71,7 @@ class StorePage extends Component
     {
         $productQuery = Product::query()->where('is_active', 1)
             ->with(['variations' => function ($query) {
-                $query->where('stock', '>', 0)->orderBy('price')->limit(1);
+                $query->orderBy('price', 'asc')->limit(1);
             }]);
 
         if (!empty($this->selected_categories)) {
@@ -77,10 +80,17 @@ class StorePage extends Component
 
         if ($this->price_range !== null) {
             $productQuery->where(function ($query) {
-                $query->where('price', '<=', $this->price_range)
-                    ->orWhereHas('variations', function ($q) {
-                        $q->where('price', '<=', $this->price_range);
-                    });
+                $query->where(function ($q) {
+                    // For products without variations, check the base price
+                    $q->where('has_variations', false)
+                        ->where('price', '<=', $this->price_range);
+                })->orWhere(function ($q) {
+                    // For products with variations, check the minimum variation price
+                    $q->where('has_variations', true)
+                        ->whereHas('variations', function ($subQ) {
+                            $subQ->where('price', '<=', $this->price_range);
+                        });
+                });
             });
         }
 
@@ -89,14 +99,34 @@ class StorePage extends Component
                 $productQuery->latest();
                 break;
             case 'price_asc':
-                $productQuery->orderBy('price', 'asc');
+                $productQuery->where(function ($query) {
+                    $query->whereNull('has_variations')
+                        ->orWhere('has_variations', false);
+                })->orderBy('price', 'asc')
+                    ->union(
+                        Product::where('has_variations', true)
+                            ->whereHas('variations')
+                            ->select('products.*')
+                            ->join('product_variations', 'products.id', '=', 'product_variations.product_id')
+                            ->orderBy('product_variations.price', 'asc')
+                    );
                 break;
             case 'price_desc':
-                $productQuery->orderBy('price', 'desc');
+                $productQuery->where(function ($query) {
+                    $query->whereNull('has_variations')
+                        ->orWhere('has_variations', false);
+                })->orderBy('price', 'desc')
+                    ->union(
+                        Product::where('has_variations', true)
+                            ->whereHas('variations')
+                            ->select('products.*')
+                            ->join('product_variations', 'products.id', '=', 'product_variations.product_id')
+                            ->orderBy('product_variations.price', 'desc')
+                    );
                 break;
         }
 
-        $products = $productQuery->paginate(12);
+        $products = $productQuery->get();
 
         return view(
             'livewire.store-page',

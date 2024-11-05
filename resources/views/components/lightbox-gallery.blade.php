@@ -2,8 +2,18 @@
     x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="closeGallery"
     @keydown.escape.window="closeGallery"
-    class="fixed inset-0 z-[10000] flex items-center justify-center bg-black bg-opacity-50 select-none cursor-zoom-out p-4"
+    class="fixed inset-0 z-[999999999] flex items-center justify-center bg-black bg-opacity-[0.92] select-none cursor-zoom-out p-4"
     x-cloak x-init="$watch('isOpen', value => document.body.style.overflow = value ? 'hidden' : '')">
+
+    <!-- Close button -->
+    <button @click.stop="closeGallery"
+        class="fixed top-4 right-4 text-white bg-white/10 w-14 h-14 rounded-lg hover:bg-white/20 transition-colors duration-300 z-10">
+        <svg class="w-6 h-6 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+    </button>
+
     <div class="relative flex items-center justify-center w-full h-full max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]"
         @click.stop="closeGallery">
         <button @click.stop="prevImage"
@@ -14,7 +24,7 @@
             </svg>
         </button>
         <div class="w-full h-full flex items-center justify-center">
-            <img :src="currentImage" @click.stop
+            <img :src="getImageUrl(currentImage)" @click.stop
                 class="object-contain w-auto h-auto max-w-full max-h-full select-none cursor-zoom-out" alt="">
         </div>
         <button @click.stop="nextImage"

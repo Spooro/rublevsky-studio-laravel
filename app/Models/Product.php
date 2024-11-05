@@ -21,12 +21,16 @@ class Product extends Model
         'is_featured',
         'stock',
         'on_sale',
-        'has_variations'
+        'has_variations',
+        'unlimited_stock',
+        'has_volume',
+        'volume',
     ];
 
     protected $casts = [
         'images' => 'array',
         'has_variations' => 'boolean',
+        'has_volume' => 'boolean',
     ];
 
     public function category()
@@ -46,6 +50,6 @@ class Product extends Model
     // Add this method
     public function variations()
     {
-        return $this->hasMany(ProductVariation::class);
+        return $this->hasMany(ProductVariation::class)->orderBy('sort');
     }
 }

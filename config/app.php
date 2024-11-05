@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://rublevsky-studio-laravel.fly.dev/'),
+    'url' => env('APP_URL', 'https://rublevsky.studio'),
 
     /*
     |--------------------------------------------------------------------------

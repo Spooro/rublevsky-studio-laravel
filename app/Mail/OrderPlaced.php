@@ -43,9 +43,8 @@ class OrderPlaced extends Mailable implements ShouldQueue
         return new Content(
             markdown: 'mail.orders.placed',
             with: [
-                'url' => route('my-orders.show', $this->order->id),
+                'url' => route('success', ['order_id' => $this->order->id]),
                 'order' => $this->order,
-                'user' => $this->order->user,
                 'items' => $this->order->items,
                 'address' => $this->order->address,
             ],

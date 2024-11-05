@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -71,11 +72,10 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\actions\ActionGroup::make([
+                Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
-
                 ])
             ])
             ->bulkActions([

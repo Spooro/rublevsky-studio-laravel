@@ -1,9 +1,13 @@
 <div no-scrollbar>
     <!-- filters -->
-    <nav x-data="{ showFilters: true, lastScrollTop: 0 }" x-init="window.addEventListener('scroll', () => {
+    <nav x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
         let st = window.pageYOffset || document.documentElement.scrollTop;
-        if (st > lastScrollTop) {
-            showFilters = false;
+        if (st > scrollThreshold) {
+            if (st > lastScrollTop) {
+                showFilters = false;
+            } else {
+                showFilters = true;
+            }
         } else {
             showFilters = true;
         }
@@ -58,15 +62,26 @@
                     </div>
 
                     <!-- Price Range -->
-                    <div
+                    <div x-data="{
+                        localPrice: @entangle('price_range').live,
+                        formatPrice(value) {
+                            return new Intl.NumberFormat('en-CA', {
+                                style: 'currency',
+                                currency: 'CAD',
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 0
+                            }).format(value);
+                        }
+                    }"
                         class="filter-container bg-white shadow-inner backdrop-blur-sm rounded-full p-1 flex-grow sm:flex-grow-0 sm:w-[13rem] min-w-[10rem] h-10">
                         <div class="flex items-center h-full">
-                            <span class="text-gray-600 mr-2 ml-3 text-base sm:text-lg whitespace-nowrap">
-                                {{ Number::currency($price_range, 'CAD') }}
+                            <span class="text-gray-600 mr-2 ml-3 text-base sm:text-lg whitespace-nowrap"
+                                x-text="formatPrice(localPrice)">
                             </span>
-                            <input type="range" wire:model.live="price_range"
+                            <input type="range" x-model="localPrice"
+                                @input="$wire.set('price_range', $event.target.value)"
                                 class="w-full h-1 bg-gray-300 rounded-full appearance-none cursor-pointer"
-                                min="0" max="100" value="100" step="1">
+                                min="0" max="100" step="1">
                         </div>
                     </div>
                 </div>
@@ -89,8 +104,8 @@
     </nav>
 
     <section>
-        <!-- Product list with 1rem padding on each side -->
-        <div class="px-4 pb-36">
+
+        <div class="px-4">
             <!-- Product grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[95rem] mx-auto">
                 @foreach ($products as $product)
@@ -124,11 +139,23 @@
                             </div>
                             <div class="p-4 flex-grow">
                                 <div class="flex flex-col gap-1">
-                                    <span class="text-lg font-light text-black whitespace-nowrap">
+                                    <span
+                                        class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
                                         @if ($product->has_variations && $product->variations->isNotEmpty())
-                                            {{ Number::currency($product->variations->first()->price, 'CAD') }}
+                                            @php
+                                                $cheapestVariation = $product->variations->sortBy('price')->first();
+                                            @endphp
+                                            {{ Number::currency($cheapestVariation->price, 'CAD') }}
+                                            @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
+                                                <span class="text-black smaller-text  font-light">/
+                                                    {{ $volumeAttr->value }}</span>
+                                            @endif
                                         @else
                                             {{ Number::currency($product->price, 'CAD') }}
+                                            @if ($product->has_volume && $product->volume)
+                                                <span class="text-black smaller-text font-light">/
+                                                    {{ $product->volume }}</span>
+                                            @endif
                                         @endif
                                     </span>
                                     <h3 class="text-sm text-gray-700 truncate">
@@ -158,10 +185,7 @@
                 @endforeach
             </div>
 
-            <!-- Pagination -->
-            <div class="flex justify-center mt-6">
-                {{ $products->links() }}
-            </div>
+
         </div>
     </section>
 

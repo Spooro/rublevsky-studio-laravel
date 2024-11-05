@@ -16,12 +16,29 @@
 </tr>
 <tr class="item-row">
 <td align="left" style="color: #000000; padding: 5px 0;">Customer:</td>
-<td align="right" style="color: #000000; padding: 5px 0;">{{ $order->user->name }}</td>
+<td align="right" style="color: #000000; padding: 5px 0;">
+{{ $order->address->first_name }} {{ $order->address->last_name }}
+</td>
+</tr>
+<tr class="item-row">
+<td align="left" style="color: #000000; padding: 5px 0;">Email:</td>
+<td align="right" style="color: #000000; padding: 5px 0;">{{ $order->address->email }}</td>
+</tr>
+<tr class="item-row">
+<td align="left" style="color: #000000; padding: 5px 0;">Phone:</td>
+<td align="right" style="color: #000000; padding: 5px 0;">{{ $order->address->phone }}</td>
+</tr>
+<tr class="item-row">
+<td align="left" style="color: #000000; padding: 5px 0;">Address:</td>
+<td align="right" style="color: #000000; padding: 5px 0;">
+{{ $order->address->street_address }}, {{ $order->address->city }},
+{{ $order->address->state }}, {{ $order->address->zip_code }},
+{{ $order->address->country }}
+</td>
 </tr>
 <tr class="item-row">
 <td align="left" style="color: #000000; padding: 5px 0;">Payment Method:</td>
-<td align="right" style="color: #000000; padding: 5px 0;">{{ ucfirst($order->payment_method) }}
-</td>
+<td align="right" style="color: #000000; padding: 5px 0;">{{ ucfirst($order->payment_method) }}</td>
 </tr>
 <tr class="item-row">
 <td align="left" style="color: #000000; padding: 5px 0;">Status:</td>
@@ -45,7 +62,7 @@
 </td>
 <td align="center" style="color: #000000; padding: 8px 0;">{{ $item->quantity }}</td>
 <td align="right" style="color: #000000; padding: 8px 0;">
-{{ Number::currency($item->total ?? 0, 'CAD') }}</td>
+{{ Number::currency($item->unit_amount ?? 0, 'CAD') }}</td>
 </tr>
 @endforeach
 <tr class="total-row">

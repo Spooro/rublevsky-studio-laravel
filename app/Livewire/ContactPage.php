@@ -40,11 +40,6 @@ class ContactPage extends Component
         $this->budget = 500; // Ensure the default value is set when the component is mounted
     }
 
-    public function updatedBudget($value)
-    {
-        $this->budget = max(500, min(100000, (int) $value));
-    }
-
     public function submitForm()
     {
         $this->validate();

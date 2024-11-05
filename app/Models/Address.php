@@ -12,6 +12,7 @@ class Address extends Model
         "order_id",
         "first_name",
         "last_name",
+        "email",
         "phone",
         "street_address",
         "city",

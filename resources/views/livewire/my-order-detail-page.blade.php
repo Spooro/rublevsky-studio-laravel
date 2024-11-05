@@ -1,9 +1,9 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-    <h1 class="text-4xl font-bold text-slate-500">Order Details</h1>
+    <h2 class="">Order Details</h2>
 
     <!-- Grid -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-5">
-        <!-- Card -->
+        <!-- Customer Card -->
         <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
             <div class="p-4 md:p-5 flex gap-x-4">
                 <div
@@ -25,14 +25,14 @@
                         </p>
                     </div>
                     <div class="mt-1 flex items-center gap-x-2">
-                        <div>{{ $order->address ? $order->address->full_name : 'N/A' }}</div>
+                        <div>{{ $address->full_name }}</div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Card -->
+        <!-- End Customer Card -->
 
-        <!-- Card -->
+        <!-- Order Date Card -->
         <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
             <div class="p-4 md:p-5 flex gap-x-4">
                 <div
@@ -56,15 +56,15 @@
                     </div>
                     <div class="mt-1 flex items-center gap-x-2">
                         <h3 class="text-xl font-medium text-gray-800 dark:text-gray-200">
-                            {{ $order->created_at->format('d-m-Y') }}
+                            {{ $order_items[0]->created_at->format('d-m-Y') }}
                         </h3>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Card -->
+        <!-- End Order Date Card -->
 
-        <!-- Card -->
+        <!-- Order Status Card -->
         <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
             <div class="p-4 md:p-5 flex gap-x-4">
                 <div
@@ -85,14 +85,22 @@
                         </p>
                     </div>
                     <div class="mt-1 flex items-center gap-x-2">
-                        <span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">{{ $order->status }}</span>
+                        <span
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                            {{ $order->status == 'delivered'
+                                ? 'bg-green-100 text-green-800'
+                                : ($order->status == 'shipped'
+                                    ? 'bg-blue-100 text-blue-800'
+                                    : 'bg-yellow-100 text-yellow-800') }}">
+                            {{ ucfirst($order->status) }}
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Card -->
+        <!-- End Order Status Card -->
 
-        <!-- Card -->
+        <!-- Payment Status Card -->
         <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
             <div class="p-4 md:p-5 flex gap-x-4">
                 <div
@@ -116,12 +124,15 @@
                     </div>
                     <div class="mt-1 flex items-center gap-x-2">
                         <span
-                            class="bg-green-500 py-1 px-3 rounded text-white shadow">{{ $order->payment_status }}</span>
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                            {{ $order->payment_status == 'paid' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            {{ $order->payment_status == 'paid' ? 'Paid' : 'Unpaid' }}
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Card -->
+        <!-- End Payment Status Card -->
     </div>
     <!-- End Grid -->
 
@@ -142,15 +153,11 @@
                             <tr wire:key="{{ $item->id }}">
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        @if ($item->product && $item->product->image && count($item->product->image) > 0)
-                                            <img class="h-16 w-16 mr-4"
-                                                src="{{ url('storage', $item->product->image[0]) }}"
-                                                alt="{{ $item->product->name }}">
-                                        @else
-                                            <div class="h-16 w-16 mr-4 bg-gray-200 flex items-center justify-center">
-                                                <span class="text-gray-500">No image</span>
-                                            </div>
-                                        @endif
+
+                                        <img class="h-16 w-16 mr-4 object-cover"
+                                            src="{{ Storage::url($item->product->images[0]) }}"
+                                            alt="{{ $item->product->name }}">
+
                                         <span
                                             class="font-semibold">{{ $item->product->name ?? 'Unknown Product' }}</span>
                                     </div>
@@ -167,14 +174,15 @@
             </div>
 
             <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
-                <h1 class="font-3xl font-bold text-slate-500 mb-3">Shipping Address</h1>
+                <h3 class="mb-3">Shipping Address</h3>
                 <div class="flex justify-between items-center">
                     <div>
-                        <p>42227 Zoila Glens, Oshkosh, Michigan, 55928</p>
+                        <p>{{ $address->street_address }}, {{ $address->city }}, {{ $address->state }},
+                            {{ $address->zip_code }}, {{ $address->country }}</p>
                     </div>
                     <div>
                         <p class="font-semibold">Phone:</p>
-                        <p>023-509-0009</p>
+                        <p>{{ $address->phone }}</p>
                     </div>
                 </div>
             </div>
@@ -185,22 +193,21 @@
                 <h2 class="text-lg font-semibold mb-4">Summary</h2>
                 <div class="flex justify-between mb-2">
                     <span>Subtotal</span>
-                    <span>₹404,999.00</span>
+                    <span>{{ Number::currency($item->order->grand_total, 'CAD') }}</span>
                 </div>
                 <div class="flex justify-between mb-2">
                     <span>Taxes</span>
-                    <span>₹0.00</span>
+                    <span>{{ Number::currency(0, 'CAD') }}</span>
                 </div>
                 <div class="flex justify-between mb-2">
                     <span>Shipping</span>
-                    <span>₹0.00</span>
+                    <span>{{ Number::currency(0, 'CAD') }}</span>
                 </div>
                 <hr class="my-2">
                 <div class="flex justify-between mb-2">
                     <span class="font-semibold">Grand Total</span>
-                    <span class="font-semibold">₹404,999.00</span>
+                    <span class="font-semibold">{{ Number::currency($order->grand_total, 'CAD') }}</span>
                 </div>
-
             </div>
         </div>
     </div>

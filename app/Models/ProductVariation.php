@@ -14,6 +14,11 @@ class ProductVariation extends Model
         'sku',
         'price',
         'stock',
+        'sort',
+    ];
+
+    protected $casts = [
+        'sort' => 'integer',
     ];
 
     public function product()

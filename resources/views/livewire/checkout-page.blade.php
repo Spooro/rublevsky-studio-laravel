@@ -1,24 +1,32 @@
 <div class=" mx-auto pt-4 pb-36 px-4">
-    <h2 class="mb-8">Checkout</h2>
+    <h2 class="mb-8" heading-reveal>Checkout</h2>
 
     <form wire:submit.prevent="placeOrder">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2">
                 <div class="mb-8">
+                    <!--
                     <h2 class="text-2xl font-semibold mb-4">Select Payment Method</h2>
                     <div class="grid grid-cols-2 gap-4">
-                        <button type="button" wire:click="$set('payment_method', 'cod')"
-                            class="border rounded-lg p-4 flex items-center justify-center cursor-pointer {{ $payment_method === 'cod' ? 'bg-gray-200' : 'bg-white' }}">
+                        <button type="button" wireclick="$set('payment_method', 'cod')"
+                            class="border rounded-lg p-4 flex items-center justify-center cursor-pointer  $payment_method === 'cod' ? 'bg-gray-200' : 'bg-white' ">
                             Cash on Delivery
                         </button>
-                        <button type="button" wire:click="$set('payment_method', 'stripe')"
-                            class="border rounded-lg p-4 flex items-center justify-center cursor-pointer {{ $payment_method === 'stripe' ? 'bg-gray-200' : 'bg-white' }}">
+                        <button type="button" wireclick="$set('payment_method', 'stripe')"
+                        class="border rounded-lg p-4 flex items-center justify-center cursor-pointer $payment_method === 'stripe' ? 'bg-gray-200' : 'bg-white' ">
                             Stripe
                         </button>
                     </div>
-                    @error('payment_method')
-                        <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
-                    @enderror
+                    error('payment_method')
+                        <span class="text-red-500 text-sm mt-1"> $message </span>
+                    enderror
+                    -->
+
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-semibold mb-4">Payment Information</h2>
+                        <p>You will be contacted regarding payment options after placing your
+                            order.</p>
+                    </div>
                 </div>
 
                 <div>
@@ -41,6 +49,14 @@
                             @enderror
                         </div>
 
+                        <div class="col-span-2">
+                            <label class="block mb-1">Email</label>
+                            <input wire:model.defer="email" type="email"
+                                class="w-full border rounded-lg p-2 @error('email') border-red-500 @enderror">
+                            @error('email')
+                                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="col-span-2">
                             <label class="block mb-1">Phone</label>
                             <input wire:model.defer="phone" type="text"
@@ -102,20 +118,20 @@
                             <span>Subtotal</span>
                             <span>{{ Number::currency($grand_total, 'CAD') }}</span>
                         </div>
-                        <div class="flex justify-between">
+                        {{-- <div class="flex justify-between">
                             <span>Taxes</span>
                             <span>{{ Number::currency(0, 'CAD') }}</span>
-                        </div>
+                        </div> --}}
                         <div class="flex justify-between">
                             <span>Shipping</span>
-                            <span>{{ Number::currency(0, 'CAD') }}</span>
+                            <span>To be discussed after order</span>
                         </div>
                         <div class="flex justify-between text-2xl font-bold mt-4 pt-4 border-t">
                             <span>Total</span>
                             <span>{{ Number::currency($grand_total, 'CAD') }}</span>
                         </div>
                     </div>
-                    <button type="submit" class="w-full bg-black text-white py-3 rounded-lg mt-6">
+                    <button type="submit" class="w-full main-button mt-6">
                         Place Order
                     </button>
                 </div>

@@ -1,7 +1,7 @@
 <div class="w-full px-4 pt-4 pb-36 no-scrollbar">
     <div class="">
-        <h1 class="text-4xl font-normal mb-8">Shopping Cart</h1>
-        <div class="flex flex-col md:flex-row gap-8">
+        <h2 class=" mb-8" heading-reveal>Shopping Cart</h2>
+        <div class="flex flex-col md:flex-row gap-14">
             <div class="md:w-2/3">
                 <div class="bg-white overflow-x-auto rounded-lg mb-4">
                     @forelse ($cart_items as $item)
@@ -53,24 +53,24 @@
                 </div>
             </div>
             <div class="md:w-1/3 sm:w-full">
-                <div class="bg-white rounded-lg md:p-6">
+                <div class="bg-white rounded-lg sticky top-4">
                     <h2 class="text-xl font-normal mb-4">Summary</h2>
                     <div class="flex justify-between mb-2 text-gray-500">
                         <span>Subtotal</span>
                         <span>{{ Number::currency($grand_total, 'CAD') }}</span>
                     </div>
-                    <div class="flex justify-between mb-2 text-gray-500">
+                    {{-- <div class="flex justify-between mb-2 text-gray-500">
                         <span>Taxes</span>
                         <span>{{ Number::currency($grand_total * 0.13, 'CAD') }}</span>
-                    </div>
+                    </div> --}}
                     <div class="flex justify-between mb-2 text-gray-500">
                         <span>Shipping</span>
-                        <span>{{ Number::currency(0, 'CAD') }}</span>
+                        <span class="ml-4 text-right">To be discussed after order</span>
                     </div>
                     <hr class="my-4">
                     <div class="flex justify-between mb-4">
                         <span class="font-normal">Total</span>
-                        <span class="font-normal">{{ Number::currency($grand_total * 1.13, 'CAD') }}</span>
+                        <span class="font-normal">{{ Number::currency($grand_total, 'CAD') }}</span>
                     </div>
                     @if ($cart_items)
                         <a href="/checkout" class="main-button w-full">

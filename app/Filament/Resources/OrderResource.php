@@ -59,8 +59,12 @@ class OrderResource extends Resource
                         Select::make('payment_method')
                             ->options(
                                 [
-                                    'stripe' => 'Stripe',
-                                    'cod' => 'Cash on Delivery'
+                                    //'stripe' => 'Stripe',
+                                    //'cod' => 'Cash on Delivery',
+                                    'pending' => 'Pending',
+                                    'bank_transfer' => 'Bank Transfer',
+                                    'cash' => 'Cash',
+                                    'other' => 'Other'
                                 ]
                             )
                             ->required(),

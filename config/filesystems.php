@@ -64,9 +64,9 @@ return [
             'bucket' => env('R2_BUCKET'),
             'url' => env('R2_URL'),
             'endpoint' => env('R2_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'use_path_style_endpoint' => true,
             'throw' => false,
-            'root' => '',  // Add this line
+            //'root' => '',  // Add this line
         ],
 
     ],
