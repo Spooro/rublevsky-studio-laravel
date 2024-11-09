@@ -8,8 +8,8 @@ use Livewire\Component;
 use App\Models\OrderItem;
 use Livewire\Attributes\Title;
 
-#[Title('Success')]
-class SuccessPage extends Component
+#[Title('Order Details')]
+class OrderPage extends Component
 {
     public $order_id;
     public $isLoading = true;
@@ -37,14 +37,14 @@ class SuccessPage extends Component
     public function render()
     {
         if ($this->isLoading) {
-            return view('livewire.success-page-loading');
+            return view('livewire.order-page-loading');
         }
 
         $order = Order::findOrFail($this->order_id);
         $order_items = OrderItem::with(['product'])->where('order_id', $this->order_id)->get();
         $address = Address::where('order_id', $this->order_id)->first();
 
-        return view('livewire.success-page', [
+        return view('livewire.order-page', [
             'order' => $order,
             'order_items' => $order_items,
             'address' => $address

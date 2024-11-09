@@ -108,7 +108,7 @@ class CheckoutPage extends Component
             CartManagement::clearCartItems();
 
             // Only redirect after successful transaction
-            return redirect()->route('success', ['order_id' => $order->id]);
+            return redirect()->route('order.show', ['order_id' => $order->id]);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Order creation failed: ' . $e->getMessage());

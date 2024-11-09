@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductVariation;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -51,5 +52,18 @@ class Product extends Model
     public function variations()
     {
         return $this->hasMany(ProductVariation::class)->orderBy('sort');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            if (!empty($product->images)) {
+                foreach ($product->images as $image) {
+                    Storage::disk('r2')->delete($image);
+                }
+            }
+        });
     }
 }

@@ -1,6 +1,6 @@
 <div no-scrollbar>
     <!-- filters -->
-    <nav x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
+    <div x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
         let st = window.pageYOffset || document.documentElement.scrollTop;
         if (st > scrollThreshold) {
             if (st > lastScrollTop) {
@@ -101,7 +101,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
 
     <section>
 

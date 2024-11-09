@@ -5,14 +5,13 @@ use App\Models\Order;
 use App\Mail\OrderPlaced;
 use App\Livewire\CartPage;
 use App\Livewire\WorkPage;
+use App\Livewire\OrderPage;
 use App\Livewire\StorePage;
 use App\Livewire\CancelPage;
 use App\Livewire\ContactPage;
-use App\Livewire\SuccessPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\MyOrdersPage;
 use App\Livewire\MyAccountPage;
-
 use App\Livewire\Auth\LoginPage;
 use App\Mail\NewOrderNotification;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +30,7 @@ Route::get('/cart', CartPage::class)->name('cart');
 Route::get('/store/{slug}', ProductDetailPage::class)->name('store.product');
 
 Route::get('/checkout', CheckoutPage::class)->name('checkout');
-Route::get('/success/{order_id}', SuccessPage::class)->name('success');
+Route::get('/order/{order_id}', OrderPage::class)->name('order.show');
 Route::get('/cancel', CancelPage::class)->name('cancel');
 
 
@@ -68,3 +67,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Guest/Public routes
+
+Route::get('/health', function () {
+    return response()->json(['status' => 'healthy']);
+});

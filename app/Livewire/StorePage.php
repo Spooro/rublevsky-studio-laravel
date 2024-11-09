@@ -13,12 +13,16 @@ use App\Helpers\CartManagement;
 use App\Livewire\Partials\Navbar;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\ProductVariation;
+use Illuminate\View\View;
 
 #[Title('Rublevsky Store')]
 class StorePage extends Component
 {
     use LivewireAlert;
     use WithPagination;
+
+    public $title = "Store | Rublevsky Studio";
+    public $metaDescription = "Shop our collection of unique designs, prints, and merchandise. Find original artwork, photography prints, and custom-designed products by Rublevsky Studio.";
 
     #[Url]
     public $selected_categories = [];
@@ -67,7 +71,7 @@ class StorePage extends Component
         ]);
     }
 
-    public function render()
+    public function render(): View
     {
         $productQuery = Product::query()->where('is_active', 1)
             ->with(['variations' => function ($query) {
@@ -131,6 +135,8 @@ class StorePage extends Component
         return view(
             'livewire.store-page',
             [
+                'title' => $this->title,
+                'metaDescription' => $this->metaDescription,
                 'products' => $products,
                 'brands' => Brand::where('is_active', 1)->get(['id', 'name', 'slug']),
                 'categories' => Category::where('is_active', 1)->get(['id', 'name', 'slug'])

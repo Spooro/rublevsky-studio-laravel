@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ $title ?? 'Rublevsky Studio' }}</title>
+    <meta name="description"
+        content="{{ $metaDescription ?? 'Creative design studio specializing in web design and development, branding, photography, and screen printing.' }}">
     @stack('head')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles

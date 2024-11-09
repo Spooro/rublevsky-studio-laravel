@@ -6,6 +6,7 @@ use App\Models\Inquiry;
 use Livewire\Component;
 use App\Mail\NewInquiryNotification;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\View\View;
 
 class ContactPage extends Component
 {
@@ -15,6 +16,9 @@ class ContactPage extends Component
     public $role = '';
     public $budget = 500; // Set default to $500
     public $message = '';
+
+    public $title = "Contact | Rublevsky Studio";
+    public $metaDescription = "Get in touch with Rublevsky Studio for your web design, branding, or creative project needs. Let's discuss how we can bring your vision to life.";
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -60,8 +64,11 @@ class ContactPage extends Component
         session()->flash('message', 'Your inquiry has been submitted successfully!');
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('livewire.contact-page');
+        return view('livewire.contact-page', [
+            'title' => $this->title,
+            'metaDescription' => $this->metaDescription
+        ]);
     }
 }

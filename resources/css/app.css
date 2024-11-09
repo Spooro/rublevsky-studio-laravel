@@ -26,11 +26,33 @@
 
 body {
     font-family: "Overused Grotesk", sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
 }
 
 main {
     height: 100%
 }
+/* not working to fix filters being draggable: */
+/* .filter-container {
+    -webkit-app-region: no-drag;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+input[type="range"] {
+    -webkit-app-region: no-drag;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+nav.sticky {
+    -webkit-app-region: no-drag;
+    -webkit-user-drag: none;
+    user-drag: none;
+} */
 
 section {
 
@@ -87,7 +109,7 @@ h6 {
 p{
     line-height: 1.5;
 }
-/* Add this media query for mobile devices */
+
 @media (max-width: 640px) {
     h1 {
         font-size: 3rem; /* Adjust this value as needed */
@@ -119,6 +141,28 @@ p{
 .smaller-text {
     font-size: 0.9rem;
 }
+
+/* GENERAL */
+.logo-hover {
+    width: auto;
+
+    transition: all 0.3s ease;
+}
+
+/* Only apply grayscale effect on desktop */
+@media (min-width: 1024px) {
+    .logo-hover {
+        filter: grayscale(100%);
+        opacity: 0.4;
+    }
+
+    .logo-hover:hover,
+    .group:hover .logo-hover {
+        filter: grayscale(0);
+        opacity: 1;
+    }
+}
+
 
 
 
@@ -544,6 +588,9 @@ input[type="range"]::-moz-range-thumb:active {
 
 
 
+
+
+
 /* experience card  */
 .experience-card {
     background-color: white;
@@ -586,6 +633,8 @@ input[type="range"]::-moz-range-thumb:active {
         will-change: transform;
     }
 }
+
+
 
 
 

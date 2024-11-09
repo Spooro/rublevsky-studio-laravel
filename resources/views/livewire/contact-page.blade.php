@@ -1,35 +1,46 @@
 <div class="relative pb-36">
-    {{-- Greeting Section --}}
+
     <section class="pt-4 overflow-visible px-4 sm:px-6">
         <div class="flex flex-col md:grid md:grid-cols-3 md:gap-4 md:relative">
-            {{-- Content column with flex layout --}}
-            <div class="md:col-span-2 md:h-full md:flex md:flex-col">
-                {{-- Top content group --}}
+
+            <div class="py-2 md:col-span-2 md:h-full md:flex md:flex-col">
+
                 <div>
                     <h3 class="large-text-description mb-4 break-words">
-                        Greetings. I am a visual web developer based in Ontario<sup>1</sup>, by way of New
+                        Greetings. I am a <strong class="font-semibold">visual web developer</strong> based in
+                        Ontario<sup>1</sup>, by way of New
                         Zealand<sup>2</sup> and originally from Russia<sup>3</sup>. Just finished my time at Hamilton
                         Public
-                        Library where I was helping with branding.
+                        Library where I was helping with <strong class="font-semibold">branding</strong>.
                     </h3>
-                    <div class="mt-4">
+                    <div class="mt-4 ">
                         <div class="flex flex-wrap gap-8">
                             <p>1. Hamilton</p>
                             <p>2. Auckland</p>
                             <p>3. Vladivostok</p>
                         </div>
                     </div>
+                    <h5 class="my-8 large-text-description break-words max-w-[46ch]">
+                        When I'm not coding or designing, you can find me organizing <strong
+                            class="font-medium">traditional
+                            Chinese tea ceremony</strong> events, or <a
+                            href="https://soundcloud.com/alexrublevsky/let-god" class="blur-link">rhyming over
+                            beats</a>.
+                    </h5>
                 </div>
 
-                {{-- Links row aligned to bottom --}}
-                <div class="my-4 md:mt-auto md:mb-0 flex flex-wrap -ml-6">
+
+                <div class="mt-auto flex flex-wrap -ml-6">
                     <h3 class="ml-6"><a href="mailto:alexander.rublevskii@gmail.com" class="blur-link">Email</a></h3>
-                    <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link"
-                            target="_blank">LinkedIn</a></h3>
                     <h3 class="ml-6"><a href="https://t.me/alexrublevsky" class="blur-link"
                             target="_blank">Telegram</a></h3>
+                    <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link"
+                            target="_blank">LinkedIn</a></h3>
                     <h3 class="ml-6"><a href="https://www.instagram.com/alexander.rublevsky/" class="blur-link"
                             target="_blank">Instagram</a></h3>
+
+
+
                 </div>
             </div>
 
@@ -80,18 +91,49 @@
     {{-- My Expertise Section --}}
     <section class="w-full px-4 sm:px-6 " wire:ignore>
         <h2 class="mb-10" heading-reveal>My expertise</h2>
+
+        {{-- First row: Laravel focus --}}
         <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center mb-8">
             <div class="md:col-span-6 order-2 md:order-1">
-                <h3 class="large-text-description" reveal-type>With over three years of industry experience, I have
-                    collaborated with small businesses, individuals, and government organizations from concept to final
-                    deliverables.</h3>
+                <h3 class="large-text-description" reveal-type>With over <strong class="font-semibold">3</strong> years
+                    of industry experience, I have collaborated with small businesses, individuals, and government
+                    organizations from concept to final deliverables.</h3>
             </div>
             <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
-                <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
-                    class="min-h-[10rem] w-auto">
+                <div class="flex flex-col w-full">
+                    <div class="flex justify-center items-center">
+                        <div class="h-full w-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
+                                class="logo-hover">
+                        </div>
+                        <div class="w-3/4 h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('php.svg') }}" alt="PHP Logo" class="logo-hover">
+                        </div>
+                        <div class="w-full h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('spline.png') }}" alt="Spline Logo"
+                                class="logo-hover">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center items-center">
+                        <div class="w-full h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('tailwind.svg') }}" alt="Tailwind Logo"
+                                class=" logo-hover">
+                        </div>
+                        <div class="w-2/3 h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma Logo" class="logo-hover">
+                        </div>
+                        <div class="h-full w-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('alpine-js.svg') }}" alt="Alpine.js Logo"
+                                class="logo-hover">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center">
+
+        {{-- Second row: WWX/Finsweet --}}
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center mb-8">
             <div class="md:col-span-4 flex justify-center md:justify-end items-center order-3 md:order-1">
                 <div class="h-18 w-full">
                     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
@@ -99,10 +141,43 @@
                 </div>
             </div>
             <div class="md:col-span-6 order-4 md:order-2 md:text-right">
-                <h3 class="large-text-description" reveal-type>Our studio primarily uses Laravel and Webflow,
-                    implementing Finsweet for industry-standard
-                    accessibility solutions,
-                    ensuring inclusive and accessible websites.</h3>
+                <h3 class="large-text-description" reveal-type>I leverage <strong class="font-semibold">Laravel</strong>
+                    as my primary framework, complemented by the <strong x-data="{ tooltip: false }"
+                        class="font-semibold relative">
+                        <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                            class="!underline !underline-offset-2 decoration-1 border-b border-current"
+                            style="text-decoration: underline !important;">WWX</span>
+                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 transform -translate-y-2"
+                            x-transition:enter-end="opacity-100 transform translate-y-0"
+                            x-transition:leave="transition ease-in duration-500"
+                            x-transition:leave-start="opacity-100 transform translate-y-0"
+                            x-transition:leave-end="opacity-0 transform -translate-y-2"
+                            x-anchor.top.offset.10="$el.parentElement"
+                            class="absolute bg-white text-black text-[1rem] text-normal p-4 rounded shadow-md z-50 w-48 text-center border border-gray-200"
+                            x-cloak>
+                            Webflow, Wized, Xano
+                        </div>
+                    </strong> stack,
+                    delivering comprehensive web solutions in half the typical timeframe.
+                </h3>
+            </div>
+        </div>
+
+        {{-- New third row: Print/Photo --}}
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center">
+            <div class="md:col-span-6 order-2 md:order-1">
+                <h3 class="large-text-description" reveal-type>Beyond digital, I bring expertise in <strong
+                        class="font-semibold">screen printing</strong> for apparel and posters, as well as professional
+                    <strong class="font-semibold">photography</strong> services capturing anything from portraits to
+                    products.
+                </h3>
+            </div>
+            <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
+                <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
+                    <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>
@@ -342,20 +417,6 @@
             </div>
         </div>
     </section>
-
-    {{-- About Me Section --}}
-    <section class="px-4 sm:px-6 mb-32">
-        <h2 class="mb-10" heading-reveal>About me</h2>
-        <div class="large-text-description">
-            <p class="mb-6 max-w-[40ch]">When I'm not coding or designing, you can find me exploring
-                Chinese tea and organizing ceremony events, or rhyming over beats.</p>
-            <div class="flex flex-wrap -ml-6">
-                <h3 class="ml-6 mb-4"><a href="https://soundcloud.com/alexrublevsky" class="blur-link">SoundCloud</a>
-                </h3>
-            </div>
-        </div>
-    </section>
-
 </div>
 <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
 

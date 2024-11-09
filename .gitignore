@@ -13,6 +13,12 @@
 /storage/framework
 /storage/logs
 
+# Database
+/database/*.sqlite
+/database/*.sqlite-journal
+
+# Fly.io
+fly.toml
 
 /.phpunit.cache
 /node_modules

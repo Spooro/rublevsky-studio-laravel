@@ -8,6 +8,7 @@ use Livewire\Attributes\Title;
 use App\Helpers\CartManagement;
 use App\Livewire\Partials\Navbar;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Contracts\View\View;
 
 #[Title('Product Detail')]
 class ProductDetailPage extends Component
@@ -21,6 +22,8 @@ class ProductDetailPage extends Component
     public $selectedVariation = null;
     public $availableAttributes = [];
     public $availableStock;
+    public $title;
+    public $metaDescription;
 
     public function mount($slug)
     {
@@ -39,6 +42,9 @@ class ProductDetailPage extends Component
         }
 
         $this->updateAvailableStock();
+
+        $this->title = "{$this->product->name} | Store | Rublevsky Studio";
+        $this->metaDescription = "Shop {$this->product->name} from Rublevsky Studio. {$this->product->description}";
     }
 
     public function selectVariation($attributeName, $attributeValue)
@@ -143,9 +149,12 @@ class ProductDetailPage extends Component
         $this->quantity = max(1, min($this->availableStock, intval($value)));
     }
 
-    public function render()
+    public function render(): View
     {
-        return view('livewire.product-detail-page');
+        return view('livewire.product-detail-page', [
+            'title' => $this->title,
+            'metaDescription' => $this->metaDescription
+        ]);
     }
 
     public function updateAvailableStock()

@@ -26,7 +26,7 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://aps-cb63ae.webflow.io/" class="blur-link" target="_blank">Live website</a>
                         </h3>
@@ -76,9 +76,9 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                class="h-[1.8rem] logo-hover">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://bfloor.ru/" class="blur-link" target="_blank">Live website</a></h3>
                     </div>
@@ -126,9 +126,9 @@
                             <h4>Tools used:</h4>
                             <div class="flex flex-wrap mt-4 mb-6 gap-6">
                                 <img src="{{ Storage::disk('r2')->url('spline.png') }}" alt="Spline"
-                                    class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                    class="h-[1.8rem] logo-hover">
                                 <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                    class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                    class="h-[1.8rem] logo-hover">
                             </div>
                             <h3><a href="https://rublevsky-studio.webflow.io/32karata/home" class="blur-link"
                                     target="_blank">Live website</a></h3>
@@ -154,7 +154,7 @@
             </div>
 
             {{-- FemTech Project --}}
-            <div class="mb-0">
+            <div class="mb-52">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 lg:col-span-8 mb-6 lg:mb-0">
                         <h3 class="large-text-description" reveal-type>Website design and development for FemTech, an
@@ -165,9 +165,9 @@
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
                             <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                class="h-[1.8rem] logo-hover">
                             <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
-                                class="h-[1.8rem] grayscale hover:grayscale-0 opacity-40 hover:opacity-100 transition-all duration-300">
+                                class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://www.femtechsearch.com/" class="blur-link" target="_blank">Live
                                 website</a></h3>
@@ -203,6 +203,18 @@
                                 </video>
                             </a>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- New entry for personal website --}}
+            <div class="mb-0">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
+                    <div class="col-span-12 text-center">
+                        <h3 class="large-text-description" reveal-type>This website was created using <strong
+                                class="font-semibold">Laravel</strong>, <strong
+                                class="font-semibold">Alpine.js</strong>, and <strong
+                                class="font-semibold">Tailwind</strong></h3>
                     </div>
                 </div>
             </div>
@@ -487,6 +499,16 @@
     function brandingGallery() {
         return {
             projects: [{
+                    name: 'Yin Yan Graffiti',
+                    type: 'image',
+                    images: ['yin-yan-shirt-1.jpg', 'yin-yan-shirt-2.jpg',
+                        'yin-yan-shirt-5.jpg', 'yin-yan-shirt-4.jpg', 'yin-yan-shirt-6.jpg',
+                        'yin-yan-shirt-3.jpg',
+                    ],
+
+                    description: 'Screen Printing a Custom Design',
+                },
+                {
                     name: 'Chick-fil-A',
                     type: 'image',
                     images: ['1-chickfila.jpg', '2-chickfila.jpg', '3-chickfila.jpg', '4-chickfila.jpg',

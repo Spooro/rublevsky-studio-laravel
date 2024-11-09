@@ -34,7 +34,7 @@ class NewOrderNotification extends Mailable implements ShouldQueue
             markdown: 'mail.orders.notification',
             with: [
                 'order' => $this->order,
-                'url' => route('my-orders.show', $this->order->id),
+                'url' => route('order.show', $this->order->id),
                 'items' => $this->order->items,
                 'address' => $this->order->address,
             ],

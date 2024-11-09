@@ -1,8 +1,8 @@
 <div
-    class="fixed inset-x-0 bottom-0 flex flex-col items-center z-[9999] transition-all duration-300 ease-in-out px-2 pb-2">
+    class="fixed inset-x-0 bottom-0 flex flex-col items-center z-[9999] transition-all duration-300 ease-in-out px-2 pb-2 pointer-events-none">
     <!-- Anchors -->
     @if (count($anchors) > 0)
-        <div class="flex flex-wrap justify-center gap-1 mb-0.5 sm:mb-1">
+        <div class="flex flex-wrap justify-center gap-1 mb-0.5 sm:mb-1 pointer-events-auto">
             @foreach ($anchors as $anchor)
                 <a href="{{ $anchor['href'] }}"
                     @if (!($anchor['isExternal'] ?? false)) onclick="event.preventDefault(); document.querySelector('{{ $anchor['href'] }}').scrollIntoView({ behavior: 'smooth' })" @endif
@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <div class="relative inline-flex items-center">
+    <div class="relative inline-flex items-center pointer-events-auto">
         <!-- Main Menu (always centered) -->
         <nav class="inline-flex space-x-0.5 sm:space-x-1 glass-background rounded-full p-1">
             <a href="{{ route('work') }}" wire:navigate

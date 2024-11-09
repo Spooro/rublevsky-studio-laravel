@@ -33,6 +33,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Get;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
+use Illuminate\Support\Facades\Storage;
 
 class ProductResource extends Resource
 {
@@ -79,7 +80,11 @@ class ProductResource extends Resource
                             ->reorderable()
                             ->disk('r2')
                             ->preserveFilenames()
-                            ->required(),
+                            ->required()
+                            ->deleteUploadedFileUsing(function ($file) {
+                                // Delete file from R2 when removed through the form
+                                Storage::disk('r2')->delete($file);
+                            }),
                     ])
                 ])->columnSpan(2),
                 Group::make()->schema([
@@ -262,5 +267,15 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'description'];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

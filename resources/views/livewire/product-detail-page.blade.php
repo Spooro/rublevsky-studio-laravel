@@ -200,7 +200,7 @@
                         <!-- Product description -->
                         <div>
                             <p class="text-black">{!! Str::markdown($product->description) !!}</p>
-                            <p class="text-gray-500 mt-4">{{ $product->brand->name }}</p>
+                            <p class="text-gray-500 mt-4">Brand: {{ $product->brand->name }}</p>
                         </div>
                     </div>
                 </div>
