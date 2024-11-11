@@ -125,6 +125,7 @@ p{
 .large-text-description {
     line-height: 1.1;
     font-weight: 100;
+    max-width: 45ch;
 }
 
 .blur-link {
@@ -153,7 +154,7 @@ p{
 @media (min-width: 1024px) {
     .logo-hover {
         filter: grayscale(100%);
-        opacity: 0.4;
+        opacity: 0.5;
     }
 
     .logo-hover:hover,

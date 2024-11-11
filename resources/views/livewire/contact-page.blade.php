@@ -7,7 +7,8 @@
 
                 <div>
                     <h3 class="large-text-description mb-4 break-words">
-                        Greetings. I am a <strong class="font-semibold">visual web developer</strong> based in
+                        Greetings! My name is Alexander. I am a <strong class="font-semibold">visual web
+                            developer</strong> based in
                         Ontario<sup>1</sup>, by way of New
                         Zealand<sup>2</sup> and originally from Russia<sup>3</sup>. Just finished my time at Hamilton
                         Public
@@ -36,7 +37,7 @@
                             target="_blank">Telegram</a></h3>
                     <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link"
                             target="_blank">LinkedIn</a></h3>
-                    <h3 class="ml-6"><a href="https://www.instagram.com/alexander.rublevsky/" class="blur-link"
+                    <h3 class="ml-6"><a href="https://www.instagram.com/rublevsky.studio/" class="blur-link"
                             target="_blank">Instagram</a></h3>
 
 
@@ -89,95 +90,131 @@
     </section>
 
     {{-- My Expertise Section --}}
-    <section class="w-full px-4 sm:px-6 " wire:ignore>
+    <section class="w-full px-4 sm:px-6" wire:ignore>
         <h2 class="mb-10" heading-reveal>My expertise</h2>
 
-        {{-- First row: Laravel focus --}}
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center mb-8">
-            <div class="md:col-span-6 order-2 md:order-1">
-                <h3 class="large-text-description" reveal-type>With over <strong class="font-semibold">3</strong> years
-                    of industry experience, I have collaborated with small businesses, individuals, and government
-                    organizations from concept to final deliverables.</h3>
+        {{-- Parent container with increased gap --}}
+        <div class="grid grid-cols-1 gap-16">
+            {{-- First row: Laravel, PHP, Tailwind CSS, Git focus --}}
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
+                <div class="md:col-span-6 order-2 md:order-1">
+                    <h3 class="large-text-description" reveal-type>
+                        With over <strong class="font-semibold">3</strong> years of industry experience, I specialize in
+                        <strong class="font-semibold">Laravel</strong>, <strong class="font-semibold">PHP</strong>,
+                        <strong class="font-semibold">Tailwind CSS</strong>, and <strong
+                            class="font-semibold">Figma</strong>,
+                        enabling me to design and build robust and scalable web applications with powerful database
+                        management and
+                        advanced functionality.
+                    </h3>
+                </div>
+                <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
+                    <div class="flex flex-col w-full">
+                        <div class="flex justify-center items-center">
+                            <div class="h-full w-full flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
+                                    class="logo-hover">
+                            </div>
+                            <div class="w-3/4 h-full flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('php.svg') }}" alt="PHP Logo" class="logo-hover">
+                            </div>
+                            <div class="w-3/4 h-full flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('git.svg') }}" alt="Git Logo" class="logo-hover">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center items-center">
+                            <div class="w-full h-full flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('tailwind.svg') }}" alt="Tailwind CSS Logo"
+                                    class="logo-hover">
+                            </div>
+                            <div class="h-full w-full flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('alpine-js.svg') }}" alt="Alpine.js Logo"
+                                    class="logo-hover">
+                            </div>
+                            <div class="h-full w-3/4 flex justify-center items-center p-4">
+                                <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma Logo"
+                                    class="logo-hover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
-                <div class="flex flex-col w-full">
-                    <div class="flex justify-center items-center">
-                        <div class="h-full w-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
+
+            {{-- Second row: Xano, Spline, Figma focus within WWX approach --}}
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
+                <div class="md:col-span-4 flex justify-center items-center order-1">
+                    <div class="flex justify-center items-center w-full">
+                        <div class="w-3/4 h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('xano.svg') }}" alt="Xano Logo" class="logo-hover">
+                        </div>
+                        <div class="w-full h-full flex justify-center items-center p-4">
+                            <img src="{{ Storage::disk('r2')->url('client-first.svg') }}" alt="Client First Logo"
                                 class="logo-hover">
                         </div>
                         <div class="w-3/4 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('php.svg') }}" alt="PHP Logo" class="logo-hover">
-                        </div>
-                        <div class="w-full h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('spline.png') }}" alt="Spline Logo"
-                                class="logo-hover">
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center items-center">
-                        <div class="w-full h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('tailwind.svg') }}" alt="Tailwind Logo"
-                                class=" logo-hover">
-                        </div>
-                        <div class="w-2/3 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma Logo" class="logo-hover">
-                        </div>
-                        <div class="h-full w-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('alpine-js.svg') }}" alt="Alpine.js Logo"
+                            <img src="{{ Storage::disk('r2')->url('wized.svg') }}" alt="Wized Logo"
                                 class="logo-hover">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        {{-- Second row: WWX/Finsweet --}}
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center mb-8">
-            <div class="md:col-span-4 flex justify-center md:justify-end items-center order-3 md:order-1">
-                <div class="h-18 w-full">
-                    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
-                    <spline-viewer url="https://prod.spline.design/QXnaSK-s1c-VXGpm/scene.splinecode"></spline-viewer>
+                <div class="md:col-span-6 order-2 flex justify-end">
+                    <h3 class="large-text-description text-right" reveal-type>
+                        The <strong x-data="{ tooltip: false }" class="font-semibold relative">
+                            <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                                class="!underline !underline-offset-2 decoration-1 border-b border-current"
+                                style="text-decoration: underline !important;">WWX</span>
+                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                x-transition:leave="transition ease-in duration-500"
+                                x-transition:leave-start="opacity-100 transform translate-y-0"
+                                x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                x-anchor.top.offset.10="$el.parentElement"
+                                class="absolute bg-white text-black text-[1rem] text-normal p-4 rounded shadow-md z-50 w-48 text-center border border-gray-200"
+                                x-cloak>
+                                Webflow, Wized, Xano
+                            </div>
+                        </strong> combination allows me for hyper-fast delivery speeds, never lacking in quality or
+                        functionality, yet providing results of a whole web team.
+                    </h3>
                 </div>
             </div>
-            <div class="md:col-span-6 order-4 md:order-2 md:text-right">
-                <h3 class="large-text-description" reveal-type>I leverage <strong class="font-semibold">Laravel</strong>
-                    as my primary framework, complemented by the <strong x-data="{ tooltip: false }"
-                        class="font-semibold relative">
-                        <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                            class="!underline !underline-offset-2 decoration-1 border-b border-current"
-                            style="text-decoration: underline !important;">WWX</span>
-                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 transform -translate-y-2"
-                            x-transition:enter-end="opacity-100 transform translate-y-0"
-                            x-transition:leave="transition ease-in duration-500"
-                            x-transition:leave-start="opacity-100 transform translate-y-0"
-                            x-transition:leave-end="opacity-0 transform -translate-y-2"
-                            x-anchor.top.offset.10="$el.parentElement"
-                            class="absolute bg-white text-black text-[1rem] text-normal p-4 rounded shadow-md z-50 w-48 text-center border border-gray-200"
-                            x-cloak>
-                            Webflow, Wized, Xano
-                        </div>
-                    </strong> stack,
-                    delivering comprehensive web solutions in half the typical timeframe.
-                </h3>
-            </div>
-        </div>
 
-        {{-- New third row: Print/Photo --}}
-        <div class="grid grid-cols-1 md:grid-cols-10 gap-4 items-center">
-            <div class="md:col-span-6 order-2 md:order-1">
-                <h3 class="large-text-description" reveal-type>Beyond digital, I bring expertise in <strong
-                        class="font-semibold">screen printing</strong> for apparel and posters, as well as professional
-                    <strong class="font-semibold">photography</strong> services capturing anything from portraits to
-                    products.
-                </h3>
+            {{-- Third row: WWX and Spline focus --}}
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
+                <div class="md:col-span-6 order-1">
+                    <h3 class="large-text-description" reveal-type>
+                        Using <strong class="font-semibold">Client First</strong> methodology makes projects easy to
+                        understand for other developers, while <strong class="font-semibold">Wized</strong> enables
+                        seamless integration with any third-party service, database, or API.
+                    </h3>
+                </div>
+                <div class="md:col-span-4 flex justify-center items-center order-2">
+                    <div class="h-18 w-full">
+                        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
+                        <spline-viewer
+                            url="https://prod.spline.design/QXnaSK-s1c-VXGpm/scene.splinecode"></spline-viewer>
+                    </div>
+                </div>
             </div>
-            <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
-                <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
-                    <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+
+            {{-- Print/Photo row --}}
+            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
+                <div class="md:col-span-4 flex justify-center items-center order-1">
+                    <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
+                        <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="md:col-span-6 order-2 flex justify-end">
+                    <h3 class="large-text-description text-right" reveal-type>
+                        Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong> for
+                        apparel and posters, as well as professional <strong class="font-semibold">photography</strong>
+                        services capturing
+                        anything from portraits to products.
+                    </h3>
+                </div>
             </div>
         </div>
     </section>
@@ -417,6 +454,14 @@
             </div>
         </div>
     </section>
+</div>
+<script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
+
+</body>
+
+</div>
+</div>
+</section>
 </div>
 <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
 
