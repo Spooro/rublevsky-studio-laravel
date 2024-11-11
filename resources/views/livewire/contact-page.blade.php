@@ -93,12 +93,12 @@
     <section class="w-full px-4 sm:px-6" wire:ignore>
         <h2 class="mb-10" heading-reveal>My expertise</h2>
 
-        {{-- Parent container with increased gap --}}
+        {{-- Parent container --}}
         <div class="grid grid-cols-1 gap-16">
-            {{-- First row: Laravel, PHP, Tailwind CSS, Git focus --}}
-            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
-                <div class="md:col-span-6 order-2 md:order-1">
-                    <h3 class="large-text-description" reveal-type>
+            {{-- First row --}}
+            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
+                <div class="lg:col-span-6 order-2 lg:order-1">
+                    <h3 class="large-text-description text-left" reveal-type>
                         With over <strong class="font-semibold">3</strong> years of industry experience, I specialize in
                         <strong class="font-semibold">Laravel</strong>, <strong class="font-semibold">PHP</strong>,
                         <strong class="font-semibold">Tailwind CSS</strong>, and <strong
@@ -108,7 +108,7 @@
                         advanced functionality.
                     </h3>
                 </div>
-                <div class="md:col-span-4 flex justify-center items-center order-1 md:order-2">
+                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
                     <div class="flex flex-col w-full">
                         <div class="flex justify-center items-center">
                             <div class="h-full w-full flex justify-center items-center p-4">
@@ -141,9 +141,9 @@
                 </div>
             </div>
 
-            {{-- Second row: Xano, Spline, Figma focus within WWX approach --}}
-            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
-                <div class="md:col-span-4 flex justify-center items-center order-1">
+            {{-- Second row --}}
+            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
+                <div class="lg:col-span-4 flex justify-center items-center order-1">
                     <div class="flex justify-center items-center w-full">
                         <div class="w-3/4 h-full flex justify-center items-center p-4">
                             <img src="{{ Storage::disk('r2')->url('xano.svg') }}" alt="Xano Logo" class="logo-hover">
@@ -158,8 +158,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:col-span-6 order-2 flex justify-end">
-                    <h3 class="large-text-description text-right" reveal-type>
+                <div class="lg:col-span-6 order-2 flex lg:justify-end">
+                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
                         The <strong x-data="{ tooltip: false }" class="font-semibold relative">
                             <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
                                 class="!underline !underline-offset-2 decoration-1 border-b border-current"
@@ -181,16 +181,16 @@
                 </div>
             </div>
 
-            {{-- Third row: WWX and Spline focus --}}
-            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
-                <div class="md:col-span-6 order-1">
-                    <h3 class="large-text-description" reveal-type>
+            {{-- Third row --}}
+            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
+                <div class="lg:col-span-6 order-2 lg:order-1">
+                    <h3 class="large-text-description text-left" reveal-type>
                         Using <strong class="font-semibold">Client First</strong> methodology makes projects easy to
                         understand for other developers, while <strong class="font-semibold">Wized</strong> enables
                         seamless integration with any third-party service, database, or API.
                     </h3>
                 </div>
-                <div class="md:col-span-4 flex justify-center items-center order-2">
+                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
                     <div class="h-18 w-full">
                         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
                         <spline-viewer
@@ -200,15 +200,15 @@
             </div>
 
             {{-- Print/Photo row --}}
-            <div class="grid grid-cols-1 md:grid-cols-10 gap-16 items-center">
-                <div class="md:col-span-4 flex justify-center items-center order-1">
+            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
+                <div class="lg:col-span-4 flex justify-center items-center order-1">
                     <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
                         <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
-                <div class="md:col-span-6 order-2 flex justify-end">
-                    <h3 class="large-text-description text-right" reveal-type>
+                <div class="lg:col-span-6 order-2 flex lg:justify-end">
+                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
                         Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong> for
                         apparel and posters, as well as professional <strong class="font-semibold">photography</strong>
                         services capturing
