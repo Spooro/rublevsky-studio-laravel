@@ -43,7 +43,7 @@
 
             <!-- Product information -->
             <div
-                class="w-full lg:w-2/5 xl:w-1/3 lg:min-h-[calc(100vh-5rem)] lg:flex lg:flex-col lg:justify-center px-4 lg:px-0">
+                class="w-full md:mr-8  lg:w-2/5 xl:w-1/3 lg:min-h-[calc(100vh-5rem)] lg:flex lg:flex-col lg:justify-center px-4 lg:px-0">
                 <div class="w-full">
                     <div class="w-full space-y-8">
                         <h3>{{ $product->name }}</h3>
@@ -116,7 +116,7 @@
                         @endif
 
                         @if (!$product->unlimited_stock)
-                            <div class="text-sm text-gray-500 mb-4">
+                            <div class="text-sm text-black">
                                 In stock: {{ $availableStock }}
                             </div>
                         @endif
@@ -199,7 +199,16 @@
 
                         <!-- Product description -->
                         <div>
-                            <p class="text-black">{!! Str::markdown($product->description) !!}</p>
+                            <div
+                                class="prose prose-sm
+                                prose-p:text-black
+                                prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-black
+                                prose-h2:text-2xl prose-h2:mb-4 prose-h2:text-black
+                                prose-h3:text-xl prose-h3:mb-3 prose-h3:text-black
+                                prose-h4:text-lg prose-h4:mb-2 prose-h4:text-black
+                                prose-h5:text-lg prose-h5:mt-8 prose-h5:mb-0 prose-h5:text-black">
+                                {!! Str::markdown($product->description) !!}
+                            </div>
                             <p class="text-gray-500 mt-4">Brand: {{ $product->brand->name }}</p>
                         </div>
                     </div>
