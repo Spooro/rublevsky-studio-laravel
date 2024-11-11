@@ -45,7 +45,7 @@
             <div
                 class="w-full md:mr-8  lg:w-2/5 xl:w-1/3 lg:min-h-[calc(100vh-5rem)] lg:flex lg:flex-col lg:justify-center px-4 lg:px-0">
                 <div class="w-full">
-                    <div class="w-full space-y-8">
+                    <div class="w-full space-y-4">
                         <h3>{{ $product->name }}</h3>
 
                         <!-- Variation selection -->
@@ -117,7 +117,14 @@
 
                         @if (!$product->unlimited_stock)
                             <div class="text-sm text-black">
-                                In stock: {{ $availableStock }}
+                                @if ($product->coming_soon)
+                                    <div class="flex gap-8 items-center">
+                                        <span>In stock: {{ $availableStock }}</span>
+                                        <span>Coming Soon</span>
+                                    </div>
+                                @else
+                                    In stock: {{ $availableStock }}
+                                @endif
                             </div>
                         @endif
 
@@ -181,8 +188,10 @@
                                 <button @click="addToCart()" class="main-button relative"
                                     :class="{ 'opacity-75': isAdding }"
                                     {{ $product->has_variations && !$selectedVariation ? 'disabled' : '' }}>
-                                    <span x-show="!isAdding">Add to Cart</span>
-                                    <span x-show="isAdding">Adding...</span>
+                                    <span
+                                        x-show="!isAdding">{{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}</span>
+                                    <span
+                                        x-show="isAdding">{{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}</span>
                                     <span class="ml-2">
                                         @if ($product->has_variations && $selectedVariation)
                                             CAD{{ number_format($selectedVariation->price, 2) }}
@@ -200,7 +209,8 @@
                         <!-- Product description -->
                         <div>
                             <div
-                                class="prose prose-sm
+                                class="mt-12
+                                prose prose-sm
                                 prose-p:text-black
                                 prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-black
                                 prose-h2:text-2xl prose-h2:mb-4 prose-h2:text-black

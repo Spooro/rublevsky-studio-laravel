@@ -132,32 +132,40 @@
                                         <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
                                         <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
                                     </svg>
-                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to
-                                        Cart</span>
-                                    <span wire:loading wire:target="addToCart({{ $product->id }})">Adding...</span>
+                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
+                                        {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
+                                    </span>
+                                    <span wire:loading wire:target="addToCart({{ $product->id }})">
+                                        {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                                    </span>
                                 </button>
                             </div>
                             <div class="p-4 flex-grow">
                                 <div class="flex flex-col gap-1">
-                                    <span
-                                        class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
-                                        @if ($product->has_variations && $product->variations->isNotEmpty())
-                                            @php
-                                                $cheapestVariation = $product->variations->sortBy('price')->first();
-                                            @endphp
-                                            {{ Number::currency($cheapestVariation->price, 'CAD') }}
-                                            @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                <span class="text-black smaller-text  font-light">/
-                                                    {{ $volumeAttr->value }}</span>
+                                    <div class="flex justify-between items-baseline">
+                                        <span
+                                            class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
+                                            @if ($product->has_variations && $product->variations->isNotEmpty())
+                                                @php
+                                                    $cheapestVariation = $product->variations->sortBy('price')->first();
+                                                @endphp
+                                                {{ Number::currency($cheapestVariation->price, 'CAD') }}
+                                                @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
+                                                    <span class="text-black smaller-text font-light">/
+                                                        {{ $volumeAttr->value }}</span>
+                                                @endif
+                                            @else
+                                                {{ Number::currency($product->price, 'CAD') }}
+                                                @if ($product->has_volume && $product->volume)
+                                                    <span class="text-black smaller-text font-light">/
+                                                        {{ $product->volume }}</span>
+                                                @endif
                                             @endif
-                                        @else
-                                            {{ Number::currency($product->price, 'CAD') }}
-                                            @if ($product->has_volume && $product->volume)
-                                                <span class="text-black smaller-text font-light">/
-                                                    {{ $product->volume }}</span>
-                                            @endif
+                                        </span>
+                                        @if ($product->coming_soon)
+                                            <span class="text-sm">Coming Soon</span>
                                         @endif
-                                    </span>
+                                    </div>
                                     <h3 class="text-sm text-gray-700 truncate">
                                         {{ $product->name }}
                                     </h3>
@@ -175,10 +183,12 @@
                                     <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
                                     <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
                                 </svg>
-                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">Add to
-                                    Cart</span>
-                                <span class="text-sm" wire:loading
-                                    wire:target="addToCart({{ $product->id }})">Adding...</span>
+                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
+                                    {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
+                                </span>
+                                <span class="text-sm" wire:loading wire:target="addToCart({{ $product->id }})">
+                                    {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                                </span>
                             </button>
                         </div>
                     </div>

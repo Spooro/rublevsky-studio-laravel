@@ -141,6 +141,10 @@ class ProductResource extends Resource
                             ->label('Unlimited Stock')
                             ->default(false)
                             ->reactive(),
+
+                        Toggle::make('coming_soon')
+                            ->label('Coming Soon')
+                            ->default(false),
                     ])
                 ])->columnSpan(1),
                 Section::make('Variations')
