@@ -458,11 +458,3 @@
 <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
 
 </body>
-
-</div>
-</div>
-</section>
-</div>
-<script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
-
-</body>

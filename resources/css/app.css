@@ -129,10 +129,11 @@ p{
 }
 
 .blur-link {
-    text-decoration: underline; /* Keep underline */
-    text-underline-offset: 0.3rem; /* Adjust position of the underline */
-    text-decoration-thickness: 0.15rem; /* Make the underline thinner */
-    transition: filter 0.3s ease; /* Ensure smooth transition */
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 0.15rem;
+    transition: filter 0.3s ease;
+    cursor: pointer;
 }
 
 .blur-link:hover {
