@@ -50,6 +50,7 @@ class CartManagement
                     'quantity'     => 1,
                     'unit_amount'  => $product->price,
                     'total_amount' => $product->price,
+                    'coming_soon'  => $product->coming_soon,
                 ];
             }
         }
@@ -194,7 +195,7 @@ class CartManagement
             $cart_items[$existing_item]['quantity'] += $qty;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'images']);
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'images', 'coming_soon']);
             $variation = ProductVariation::where('id', $variation_id)->with('attributes')->first();
             if ($product && $variation) {
                 $cart_items[] = [
@@ -206,6 +207,7 @@ class CartManagement
                     'unit_amount'  => $variation->price,
                     'total_amount' => $qty * $variation->price,
                     'attributes'   => $variation->attributes->pluck('value', 'name')->toArray(),
+                    'coming_soon'  => $product->coming_soon,
                 ];
             }
         }

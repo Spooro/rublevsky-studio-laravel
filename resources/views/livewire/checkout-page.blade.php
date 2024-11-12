@@ -144,7 +144,13 @@
                                 <img src="{{ Storage::url($ci['image']) }}" alt="{{ $ci['name'] }}"
                                     class="w-16 h-auto rounded-lg mr-4 object-cover">
                                 <div class="flex-grow">
-                                    <h6 class="font-semibold">{{ $ci['name'] }}</h6>
+                                    <div class="flex items-center">
+                                        <h6 class="font-semibold">{{ $ci['name'] }}</h6>
+                                        @if (isset($ci['coming_soon']) && $ci['coming_soon'])
+                                            <span
+                                                class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
+                                        @endif
+                                    </div>
                                     @if (isset($ci['attributes']))
                                         <div class="text-sm text-gray-600 mt-1">
                                             @foreach ($ci['attributes'] as $attribute => $value)

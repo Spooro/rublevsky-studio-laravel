@@ -26,7 +26,20 @@
                                         alt="{{ $item->product->name }}">
                                 </td>
                                 <td class="pl-4 w-fit">
-                                    {{ $item->product->name }}
+                                    <div class="flex items-center">
+                                        <span class="font-normal text-gray-800">{{ $item->product->name }}</span>
+                                        @if ($item->product->coming_soon)
+                                            <span
+                                                class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
+                                        @endif
+                                    </div>
+                                    @if ($item->attributes)
+                                        <div class="text-sm text-gray-400 mt-1">
+                                            @foreach (json_decode($item->attributes, true) as $attribute => $value)
+                                                <span class="inline-block mr-3">{{ $value }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </td>
                                 <td class="pl-4 whitespace-nowrap">
                                     {{ Number::currency($item->unit_amount, 'CAD') }}

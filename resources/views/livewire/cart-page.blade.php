@@ -12,6 +12,10 @@
                                     src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}">
                                 <div>
                                     <span class="font-normal text-gray-800">{{ $item['name'] }}</span>
+                                    @if (isset($item['coming_soon']) && $item['coming_soon'])
+                                        <span
+                                            class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
+                                    @endif
                                     @if (isset($item['attributes']))
                                         <div class="text-sm text-gray-400 mt-1">
                                             @foreach ($item['attributes'] as $attribute => $value)
