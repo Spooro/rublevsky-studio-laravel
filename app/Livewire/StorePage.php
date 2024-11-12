@@ -28,7 +28,7 @@ class StorePage extends Component
     public $selected_categories = [];
 
     #[Url]
-    public $price_range = 100;
+    public $price_range = null;
 
     #[Url]
     public $sort = 'relevant';
@@ -39,6 +39,26 @@ class StorePage extends Component
         'price_asc' => 'Price: Low to High',
         'price_desc' => 'Price: High to Low',
     ];
+
+    public $max_price;
+
+    public function mount()
+    {
+        // Find the highest price among regular products and variations
+        $this->max_price = max(
+            Product::where('is_active', 1)
+                ->where('has_variations', false)
+                ->max('price'),
+            ProductVariation::whereHas('product', function ($query) {
+                $query->where('is_active', 1);
+            })->max('price')
+        );
+
+        // Initialize price_range to max_price if not set
+        if (!$this->price_range) {
+            $this->price_range = $this->max_price;
+        }
+    }
 
     public function addToCart($product_id)
     {

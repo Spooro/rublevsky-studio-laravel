@@ -81,7 +81,7 @@
                             <input type="range" x-model="localPrice"
                                 @input="$wire.set('price_range', $event.target.value)"
                                 class="w-full h-1 bg-gray-300 rounded-full appearance-none cursor-pointer"
-                                min="0" max="100" step="1">
+                                min="0" :max="@js($max_price)" step="1">
                         </div>
                     </div>
                 </div>
