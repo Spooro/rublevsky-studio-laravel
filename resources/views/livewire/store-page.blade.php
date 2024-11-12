@@ -104,76 +104,23 @@
     </div>
 
     <section>
-
-        <div class="px-4">
-            <!-- Product grid -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[95rem] mx-auto">
-                @foreach ($products as $product)
-                    <div class="w-full product-card overflow-hidden rounded-lg group" wire:key="{{ $product->id }}">
-                        <div class="bg-white h-full flex flex-col">
-                            <div class="relative aspect-square overflow-hidden">
-                                <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full">
-                                    <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
-                                        class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
-                                    @if (count($product->images) > 1)
-                                        <img src="{{ Storage::url($product->images[1]) }}" alt="{{ $product->name }}"
-                                            class="object-cover w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
-                                    @endif
-                                </a>
-                                <!-- Add to Cart button (desktop only) -->
-                                <button wire:click="addToCart({{ $product->id }})"
-                                    class="absolute bottom-0 left-0 right-0 bg-gray-200/70 backdrop-blur-sm text-black flex items-center justify-center space-x-2 hover:bg-black hover:text-white transition-all duration-500 py-2 opacity-0 group-hover:opacity-100 hidden md:flex add-to-cart-btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
-                                        viewBox="0 0 33 30" class="cart-icon">
-                                        <path
-                                            d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                                        <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                                    </svg>
-                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
-                                        {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
-                                    </span>
-                                    <span wire:loading wire:target="addToCart({{ $product->id }})">
-                                        {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="p-4 flex-grow">
-                                <div class="flex flex-col gap-1">
-                                    <div class="flex justify-between items-baseline">
-                                        <span
-                                            class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
-                                            @if ($product->has_variations && $product->variations->isNotEmpty())
-                                                @php
-                                                    $cheapestVariation = $product->variations->sortBy('price')->first();
-                                                @endphp
-                                                {{ Number::currency($cheapestVariation->price, 'CAD') }}
-                                                @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                    <span class="text-black smaller-text font-light">/
-                                                        {{ $volumeAttr->value }}</span>
-                                                @endif
-                                            @else
-                                                {{ Number::currency($product->price, 'CAD') }}
-                                                @if ($product->has_volume && $product->volume)
-                                                    <span class="text-black smaller-text font-light">/
-                                                        {{ $product->volume }}</span>
-                                                @endif
-                                            @endif
-                                        </span>
-                                        @if ($product->coming_soon)
-                                            <span class="text-sm">Coming Soon</span>
-                                        @endif
-                                    </div>
-                                    <h3 class="text-sm text-gray-700 truncate">
-                                        {{ $product->name }}
-                                    </h3>
-                                </div>
-                            </div>
-                            <!-- Mobile Add to Cart button -->
+        <!-- Product grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[95rem] mx-auto">
+            @foreach ($products as $product)
+                <div class="w-full product-card overflow-hidden rounded-lg group" wire:key="{{ $product->id }}">
+                    <div class="bg-white h-full flex flex-col">
+                        <div class="relative aspect-square overflow-hidden">
+                            <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full">
+                                <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
+                                    class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
+                                @if (count($product->images) > 1)
+                                    <img src="{{ Storage::url($product->images[1]) }}" alt="{{ $product->name }}"
+                                        class="object-cover w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
+                                @endif
+                            </a>
+                            <!-- Add to Cart button (desktop only) -->
                             <button wire:click="addToCart({{ $product->id }})"
-                                class="w-full text-black flex items-center justify-center space-x-2 hover:text-white hover:bg-black transition-colors duration-200 py-2 md:hidden add-to-cart-btn">
+                                class="absolute bottom-0 left-0 right-0 bg-gray-200/70 backdrop-blur-sm text-black flex items-center justify-center space-x-2 hover:bg-black hover:text-white transition-all duration-500 py-2 opacity-0 group-hover:opacity-100 hidden md:flex add-to-cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
                                     viewBox="0 0 33 30" class="cart-icon">
                                     <path
@@ -186,17 +133,68 @@
                                 <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
                                     {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
                                 </span>
-                                <span class="text-sm" wire:loading wire:target="addToCart({{ $product->id }})">
+                                <span wire:loading wire:target="addToCart({{ $product->id }})">
                                     {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
                                 </span>
                             </button>
                         </div>
+                        <div class="p-4 flex-grow">
+                            <div class="flex flex-col gap-1">
+                                <div class="flex justify-between items-baseline">
+                                    <span
+                                        class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
+                                        @if ($product->has_variations && $product->variations->isNotEmpty())
+                                            @php
+                                                $cheapestVariation = $product->variations->sortBy('price')->first();
+                                            @endphp
+                                            {{ Number::currency($cheapestVariation->price, 'CAD') }}
+                                            @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
+                                                <span class="text-black smaller-text font-light">/
+                                                    {{ $volumeAttr->value }}</span>
+                                            @endif
+                                        @else
+                                            {{ Number::currency($product->price, 'CAD') }}
+                                            @if ($product->has_volume && $product->volume)
+                                                <span class="text-black smaller-text font-light">/
+                                                    {{ $product->volume }}</span>
+                                            @endif
+                                        @endif
+                                    </span>
+                                    @if ($product->coming_soon)
+                                        <span class="text-sm">Coming Soon</span>
+                                    @endif
+                                </div>
+                                <h3 class="text-sm text-gray-700 truncate">
+                                    {{ $product->name }}
+                                </h3>
+                            </div>
+                        </div>
+                        <!-- Mobile Add to Cart button -->
+                        <button wire:click="addToCart({{ $product->id }})"
+                            class="w-full text-black flex items-center justify-center space-x-2 hover:text-white hover:bg-black transition-colors duration-200 py-2 md:hidden add-to-cart-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                                viewBox="0 0 33 30" class="cart-icon">
+                                <path
+                                    d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                                <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                            </svg>
+                            <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
+                                {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
+                            </span>
+                            <span class="text-sm" wire:loading wire:target="addToCart({{ $product->id }})">
+                                {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                            </span>
+                        </button>
                     </div>
-                @endforeach
-            </div>
-
-
+                </div>
+            @endforeach
         </div>
+
+
+
     </section>
 
     <style>

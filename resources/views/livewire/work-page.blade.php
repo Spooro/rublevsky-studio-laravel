@@ -1,4 +1,4 @@
-<div class="relative px-4 sm:px-6 lg: pb-36">
+<div class="relative lg: pb-36">
 
     <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
@@ -224,7 +224,7 @@
     </section>
 
 
-    <section id="testimonials" wire:ignore>
+    <section id="testimonials" class="no-padding" wire:ignore>
 
         <h1 class="text-center work-page-section-title-holder" heading-reveal>Testimonials</h1>
 

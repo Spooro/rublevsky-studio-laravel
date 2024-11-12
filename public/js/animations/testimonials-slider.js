@@ -6,7 +6,7 @@ function initializeTestimonialsSlider() {
         threshold: 0,
         freeMode: true,
         grabCursor: true,
-        loop: true,
+        loop: false,
         keyboard: {
             enabled: true,
             onlyInViewport: true,

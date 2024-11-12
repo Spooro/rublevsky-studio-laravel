@@ -31,9 +31,10 @@ class StorePage extends Component
     public $price_range = 100;
 
     #[Url]
-    public $sort = 'latest';
+    public $sort = 'relevant';
 
     public $sortOptions = [
+        'relevant' => 'Sort by relevant',
         'latest' => 'Sort by latest',
         'price_asc' => 'Price: Low to High',
         'price_desc' => 'Price: High to Low',
@@ -99,6 +100,16 @@ class StorePage extends Component
         }
 
         switch ($this->sort) {
+            case 'relevant':
+                $productQuery->orderByRaw('CASE
+                    WHEN is_featured = 1 THEN 0
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Apparel" LIMIT 1) THEN 1
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Posters" LIMIT 1) THEN 2
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Produce" LIMIT 1) THEN 3
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Stickers" LIMIT 1) THEN 4
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Tea" LIMIT 1) THEN 5
+                    ELSE 5 END');
+                break;
             case 'latest':
                 $productQuery->latest();
                 break;

@@ -55,8 +55,26 @@ nav.sticky {
 } */
 
 section {
-
     padding-bottom: 13rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+section.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media (min-width: 640px) {
+    section {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    section.no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 html { font-size: calc(1rem + 0.20833333333333331vw); }

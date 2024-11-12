@@ -1,6 +1,6 @@
 <div class="relative pb-36">
 
-    <section class="pt-4 overflow-visible px-4 sm:px-6">
+    <section class="pt-4 overflow-visible">
         <div class="flex flex-col md:grid md:grid-cols-3 md:gap-4 md:relative">
 
             <div class="py-2 md:col-span-2 md:h-full md:flex md:flex-col">
@@ -55,7 +55,7 @@
     </section>
 
     {{-- Services Offered Section --}}
-    <section class="px-4 sm:px-6">
+    <section>
         <h2 class="mb-10" heading-reveal>Services offered</h2>
         <div class="services-grid">
             <div class="service-row">
@@ -90,7 +90,7 @@
     </section>
 
     {{-- My Expertise Section --}}
-    <section class="w-full px-4 sm:px-6" wire:ignore>
+    <section class="w-full" wire:ignore>
         <h2 class="mb-10" heading-reveal>My expertise</h2>
 
         {{-- Parent container --}}
@@ -220,7 +220,7 @@
     </section>
 
     {{-- Experience Section --}}
-    <section class="mb-32 px-4 sm:px-6">
+    <section class="mb-32">
         <h2 class="mb-10" heading-reveal>Experience</h2>
         <div class="column-layout">
             <div class="experience-card border-2 border-[#f58025] hover:bg-[#f58025] hover:text-white group mb-4">
@@ -308,7 +308,7 @@
 
 
     {{-- Reach Out Section --}}
-    <section class="max-w-[50rem] mx-auto px-4 sm:px-6" id="reach-out">
+    <section class="max-w-[50rem] mx-auto" id="reach-out">
         <h3 class="large-text-description mb-4">Want to reach out about a project, collaboration or just want to say
             friendly hello?</h3>
         <h5 class="mb-6">I will be texting you back shortly!</h5>
@@ -383,7 +383,7 @@
     </section>
 
     {{-- FAQ Section --}}
-    <section class="px-4 sm:px-6" x-data="{ openQuestion: null }">
+    <section x-data="{ openQuestion: null }">
         <h2 heading-reveal>FAQ</h2>
         <div class="space-y-4">
             <div class="border-b border-gray-200">
