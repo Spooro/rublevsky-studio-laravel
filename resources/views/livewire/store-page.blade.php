@@ -140,7 +140,7 @@
                         </div>
                         <div class="p-4 flex-grow">
                             <div class="flex flex-col gap-1">
-                                <div class="flex justify-between items-baseline">
+                                <div class="flex justify-between items-baseline flex-wrap">
                                     <span
                                         class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
                                         @if ($product->has_variations && $product->variations->isNotEmpty())
@@ -149,19 +149,20 @@
                                             @endphp
                                             {{ Number::currency($cheapestVariation->price, 'CAD') }}
                                             @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                <span class="text-black smaller-text font-light">/
-                                                    {{ $volumeAttr->value }}</span>
+                                                <span
+                                                    class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
                                             @endif
                                         @else
                                             {{ Number::currency($product->price, 'CAD') }}
                                             @if ($product->has_volume && $product->volume)
-                                                <span class="text-black smaller-text font-light">/
-                                                    {{ $product->volume }}</span>
+                                                <span
+                                                    class="text-black smaller-text font-light">/{{ $product->volume }}</span>
                                             @endif
                                         @endif
                                     </span>
                                     @if ($product->coming_soon)
-                                        <span class="text-sm">Coming Soon</span>
+                                        <span class="text-sm hidden sm:inline">Coming Soon</span>
+                                        <span class="text-sm w-full block sm:hidden mt-1">Coming Soon</span>
                                     @endif
                                 </div>
                                 <h3 class="text-sm text-gray-700 truncate">

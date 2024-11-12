@@ -41,7 +41,7 @@ class OrderPage extends Component
         }
 
         $order = Order::findOrFail($this->order_id);
-        $order_items = OrderItem::with(['product'])->where('order_id', $this->order_id)->get();
+        $order_items = OrderItem::with('product')->where('order_id', $this->order_id)->get();
         $address = Address::where('order_id', $this->order_id)->first();
 
         return view('livewire.order-page', [

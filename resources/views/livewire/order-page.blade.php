@@ -16,44 +16,42 @@
 
             <!-- Order Items Table -->
             <div class="overflow-x-auto rounded-lg mb-4 mt-6">
-                <table class="w-full">
-                    <tbody>
-                        @foreach ($order_items as $item)
-                            <tr class="{{ !$loop->last ? 'border-b' : '' }}">
-                                <td class="py-4 w-24 shrink-0">
-                                    <img class="w-24 h-auto object-cover rounded-md"
-                                        src="{{ Storage::url($item->product->images[0]) }}"
-                                        alt="{{ $item->product->name }}">
-                                </td>
-                                <td class="pl-4 w-fit">
-                                    <div class="flex items-center">
-                                        <span class="font-normal text-gray-800">{{ $item->product->name }}</span>
-                                        @if ($item->product->coming_soon)
-                                            <span
-                                                class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
-                                        @endif
-                                    </div>
-                                    @if ($item->attributes)
-                                        <div class="text-sm text-gray-400 mt-1">
-                                            @foreach (json_decode($item->attributes, true) as $attribute => $value)
-                                                <span class="inline-block mr-3">{{ $value }}</span>
-                                            @endforeach
-                                        </div>
+                @foreach ($order_items as $item)
+                    <div class="flex items-start justify-between py-4 {{ !$loop->last ? 'border-b' : '' }}">
+                        <div class="flex items-start flex-grow pr-4">
+                            <img class="w-24 h-auto object-cover mr-4 rounded-md"
+                                src="{{ Storage::url($item->product->images[0]) }}" alt="{{ $item->product->name }}">
+                            <div>
+                                <div class="flex items-center">
+                                    <span class="font-normal text-gray-800">{{ $item->product->name }}</span>
+                                    @if ($item->product->coming_soon)
+                                        <span
+                                            class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded md:inline-block hidden">Pre-order</span>
                                     @endif
-                                </td>
-                                <td class="pl-4 whitespace-nowrap">
-                                    {{ Number::currency($item->unit_amount, 'CAD') }}
-                                </td>
-                                <td class="pl-4 whitespace-nowrap">
-                                    {{ $item->quantity }}
-                                </td>
-                                <td class="text-right whitespace-nowrap pl-4">
-                                    {{ Number::currency($item->total_amount, 'CAD') }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </div>
+                                @if ($item->attributes)
+                                    <div class="text-sm text-gray-400 mt-1">
+                                        @foreach (json_decode($item->attributes, true) as $attribute => $value)
+                                            <span class="inline-block mr-3">{{ $value }}</span>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <div class="mt-2">
+                                    <span class="text-gray-400">Quantity: <span
+                                            class="text-black">{{ $item->quantity }}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <span
+                                class="font-semibold text-black text-lg">{{ Number::currency($item->total_amount, 'CAD') }}</span>
+                            @if ($item->product->coming_soon)
+                                <span
+                                    class="mt-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded md:hidden">Pre-order</span>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
 

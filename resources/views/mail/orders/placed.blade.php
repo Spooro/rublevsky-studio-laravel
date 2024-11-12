@@ -14,17 +14,22 @@
 <tr class="item-row">
 <td align="left" style="color: #000000; padding: 8px 0;">
 <span class="item-name">{{ $item->product->name }}</span>
+@if ($item->attributes)
+<div style="font-size: 0.875rem; color: #718096; margin-top: 4px;">
+@foreach (json_decode($item->attributes, true) as $attribute => $value)
+<span style="margin-right: 12px; color: #718096;">{{ $value }}</span>
+@endforeach
+</div>
+@endif
 </td>
 <td align="center" style="color: #000000; padding: 8px 0;">{{ $item->quantity }}</td>
-<td align="right" style="color: #000000; padding: 8px 0;"> {{ Number::currency($item->unit_amount ?? 0, 'CAD') }}</td>
-<td align="right" style="color: #000000; padding: 8px 0;">
-{{ Number::currency($item->total_amount ?? 0, 'CAD') }}</td>
+<td align="right" style="color: #000000; padding: 8px 0;">{{ Number::currency($item->unit_amount ?? 0, 'CAD') }}</td>
+<td align="right" style="color: #000000; padding: 8px 0;">{{ Number::currency($item->total_amount ?? 0, 'CAD') }}</td>
 </tr>
 @endforeach
 <tr class="total-row">
 <td colspan="3" align="right" style="color: #000000; padding: 12px 0;">Total:</td>
-<td align="right" style="color: #000000; padding: 12px 0;">
-<strong>{{ Number::currency($order->grand_total ?? 0, 'CAD') }}</strong></td>
+<td align="right" style="color: #000000; padding: 12px 0;"><strong>{{ Number::currency($order->grand_total ?? 0, 'CAD') }}</strong></td>
 </tr>
 </table>
 <x-mail::button :url="$url" style="margin-top: 30px;">

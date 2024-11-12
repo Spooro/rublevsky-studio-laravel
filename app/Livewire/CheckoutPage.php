@@ -97,7 +97,17 @@ class CheckoutPage extends Component
             $address->order_id = $order->id;
             $address->save();
 
-            $order->items()->createMany($cart_items);
+            $order->items()->createMany(
+                collect($cart_items)->map(function ($item) {
+                    return [
+                        'product_id' => $item['product_id'],
+                        'quantity' => $item['quantity'],
+                        'unit_amount' => $item['unit_amount'],
+                        'total_amount' => $item['total_amount'],
+                        'attributes' => isset($item['attributes']) ? json_encode($item['attributes']) : null,
+                    ];
+                })->toArray()
+            );
 
             // Queue the emails
             Mail::to($this->email)->queue(new OrderPlaced($order));

@@ -144,13 +144,7 @@
                                 <img src="{{ Storage::url($ci['image']) }}" alt="{{ $ci['name'] }}"
                                     class="w-16 h-auto rounded-lg mr-4 object-cover">
                                 <div class="flex-grow">
-                                    <div class="flex items-center">
-                                        <h6 class="font-semibold">{{ $ci['name'] }}</h6>
-                                        @if (isset($ci['coming_soon']) && $ci['coming_soon'])
-                                            <span
-                                                class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
-                                        @endif
-                                    </div>
+                                    <h6 class="font-semibold">{{ $ci['name'] }}</h6>
                                     @if (isset($ci['attributes']))
                                         <div class="text-sm text-gray-600 mt-1">
                                             @foreach ($ci['attributes'] as $attribute => $value)
@@ -160,8 +154,12 @@
                                     @endif
                                     <p class="text-gray-600">Quantity: {{ $ci['quantity'] }}</p>
                                 </div>
-                                <div class="ml-auto">
-                                    {{ Number::currency($ci['total_amount'], 'CAD') }}
+                                <div class="flex flex-col items-end">
+                                    <span>{{ Number::currency($ci['total_amount'], 'CAD') }}</span>
+                                    @if (isset($ci['coming_soon']) && $ci['coming_soon'])
+                                        <span
+                                            class="mt-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
+                                    @endif
                                 </div>
                             </li>
                         @endforeach

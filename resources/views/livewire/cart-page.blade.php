@@ -14,7 +14,7 @@
                                     <span class="font-normal text-gray-800">{{ $item['name'] }}</span>
                                     @if (isset($item['coming_soon']) && $item['coming_soon'])
                                         <span
-                                            class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded">Pre-order</span>
+                                            class="ml-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded md:inline-block hidden">Pre-order</span>
                                     @endif
                                     @if (isset($item['attributes']))
                                         <div class="text-sm text-gray-400 mt-1">
@@ -23,9 +23,6 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    <div class="text-sm text-gray-400 mt-1">
-                                        {{ Number::currency($item['unit_amount'], 'CAD') }}
-                                    </div>
                                     <div class="flex items-center space-x-4 mt-2">
                                         <button
                                             wire:click="decreaseQty({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
@@ -49,6 +46,10 @@
                                 </button>
                                 <span
                                     class="font-semibold text-black text-lg">{{ Number::currency($item['total_amount'], 'CAD') }}</span>
+                                @if (isset($item['coming_soon']) && $item['coming_soon'])
+                                    <span
+                                        class="mt-2 inline-block px-2 py-1 text-xs bg-gray-100 text-black rounded md:hidden">Pre-order</span>
+                                @endif
                             </div>
                         </div>
                     @empty
