@@ -28,9 +28,26 @@
                     isWrapped = false;
                 }
             });" x-ref="filterContainer"
-                class="flex flex-wrap items-center gap-2 transition-all duration-300">
+                class="flex flex-wrap items-center justify-between gap-2 transition-all duration-300">
+
+                <!-- Categories -->
+                <div class="w-full sm:w-auto">
+                    <div
+                        class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-0.5 sm:space-x-1 overflow-x-auto h-10">
+                        @foreach ($categories as $category)
+                            <button wire:click="toggleCategory({{ $category->id }})"
+                                class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-base sm:text-lg
+                                       {{ in_array($category->slug, $selected_categories ? explode(',', $selected_categories) : [])
+                                           ? 'bg-black text-white'
+                                           : 'text-gray-700 hover:bg-black/10' }}">
+                                {{ $category->name }}
+                            </button>
+                        @endforeach
+                    </div>
+                </div>
+
                 <!-- Sort and Price Range Container -->
-                <div class="flex flex-grow items-center gap-2 w-full sm:w-auto">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
                     <!-- Sort -->
                     <div x-data="{ open: false }" class="relative" @mouseenter="open = true" @mouseleave="open = false">
                         <button
@@ -83,22 +100,6 @@
                                 class="w-full h-1 bg-gray-300 rounded-full appearance-none cursor-pointer"
                                 min="0" :max="@js($max_price)" step="1">
                         </div>
-                    </div>
-                </div>
-
-                <!-- Categories -->
-                <div class="w-full sm:w-auto">
-                    <div
-                        class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-0.5 sm:space-x-1 overflow-x-auto h-10">
-                        @foreach ($categories as $category)
-                            <button wire:click="toggleCategory({{ $category->id }})"
-                                class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-base sm:text-lg
-                                       {{ in_array($category->slug, $selected_categories ? explode(',', $selected_categories) : [])
-                                           ? 'bg-black text-white'
-                                           : 'text-gray-700 hover:bg-black/10' }}">
-                                {{ $category->name }}
-                            </button>
-                        @endforeach
                     </div>
                 </div>
             </div>
