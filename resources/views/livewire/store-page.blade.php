@@ -93,7 +93,9 @@
                         @foreach ($categories as $category)
                             <button wire:click="toggleCategory({{ $category->id }})"
                                 class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-base sm:text-lg
-                                       {{ in_array($category->id, $selected_categories) ? 'bg-black text-white' : 'text-gray-700 hover:bg-black/10' }}">
+                                       {{ in_array($category->slug, $selected_categories ? explode(',', $selected_categories) : [])
+                                           ? 'bg-black text-white'
+                                           : 'text-gray-700 hover:bg-black/10' }}">
                                 {{ $category->name }}
                             </button>
                         @endforeach

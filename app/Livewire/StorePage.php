@@ -24,8 +24,8 @@ class StorePage extends Component
     public $title = "Store | Rublevsky Studio";
     public $metaDescription = "Shop our collection of unique designs, prints, and merchandise. Find original artwork, photography prints, and custom-designed products by Rublevsky Studio.";
 
-    #[Url]
-    public $selected_categories = [];
+    #[Url(as: 'categories')]
+    public $selected_categories = '';
 
     #[Url]
     public $price_range = null;
@@ -99,8 +99,11 @@ class StorePage extends Component
                 $query->orderBy('price', 'asc')->limit(1);
             }]);
 
-        if (!empty($this->selected_categories)) {
-            $productQuery->whereIn('category_id', $this->selected_categories);
+        if ($this->selected_categories) {
+            $categoryIds = Category::whereIn('slug', explode(',', $this->selected_categories))
+                ->pluck('id')
+                ->toArray();
+            $productQuery->whereIn('category_id', $categoryIds);
         }
 
         if ($this->price_range !== null) {
@@ -175,14 +178,29 @@ class StorePage extends Component
         );
     }
 
+    private function getCategoryIdFromSlug($slug)
+    {
+        return Category::where('slug', $slug)->value('id');
+    }
+
+    private function getCategorySlugFromId($id)
+    {
+        return Category::where('id', $id)->value('slug');
+    }
+
     public function toggleCategory($categoryId)
     {
-        if (($key = array_search($categoryId, $this->selected_categories)) !== false) {
-            unset($this->selected_categories[$key]);
+        $categorySlug = $this->getCategorySlugFromId($categoryId);
+        $categories = $this->selected_categories ? explode(',', $this->selected_categories) : [];
+
+        if (($key = array_search($categorySlug, $categories)) !== false) {
+            unset($categories[$key]);
         } else {
-            $this->selected_categories[] = $categoryId;
+            $categories[] = $categorySlug;
         }
-        $this->selected_categories = array_values($this->selected_categories);
+
+        // Convert back to comma-separated string
+        $this->selected_categories = implode(',', array_filter($categories));
     }
 
     public function updatedSort()
