@@ -210,11 +210,13 @@
             {{-- New entry for personal website --}}
             <div class="mb-0">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
-                    <div class="col-span-12 text-center">
-                        <h3 class="large-text-description" reveal-type>This website was created using <strong
-                                class="font-semibold">Laravel</strong>, <strong
-                                class="font-semibold">Alpine.js</strong>, and <strong
-                                class="font-semibold">Tailwind</strong></h3>
+                    <div class="col-span-12 flex justify-center items-center">
+                        <div class="max-w-3xl mx-auto text-center">
+                            <h3 class="large-text-description" reveal-type>This website was created using <strong
+                                    class="font-semibold">Laravel</strong>, <strong
+                                    class="font-semibold">Alpine.js</strong>, and <strong
+                                    class="font-semibold">Tailwind</strong></h3>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -288,6 +290,28 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="swiper-slide tinyflow-slide">
+                    <div class="testimonial-card">
+                        <p class="mb-6">
+                            "Alexander did an outstanding job with pre-press editing and large-format printing of
+                            posters that brilliantly showcase my artistic vision. His attention to detail and expertise
+                            brought my ideas to life, delivering mind-blowing quality that was absolutely top-notch.
+                            Everything was fabulous—from the prints themselves to the entire experience—which has helped
+                            elevate my brand presence and supported my music journey immensely."
+                        </p>
+                        <a href="#"
+                            class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
+                            <img src="{{ Storage::disk('r2')->url('brighton.jpg') }}" alt="Brighton"
+                                class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <p class="font-semibold group-hover:underline">Brighton</p>
+                                <p class="text-sm text-gray-500">Music Artist</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
