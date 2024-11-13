@@ -1,6 +1,8 @@
 <div x-data="loader" x-show="isLoading" x-transition:leave="transition-transform duration-1000"
     x-transition:leave-start="transform translate-y-0" x-transition:leave-end="transform -translate-y-full"
-    class="fixed inset-0 z-[99999] flex items-center justify-center bg-white" x-init="$watch('isLoading', value => document.body.style.overflow = value ? 'hidden' : 'auto')">
+    class="fixed inset-0 z-[99999] flex items-center justify-center bg-white" x-init="$watch('isLoading', value => document.body.style.overflow = value ? 'hidden' : 'auto');
+    // Remove initial loader once Alpine loader is ready
+    document.getElementById('initial-loader')?.remove();">
     <div class="text-center opacity-0 transition-opacity duration-300" :class="{ 'opacity-100': true }">
         <div class="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
             <div class="h-full bg-black origin-left transform scale-x-0 transition-transform duration-300"
