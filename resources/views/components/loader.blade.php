@@ -17,37 +17,44 @@
             isLoading: true,
             contentVisible: false,
             progress: 0,
-            totalAssets: 0,
-            loadedAssets: 0,
+            totalWeight: 0,
+            loadedWeight: 0,
+
+            // Define weights for different asset types
+            weights: {
+                image: 1,
+                video: 3,
+                spline: 20,
+            },
 
             async init() {
-                // Check if loader has been shown in this session
                 if (sessionStorage.getItem('loaderShown')) {
                     this.isLoading = false;
                     return;
                 }
 
-                // Fade in loader contents after a short delay
                 setTimeout(() => {
                     this.contentVisible = true;
                 }, 100);
 
-                // Get all images and spline viewer
                 const images = document.querySelectorAll('img');
+                const videos = document.querySelectorAll('video');
                 const splineViewer = document.querySelector('spline-viewer');
 
-                // Calculate total assets to load
-                this.totalAssets = images.length + (splineViewer ? 1 : 0);
+                // Calculate total weight
+                this.totalWeight =
+                    (images.length * this.weights.image) +
+                    (videos.length * this.weights.video) +
+                    (splineViewer ? this.weights.spline : 0);
 
-                // If there are no assets to load, show 100% immediately
-                if (this.totalAssets === 0) {
+                if (this.totalWeight === 0) {
                     this.progress = 100;
                     this.$refs.progressBar.style.transform = 'scaleX(1)';
                 } else {
-                    // Load images
                     const imagePromises = Array.from(images).map(img => this.loadImage(img));
+                    const videoPromises = Array.from(videos).map(video => this.loadVideo(
+                        video));
 
-                    // Load spline if it exists
                     let splinePromise = Promise.resolve();
                     if (splineViewer) {
                         splinePromise = new Promise((resolve) => {
@@ -57,52 +64,62 @@
 
                             splineViewer.addEventListener('load-complete', () => {
                                 console.log('Spline loading completed');
-                                this.incrementProgress();
+                                this.incrementProgress(this.weights.spline);
                                 resolve();
                             });
                         });
                     }
 
-                    // Wait for all assets to load
-                    await Promise.all([...imagePromises, splinePromise]);
+                    await Promise.all([...imagePromises, ...videoPromises, splinePromise]);
                 }
 
-                // Ensure minimum display time
                 await new Promise(resolve => setTimeout(resolve, 1000));
-
-                // Mark loader as shown for this session
                 sessionStorage.setItem('loaderShown', 'true');
-
-                // Hide loader
                 this.isLoading = false;
-
-                // Enable scrolling
                 document.body.style.overflow = 'auto';
             },
 
             loadImage(img) {
                 return new Promise((resolve) => {
                     if (img.complete) {
-                        this.incrementProgress();
+                        this.incrementProgress(this.weights.image);
                         resolve();
                     } else {
                         img.addEventListener('load', () => {
-                            this.incrementProgress();
+                            this.incrementProgress(this.weights.image);
                             resolve();
                         });
                         img.addEventListener('error', () => {
-                            this.incrementProgress();
+                            this.incrementProgress(this.weights.image);
                             resolve();
                         });
                     }
                 });
             },
 
-            incrementProgress() {
-                this.loadedAssets++;
-                this.progress = Math.round((this.loadedAssets / this.totalAssets) * 100);
+            loadVideo(video) {
+                return new Promise((resolve) => {
+                    if (video.readyState >= 2) {
+                        this.incrementProgress(this.weights.video);
+                        resolve();
+                    } else {
+                        video.addEventListener('loadeddata', () => {
+                            this.incrementProgress(this.weights.video);
+                            resolve();
+                        });
+                        video.addEventListener('error', () => {
+                            this.incrementProgress(this.weights.video);
+                            resolve();
+                        });
+                    }
+                });
+            },
+
+            incrementProgress(weight) {
+                this.loadedWeight += weight;
+                this.progress = Math.round((this.loadedWeight / this.totalWeight) * 100);
                 this.$refs.progressBar.style.transform =
-                    `scaleX(${this.loadedAssets / this.totalAssets})`;
+                    `scaleX(${this.loadedWeight / this.totalWeight})`;
             }
         }));
     });
