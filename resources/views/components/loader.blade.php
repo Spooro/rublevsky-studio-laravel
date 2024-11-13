@@ -1,8 +1,7 @@
 <div x-data="loader" x-show="isLoading" x-transition:leave="transition-transform duration-1000"
     x-transition:leave-start="transform translate-y-0" x-transition:leave-end="transform -translate-y-full"
-    class="fixed inset-0 z-[99999] flex items-center justify-center bg-white">
-    <div class="text-center opacity-0 transition-opacity duration-400" x-ref="loaderContent"
-        :class="{ 'opacity-100': contentVisible }">
+    class="fixed inset-0 z-[99999] flex items-center justify-center bg-white" x-init="$watch('isLoading', value => document.body.style.overflow = value ? 'hidden' : 'auto')">
+    <div class="text-center opacity-0 transition-opacity duration-300" :class="{ 'opacity-100': true }">
         <div class="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
             <div class="h-full bg-black origin-left transform scale-x-0 transition-transform duration-300"
                 x-ref="progressBar"></div>
@@ -15,27 +14,24 @@
     document.addEventListener('alpine:init', () => {
         Alpine.data('loader', () => ({
             isLoading: true,
-            contentVisible: false,
             progress: 0,
             totalWeight: 0,
             loadedWeight: 0,
 
-            // Define weights for different asset types
             weights: {
                 image: 1,
-                video: 3,
-                spline: 20,
+                video: 5,
+                spline: 5,
             },
 
             async init() {
+                // Set initial overflow state
+                document.body.style.overflow = 'hidden';
+
                 if (sessionStorage.getItem('loaderShown')) {
                     this.isLoading = false;
                     return;
                 }
-
-                setTimeout(() => {
-                    this.contentVisible = true;
-                }, 100);
 
                 const images = document.querySelectorAll('img');
                 const videos = document.querySelectorAll('video');
