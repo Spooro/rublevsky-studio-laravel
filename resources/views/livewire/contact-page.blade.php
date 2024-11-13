@@ -1,5 +1,5 @@
 <div class="relative pb-36">
-    <x-loader />
+
 
     <section class="pt-4 overflow-visible">
         <div class="flex flex-col md:grid md:grid-cols-3 md:gap-4 md:relative">
