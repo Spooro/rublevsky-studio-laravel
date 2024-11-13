@@ -1,7 +1,7 @@
 <div class="relative lg:pb-36">
+    <x-loader />
 
-
-    <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
+    <div class=" w-screen h-screen">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
         <spline-viewer loading-anim-type="spinner-big-dark"
             url="https://prod.spline.design/XRydKQhqfpYOjapX/scene.splinecode"></spline-viewer>

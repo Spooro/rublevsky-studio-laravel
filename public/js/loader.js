@@ -1,3 +1,26 @@
+document.addEventListener('click', (e) => {
+    // Check if the clicked element is a main navigation link
+    const link = e.target.closest('a[href]');
+    if (link && link.href.startsWith(window.location.origin)) {
+        // Only show loader for main navigation links
+        const mainRoutes = ['/work', '/store', '/contact'];
+        const targetPath = new URL(link.href).pathname;
+
+        if (mainRoutes.some(route => targetPath === route)) {
+            const loaderWrap = document.querySelector('.loader-wrap');
+            if (loaderWrap) {
+                loaderWrap.style.display = 'flex';
+                gsap.to(loaderWrap, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: 'power2.inOut'
+                });
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    }
+});
+
 document.addEventListener('DOMContentLoaded', initLoader);
 document.addEventListener('livewire:navigated', () => {
     // Reset loader state
