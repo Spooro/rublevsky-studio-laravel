@@ -648,14 +648,29 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 /* LOADER */
-body.loading {
-    overflow: hidden;
+/* Hide main content by default */
+main,
+nav {
+    opacity: 0;
 }
 
-[x-cloak] {
-    display: none !important;
+/* Show content when loading is done */
+body.loaded main,
+body.loaded nav {
+    opacity: 1;
 }
 
+/* Hide loader if already shown in session */
+html.loader-shown .loader-wrap {
+    display: none;
+}
+
+html.loader-shown main,
+html.loader-shown nav {
+    opacity: 1;
+}
+
+/* Existing loader styles */
 .loader-wrap {
     position: fixed;
     inset: 0;
@@ -664,24 +679,4 @@ body.loading {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* Update the loader styles */
-.loader-wrap {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Add this new class for the transition */
-.transition-opacity {
-    transition-property: opacity;
-}
-
-.duration-400 {
-    transition-duration: 400ms;
 }
