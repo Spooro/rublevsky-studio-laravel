@@ -22,7 +22,7 @@
 
             weights: {
                 image: 1,
-                video: 5,
+                video: 0,
                 spline: 5,
             },
 
@@ -97,19 +97,8 @@
 
             loadVideo(video) {
                 return new Promise((resolve) => {
-                    if (video.readyState >= 2) {
-                        this.incrementProgress(this.weights.video);
-                        resolve();
-                    } else {
-                        video.addEventListener('loadeddata', () => {
-                            this.incrementProgress(this.weights.video);
-                            resolve();
-                        });
-                        video.addEventListener('error', () => {
-                            this.incrementProgress(this.weights.video);
-                            resolve();
-                        });
-                    }
+                    // Placeholder for future video loading implementation
+                    resolve();
                 });
             },
 
