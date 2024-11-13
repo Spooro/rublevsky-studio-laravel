@@ -300,7 +300,8 @@
                             Everything was fabulous—from the prints themselves to the entire experience—which has helped
                             elevate my brand presence and supported my music journey immensely."
                         </p>
-                        <a href="#"
+                        <a href="https://on.soundcloud.com/yBk5X3a4cWA4xnWdA" target="_blank"
+                            rel="noopener noreferrer"
                             class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
                             <img src="{{ Storage::disk('r2')->url('brighton.jpg') }}" alt="Brighton"
                                 class="w-12 h-12 rounded-full mr-4">
