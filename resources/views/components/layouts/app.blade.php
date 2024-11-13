@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ $title ?? 'Rublevsky Studio' }}</title>
+
     <meta name="description"
         content="{{ $metaDescription ?? 'Creative design studio specializing in web design and development, branding, photography, and screen printing.' }}">
     @stack('head')
@@ -19,8 +20,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
-<body style="overflow: hidden">
-    <div id="initial-loader" class="loader-init">
+<body style="overflow: hidden; background-color: white;">
+    <div id="initial-loader" class="fixed inset-0 z-[99999] flex items-center justify-center bg-white">
         <div class="text-center">
             <div class="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
                 <div class="h-full bg-black origin-left transform scale-x-0 transition-transform duration-300"></div>
