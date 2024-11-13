@@ -91,6 +91,8 @@
 
     {{-- My Expertise Section --}}
     <section class="w-full" wire:ignore>
+
+
         <h2 class="mb-10" heading-reveal>My expertise</h2>
 
         {{-- Parent container --}}
@@ -99,7 +101,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
                 <div class="lg:col-span-6 order-2 lg:order-1">
                     <h3 class="large-text-description text-left" reveal-type>
-                        With over <strong class="font-semibold">3</strong> years of industry experience, I specialize in
+                        With over <strong class="font-semibold">3</strong> years of industry experience, I
+                        specialize in
                         <strong class="font-semibold">Laravel</strong>, <strong class="font-semibold">PHP</strong>,
                         <strong class="font-semibold">Tailwind CSS</strong>, and <strong
                             class="font-semibold">Figma</strong>,
@@ -185,7 +188,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
                 <div class="lg:col-span-6 order-2 lg:order-1">
                     <h3 class="large-text-description text-left" reveal-type>
-                        Using <strong class="font-semibold">Client First</strong> methodology makes projects easy to
+                        Using <strong class="font-semibold">Client First</strong> methodology makes projects easy
+                        to
                         understand for other developers, while <strong class="font-semibold">Wized</strong> enables
                         seamless integration with any third-party service, database, or API.
                     </h3>
@@ -209,7 +213,8 @@
                 </div>
                 <div class="lg:col-span-6 order-2 flex lg:justify-end">
                     <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong> for
+                        Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong>
+                        for
                         apparel and posters, as well as professional <strong class="font-semibold">photography</strong>
                         services capturing
                         anything from portraits to products.
@@ -217,6 +222,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </section>
 
     {{-- Experience Section --}}
