@@ -1,4 +1,5 @@
-<div class="relative lg: pb-36">
+<div class="relative lg:pb-36">
+
 
     <div class="w-screen h-screen -mx-4 sm:-mx-6 lg:-mx-8">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>

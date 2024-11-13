@@ -648,33 +648,22 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 /* LOADER */
-/* Hide main content by default */
-main,
-nav {
-    opacity: 0;
-}
 
-/* Show content when loading is done */
-body.loaded main,
-body.loaded nav {
+/* Show content when loaded */
+html.content-visible .site-content {
     opacity: 1;
 }
 
-/* Hide loader if already shown in session */
-html.loader-shown .loader-wrap {
+/* Hide loader when content is visible */
+html.content-visible .loader-wrap {
     display: none;
 }
 
-html.loader-shown main,
-html.loader-shown nav {
-    opacity: 1;
-}
-
-/* Existing loader styles */
+/* Loader styles */
 .loader-wrap {
     position: fixed;
     inset: 0;
-    z-index: 99999;
+    z-index: 98;
     background-color: white;
     display: flex;
     align-items: center;
