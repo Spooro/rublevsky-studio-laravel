@@ -1,10 +1,10 @@
 @push('head')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js"></script>
+    <script src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
 @endpush
 
 <div class="page-with-loader relative lg:pb-36">
