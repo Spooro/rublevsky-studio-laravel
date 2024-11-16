@@ -1,5 +1,5 @@
 <div class="relative lg:pb-36">
-    <x-loader />
+    <x-loader wire:ignore />
 
     <div class=" w-screen h-screen">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>

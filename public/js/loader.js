@@ -1,26 +1,37 @@
+// Flag to track if we're in pre-navigation state
+let isPreNavigationState = false;
+
 document.addEventListener('click', (e) => {
-    // Check if the clicked element is a main navigation link
     const link = e.target.closest('a[href]');
     if (link && link.href.startsWith(window.location.origin)) {
-        // Only show loader for main navigation links
         const mainRoutes = ['/work', '/store', '/contact'];
         const targetPath = new URL(link.href).pathname;
 
         if (mainRoutes.some(route => targetPath === route)) {
-            e.preventDefault(); // Prevent immediate navigation
+            e.preventDefault();
+            isPreNavigationState = true;
 
             const loaderWrap = document.querySelector('.loader-wrap');
             if (loaderWrap) {
+                // Just show the loader at 0% before navigation
                 loaderWrap.style.display = 'flex';
                 loaderWrap.style.opacity = '0';
                 document.body.style.overflow = 'hidden';
 
+                // Reset to initial state
+                const progressBar = document.querySelector('.progress-bar');
+                const loaderPercent = document.querySelector('.loader-percent');
+                if (progressBar && loaderPercent) {
+                    gsap.set(progressBar, { scaleX: 0 });
+                    loaderPercent.textContent = '0%';
+                }
+
+                // Fade in the loader and navigate
                 gsap.to(loaderWrap, {
                     opacity: 1,
-                    duration: 0.3,
+                    duration: 0.5,
                     ease: 'power2.inOut',
                     onComplete: () => {
-                        // Navigate to the new page after loader is visible
                         window.location.href = link.href;
                     }
                 });
@@ -29,42 +40,32 @@ document.addEventListener('click', (e) => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', initLoader);
 document.addEventListener('livewire:navigated', () => {
-    // Check if loader exists on the current page
+    // Skip loader initialization if we're still in pre-navigation state
+    if (isPreNavigationState) {
+        isPreNavigationState = false;
+        return;
+    }
+
     const loaderWrap = document.querySelector('.loader-wrap');
     if (!loaderWrap) {
-        // If no loader on page, ensure scroll is enabled
         document.body.style.overflow = 'auto';
         return;
     }
 
-    // Reset loader state only if loader exists
-    loaderWrap.style.transform = 'translateY(0)';
-    loaderWrap.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-
-    // Reset progress elements
-    const progressBar = document.querySelector('.progress-bar');
-    const loaderPercent = document.querySelector('.loader-percent');
-    gsap.set(progressBar, { scaleX: 0 });
-    loaderPercent.textContent = '0%';
-
+    // Initialize loader for actual image loading
     initLoader();
 });
 
 function initLoader() {
-    const start = performance.now();
-
-    // Load imagesLoaded if not already loaded
-    if (typeof imagesLoaded === 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js';
-        script.onload = () => startImageLoading(start);
-        document.head.appendChild(script);
-    } else {
-        startImageLoading(start);
+    const loaderWrap = document.querySelector('.loader-wrap');
+    if (!loaderWrap) {
+        document.body.style.overflow = 'auto';
+        return;
     }
+
+    const start = performance.now();
+    startImageLoading(start);
 }
 
 function startImageLoading(start) {
@@ -86,17 +87,16 @@ function startImageLoading(start) {
 }
 
 function onImagesLoaded(start) {
-    const end = performance.now();
-    const MIN_TIME = 1000;
-    const duration = end - start;
-    const remainingTime = Math.max(MIN_TIME - duration, 0);
-
-    // Check if loader still exists (page hasn't changed)
     const loaderWrap = document.querySelector('.loader-wrap');
     if (!loaderWrap) {
         document.body.style.overflow = 'auto';
         return;
     }
+
+    const end = performance.now();
+    const MIN_TIME = 1000;
+    const duration = end - start;
+    const remainingTime = Math.max(MIN_TIME - duration, 0);
 
     gsap.to('.loader-wrap', {
         opacity: 0,
@@ -104,10 +104,9 @@ function onImagesLoaded(start) {
         duration: 0.5,
         ease: 'power2.inOut',
         onComplete: () => {
-            gsap.set('body', { overflow: 'auto' });
+            document.body.style.overflow = 'auto';
             gsap.set('.loader-wrap', { display: 'none' });
 
-            // Reset progress elements after loader is hidden
             const progressBar = document.querySelector('.progress-bar');
             const loaderPercent = document.querySelector('.loader-percent');
             if (progressBar && loaderPercent) {

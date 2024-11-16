@@ -1,5 +1,5 @@
 <div no-scrollbar>
-    <x-loader />
+    <x-loader wire:ignore />
 
     <!-- filters -->
     <div x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
