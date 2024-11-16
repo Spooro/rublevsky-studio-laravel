@@ -13,7 +13,6 @@ document.addEventListener('click', (e) => {
 
             const loaderWrap = document.querySelector('.loader-wrap');
             if (loaderWrap) {
-                // Just show the loader at 0% before navigation
                 loaderWrap.style.display = 'flex';
                 loaderWrap.style.opacity = '0';
                 document.body.style.overflow = 'hidden';
@@ -35,6 +34,8 @@ document.addEventListener('click', (e) => {
                         window.location.href = link.href;
                     }
                 });
+            } else {
+                window.location.href = link.href;
             }
         }
     }
@@ -44,6 +45,7 @@ document.addEventListener('livewire:navigated', () => {
     // Skip loader initialization if we're still in pre-navigation state
     if (isPreNavigationState) {
         isPreNavigationState = false;
+        document.body.style.overflow = 'auto';
         return;
     }
 

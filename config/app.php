@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://rublevsky.studio'),
+    'url' => env('https://www.rublevsky.studio', 'https://rublevsky.studio'),
 
     /*
     |--------------------------------------------------------------------------
