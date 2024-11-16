@@ -1,4 +1,4 @@
-<div class="relative pb-36">
+<div class="page-with-loader relative pb-36">
     <x-loader wire:ignore />
 
     <section class="pt-4 overflow-visible">

@@ -1,4 +1,4 @@
-<div class="relative lg:pb-36">
+<div class="page-with-loader relative lg:pb-36">
     <x-loader wire:ignore />
 
     <div class=" w-screen h-screen">

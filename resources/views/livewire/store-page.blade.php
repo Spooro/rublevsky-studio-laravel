@@ -1,4 +1,4 @@
-<div no-scrollbar>
+<div class="page-with-loader" no-scrollbar>
     <x-loader wire:ignore />
 
     <!-- filters -->

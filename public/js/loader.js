@@ -13,9 +13,13 @@ document.addEventListener('click', (e) => {
 
             const loaderWrap = document.querySelector('.loader-wrap');
             if (loaderWrap) {
+                const pageWrapper = loaderWrap.closest('.page-with-loader');
+                if (pageWrapper) {
+                    pageWrapper.classList.remove('loader-hidden');
+                }
+
                 loaderWrap.style.display = 'flex';
                 loaderWrap.style.opacity = '0';
-                document.body.style.overflow = 'hidden';
 
                 // Reset to initial state
                 const progressBar = document.querySelector('.progress-bar');
@@ -45,13 +49,11 @@ document.addEventListener('livewire:navigated', () => {
     // Skip loader initialization if we're still in pre-navigation state
     if (isPreNavigationState) {
         isPreNavigationState = false;
-        document.body.style.overflow = 'auto';
         return;
     }
 
     const loaderWrap = document.querySelector('.loader-wrap');
     if (!loaderWrap) {
-        document.body.style.overflow = 'auto';
         return;
     }
 
@@ -62,7 +64,6 @@ document.addEventListener('livewire:navigated', () => {
 function initLoader() {
     const loaderWrap = document.querySelector('.loader-wrap');
     if (!loaderWrap) {
-        document.body.style.overflow = 'auto';
         return;
     }
 
@@ -91,10 +92,10 @@ function startImageLoading(start) {
 function onImagesLoaded(start) {
     const loaderWrap = document.querySelector('.loader-wrap');
     if (!loaderWrap) {
-        document.body.style.overflow = 'auto';
         return;
     }
 
+    const pageWrapper = loaderWrap.closest('.page-with-loader');
     const end = performance.now();
     const MIN_TIME = 1000;
     const duration = end - start;
@@ -106,8 +107,10 @@ function onImagesLoaded(start) {
         duration: 0.5,
         ease: 'power2.inOut',
         onComplete: () => {
-            document.body.style.overflow = 'auto';
             gsap.set('.loader-wrap', { display: 'none' });
+            if (pageWrapper) {
+                pageWrapper.classList.add('loader-hidden');
+            }
 
             const progressBar = document.querySelector('.progress-bar');
             const loaderPercent = document.querySelector('.loader-percent');
