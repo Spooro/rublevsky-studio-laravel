@@ -94,11 +94,14 @@ class StorePage extends Component
 
     public function render(): View
     {
-        $productQuery = Product::query()->where('is_active', 1)
+        // Start with base query
+        $productQuery = Product::query()
+            ->where('is_active', 1)
             ->with(['variations' => function ($query) {
-                $query->orderBy('price', 'asc')->limit(1);
+                $query->orderBy('price', 'asc');
             }]);
 
+        // Apply category filter
         if ($this->selected_categories) {
             $categoryIds = Category::whereIn('slug', explode(',', $this->selected_categories))
                 ->pluck('id')
@@ -106,14 +109,13 @@ class StorePage extends Component
             $productQuery->whereIn('category_id', $categoryIds);
         }
 
+        // Apply price range filter
         if ($this->price_range !== null) {
             $productQuery->where(function ($query) {
                 $query->where(function ($q) {
-                    // For products without variations, check the base price
                     $q->where('has_variations', false)
                         ->where('price', '<=', $this->price_range);
                 })->orWhere(function ($q) {
-                    // For products with variations, check the minimum variation price
                     $q->where('has_variations', true)
                         ->whereHas('variations', function ($subQ) {
                             $subQ->where('price', '<=', $this->price_range);
@@ -122,6 +124,7 @@ class StorePage extends Component
             });
         }
 
+        // Apply sorting
         switch ($this->sort) {
             case 'relevant':
                 $productQuery->orderByRaw('CASE
@@ -133,49 +136,59 @@ class StorePage extends Component
                     WHEN category_id = (SELECT id FROM categories WHERE name = "Tea" LIMIT 1) THEN 5
                     ELSE 5 END');
                 break;
+
             case 'latest':
                 $productQuery->latest();
                 break;
+
             case 'price_asc':
-                $productQuery->where(function ($query) {
-                    $query->whereNull('has_variations')
-                        ->orWhere('has_variations', false);
-                })->orderBy('price', 'asc')
-                    ->union(
-                        Product::where('has_variations', true)
-                            ->whereHas('variations')
-                            ->select('products.*')
-                            ->join('product_variations', 'products.id', '=', 'product_variations.product_id')
-                            ->orderBy('product_variations.price', 'asc')
-                    );
+                // Create a subquery to get the minimum variation price for each product
+                $minPriceSubquery = ProductVariation::selectRaw('MIN(price)')
+                    ->whereColumn('product_id', 'products.id');
+
+                $productQuery->select('products.*')
+                    ->selectSub($minPriceSubquery, 'min_variation_price')
+                    ->orderByRaw('
+                        CASE
+                            WHEN has_variations = 1 THEN (
+                                SELECT MIN(price)
+                                FROM product_variations
+                                WHERE product_variations.product_id = products.id
+                            )
+                            ELSE price
+                        END ASC
+                    ');
                 break;
+
             case 'price_desc':
-                $productQuery->where(function ($query) {
-                    $query->whereNull('has_variations')
-                        ->orWhere('has_variations', false);
-                })->orderBy('price', 'desc')
-                    ->union(
-                        Product::where('has_variations', true)
-                            ->whereHas('variations')
-                            ->select('products.*')
-                            ->join('product_variations', 'products.id', '=', 'product_variations.product_id')
-                            ->orderBy('product_variations.price', 'desc')
-                    );
+                // Create a subquery to get the minimum variation price for each product
+                $minPriceSubquery = ProductVariation::selectRaw('MIN(price)')
+                    ->whereColumn('product_id', 'products.id');
+
+                $productQuery->select('products.*')
+                    ->selectSub($minPriceSubquery, 'min_variation_price')
+                    ->orderByRaw('
+                        CASE
+                            WHEN has_variations = 1 THEN (
+                                SELECT MIN(price)
+                                FROM product_variations
+                                WHERE product_variations.product_id = products.id
+                            )
+                            ELSE price
+                        END DESC
+                    ');
                 break;
         }
 
         $products = $productQuery->get();
 
-        return view(
-            'livewire.store-page',
-            [
-                'title' => $this->title,
-                'metaDescription' => $this->metaDescription,
-                'products' => $products,
-                'brands' => Brand::where('is_active', 1)->get(['id', 'name', 'slug']),
-                'categories' => Category::where('is_active', 1)->get(['id', 'name', 'slug'])
-            ]
-        );
+        return view('livewire.store-page', [
+            'title' => $this->title,
+            'metaDescription' => $this->metaDescription,
+            'products' => $products,
+            'brands' => Brand::where('is_active', 1)->get(['id', 'name', 'slug']),
+            'categories' => Category::where('is_active', 1)->get(['id', 'name', 'slug'])
+        ]);
     }
 
     private function getCategoryIdFromSlug($slug)

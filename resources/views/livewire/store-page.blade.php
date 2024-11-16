@@ -53,29 +53,44 @@
                     <!-- Sort -->
                     <div x-data="{
                         open: false,
-                        selectedSort: @entangle('sort').live
-                    }" class="relative" @mouseenter="open = true" @mouseleave="open = false">
-                        <button
+                        selectedSort: @entangle('sort').live,
+                        isMobile: window.innerWidth < 768,
+                        toggle() {
+                            this.open = !this.open;
+                        },
+                        close(focusAfter) {
+                            this.open = false;
+                            focusAfter?.focus();
+                        },
+                        init() {
+                            window.addEventListener('resize', () => {
+                                this.isMobile = window.innerWidth < 768;
+                            });
+                        }
+                    }" class="relative" @click.away="close()"
+                        @keydown.escape.prevent.stop="close($refs.button)" @mouseenter="!isMobile && (open = true)"
+                        @mouseleave="!isMobile && (open = false)">
+                        <button x-ref="button" @click="isMobile && toggle()"
                             class="filter-container flex items-center justify-between backdrop-blur-sm rounded-full px-2 sm:px-4 h-10 text-slate-800 hover:text-slate-900 shadow-inner whitespace-nowrap text-base sm:text-lg"
-                            :aria-expanded="open">
+                            :aria-expanded="open" aria-haspopup="true">
                             <span class="pl-2">{{ $sortOptions[$sort] }}</span>
                             <svg class="w-3 h-3 mr-2 fill-slate-500 ml-2" xmlns="http://www.w3.org/2000/svg"
                                 width="12" height="12">
                                 <path d="M10 2.586 11.414 4 6 9.414.586 4 2 2.586l4 4z" />
                             </svg>
                         </button>
-                        <ul class="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 p-2 rounded-lg shadow-xl [&[x-cloak]]:hidden z-50"
-                            x-show="open" x-transition:enter="transition ease-out duration-200 transform"
+                        <ul x-show="open" x-transition:enter="transition ease-out duration-200 transform"
                             x-transition:enter-start="opacity-0 -translate-y-2"
                             x-transition:enter-end="opacity-100 translate-y-0"
                             x-transition:leave="transition ease-out duration-200" x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0" x-cloak
-                            @focusout="await $nextTick();!$el.contains($focus.focused()) && (open = false)">
+                            x-transition:leave-end="opacity-0"
+                            class="absolute top-full left-0 mt-1 w-full bg-white border border-slate-200 p-2 rounded-lg shadow-xl [&[x-cloak]]:hidden z-50"
+                            x-cloak role="menu">
                             @foreach ($sortOptions as $value => $label)
                                 <li>
                                     <button
                                         class="w-full text-left text-slate-800 hover:bg-slate-50 p-2 rounded-lg text-base sm:text-lg"
-                                        x-on:click="selectedSort = '{{ $value }}'; open = false">
+                                        @click="selectedSort = '{{ $value }}'; close()" role="menuitem">
                                         {{ $label }}
                                     </button>
                                 </li>
