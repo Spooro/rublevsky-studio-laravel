@@ -1,5 +1,5 @@
 @push('scripts')
-    <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
+    <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}" defer></script>
 @endpush
 <div class="page-with-loader relative pb-36">
     <x-loader wire:ignore />
