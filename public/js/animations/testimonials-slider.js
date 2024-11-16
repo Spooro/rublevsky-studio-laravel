@@ -1,6 +1,14 @@
 function initializeTestimonialsSlider() {
+    const sliderElement = document.querySelector('.tinyflow-slider');
+    if (!sliderElement) return;
+
+    // Destroy existing swiper instance if it exists
+    if (window.testimonialSwiper) {
+        window.testimonialSwiper.destroy(true, true);
+    }
+
     const defaultDeg = 5;
-    const swiper = new Swiper(".tinyflow-slider", {
+    window.testimonialSwiper = new Swiper(".tinyflow-slider", {
         slidesPerView: "auto",
         spaceBetween: 0,
         threshold: 0,
@@ -13,9 +21,11 @@ function initializeTestimonialsSlider() {
         },
         effect: "coverflow",
         coverflowEffect: {
+            rotate: 0,
             stretch: 48,
             depth: 0,
             slideShadows: false,
+            modifier: 1
         },
         on: {
             beforeInit: function(swiper) {
@@ -25,20 +35,21 @@ function initializeTestimonialsSlider() {
             init: function(swiper) {
                 let maxCardWidth = 0;
                 let maxCardHeight = 0;
-                swiper.slides.map(slideItem => {
+                swiper.slides.forEach(slideItem => {
                     maxCardWidth = Math.max(maxCardWidth, slideItem.getBoundingClientRect().width);
                     maxCardHeight = Math.max(maxCardHeight, slideItem.offsetHeight);
                 });
-                const rotationAngle = swiper.el.dataset.rotate || defaultDeg;
-                const rotationAngleRad = rotationAngle * Math.PI / 180;
-                const rotatedContainerHeightSize = (Math.abs(maxCardWidth * Math.cos(rotationAngleRad)) + Math.abs(maxCardHeight * Math.sin(rotationAngleRad))) - maxCardHeight;
                 swiper.el.style.cssText = `--_min-card-height: ${maxCardHeight}px`;
-            },
-        },
+            }
+        }
     });
+
+    return window.testimonialSwiper;
 }
 
-// Initialize on page load
+// Initialize on page load and Livewire navigation
 document.addEventListener('DOMContentLoaded', initializeTestimonialsSlider);
-// Re-initialize on Livewire page navigation
-document.addEventListener('livewire:navigated', initializeTestimonialsSlider);
+document.addEventListener('livewire:navigated', () => {
+    // Small delay to ensure DOM is ready
+    setTimeout(initializeTestimonialsSlider, 0);
+});

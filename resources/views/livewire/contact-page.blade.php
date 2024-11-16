@@ -1,3 +1,6 @@
+@push('scripts')
+    <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
+@endpush
 <div class="page-with-loader relative pb-36">
     <x-loader wire:ignore />
 
@@ -464,6 +467,7 @@
         </div>
     </section>
 </div>
-<script src="{{ asset('js/animations/gsap-cards-stacking.js') }}"></script>
+
+
 
 </body>

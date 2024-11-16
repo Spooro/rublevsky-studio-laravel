@@ -1,3 +1,12 @@
+@push('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+@endpush
+
+@push('scripts')
+    <script src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js"></script>
+    <script src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
+@endpush
+
 <div class="page-with-loader relative lg:pb-36">
     <x-loader wire:ignore />
 
@@ -630,6 +639,3 @@
 </script>
 
 <script src="{{ asset('js/animations/gsap-section-progress.js') }}"></script>
-
-<script src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js"></script>
-<script src="{{ asset('js/animations/testimonials-slider.js') }}" defer></script>

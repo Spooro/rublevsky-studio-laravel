@@ -22,7 +22,6 @@
     <script src="{{ asset('js/loader.js') }}"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script defer src="https://unpkg.com/split-type"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body style="background-color: white;">
@@ -42,6 +41,26 @@
     <x-livewire-alert::scripts />
     @stack('scripts')
     <script defer src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
+    <script>
+        document.addEventListener('livewire:navigated', () => {
+            // Clean up GSAP ScrollTriggers more selectively
+            if (window.ScrollTrigger) {
+                ScrollTrigger.getAll().forEach(st => {
+                    // Only kill ScrollTriggers that aren't being immediately recreated
+                    if (!document.querySelector(st.vars.trigger)) {
+                        st.kill();
+                    }
+                });
+            }
+
+            // Clean up Swiper instances
+            document.querySelectorAll('.swiper').forEach(swiperEl => {
+                if (swiperEl.swiper) {
+                    swiperEl.swiper.destroy(true, true);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
