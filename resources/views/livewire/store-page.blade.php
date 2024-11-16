@@ -2,7 +2,7 @@
     <x-loader wire:ignore />
 
     <!-- filters -->
-    <div x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
+    <div wirex-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
         let st = window.pageYOffset || document.documentElement.scrollTop;
         if (st > scrollThreshold) {
             if (st > lastScrollTop) {
@@ -51,7 +51,10 @@
                 <!-- Sort and Price Range Container -->
                 <div class="flex items-center gap-2 w-full sm:w-auto">
                     <!-- Sort -->
-                    <div x-data="{ open: false }" class="relative" @mouseenter="open = true" @mouseleave="open = false">
+                    <div x-data="{
+                        open: false,
+                        selectedSort: @entangle('sort').live
+                    }" class="relative" @mouseenter="open = true" @mouseleave="open = false">
                         <button
                             class="filter-container flex items-center justify-between backdrop-blur-sm rounded-full px-2 sm:px-4 h-10 text-slate-800 hover:text-slate-900 shadow-inner whitespace-nowrap text-base sm:text-lg"
                             :aria-expanded="open">
@@ -70,11 +73,11 @@
                             @focusout="await $nextTick();!$el.contains($focus.focused()) && (open = false)">
                             @foreach ($sortOptions as $value => $label)
                                 <li>
-                                    <a href="#"
-                                        class="text-slate-800 hover:bg-slate-50 flex items-center p-2 rounded-lg text-base sm:text-lg"
-                                        wire:click.prevent="$set('sort', '{{ $value }}')">
+                                    <button
+                                        class="w-full text-left text-slate-800 hover:bg-slate-50 p-2 rounded-lg text-base sm:text-lg"
+                                        x-on:click="selectedSort = '{{ $value }}'; open = false">
                                         {{ $label }}
-                                    </a>
+                                    </button>
                                 </li>
                             @endforeach
                         </ul>

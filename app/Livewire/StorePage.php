@@ -203,8 +203,9 @@ class StorePage extends Component
         $this->selected_categories = implode(',', array_filter($categories));
     }
 
-    public function updatedSort()
+    public function updatedSort($value)
     {
-        $this->resetPage();
+        // The sorting will happen automatically in the render method
+        // No need to call resetPage() as it might cause unnecessary refreshes
     }
 }
