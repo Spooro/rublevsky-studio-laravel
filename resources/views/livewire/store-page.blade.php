@@ -1,5 +1,5 @@
 <div no-scrollbar>
-
+    <x-loader />
 
     <!-- filters -->
     <div x-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {
@@ -38,7 +38,7 @@
                         class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-0.5 sm:space-x-1 overflow-x-auto h-10">
                         @foreach ($categories as $category)
                             <button wire:click="toggleCategory({{ $category->id }})"
-                                class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-base sm:text-lg
+                                class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-sm sm:text-lg
                                        {{ in_array($category->slug, $selected_categories ? explode(',', $selected_categories) : [])
                                            ? 'bg-black text-white'
                                            : 'text-gray-700 hover:bg-black/10' }}">

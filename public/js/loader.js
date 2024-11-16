@@ -7,15 +7,23 @@ document.addEventListener('click', (e) => {
         const targetPath = new URL(link.href).pathname;
 
         if (mainRoutes.some(route => targetPath === route)) {
+            e.preventDefault(); // Prevent immediate navigation
+
             const loaderWrap = document.querySelector('.loader-wrap');
             if (loaderWrap) {
                 loaderWrap.style.display = 'flex';
+                loaderWrap.style.opacity = '0';
+                document.body.style.overflow = 'hidden';
+
                 gsap.to(loaderWrap, {
                     opacity: 1,
                     duration: 0.3,
-                    ease: 'power2.inOut'
+                    ease: 'power2.inOut',
+                    onComplete: () => {
+                        // Navigate to the new page after loader is visible
+                        window.location.href = link.href;
+                    }
                 });
-                document.body.style.overflow = 'hidden';
             }
         }
     }
@@ -23,8 +31,15 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('DOMContentLoaded', initLoader);
 document.addEventListener('livewire:navigated', () => {
-    // Reset loader state
+    // Check if loader exists on the current page
     const loaderWrap = document.querySelector('.loader-wrap');
+    if (!loaderWrap) {
+        // If no loader on page, ensure scroll is enabled
+        document.body.style.overflow = 'auto';
+        return;
+    }
+
+    // Reset loader state only if loader exists
     loaderWrap.style.transform = 'translateY(0)';
     loaderWrap.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -76,6 +91,13 @@ function onImagesLoaded(start) {
     const duration = end - start;
     const remainingTime = Math.max(MIN_TIME - duration, 0);
 
+    // Check if loader still exists (page hasn't changed)
+    const loaderWrap = document.querySelector('.loader-wrap');
+    if (!loaderWrap) {
+        document.body.style.overflow = 'auto';
+        return;
+    }
+
     gsap.to('.loader-wrap', {
         opacity: 0,
         delay: remainingTime / 1000,
@@ -84,6 +106,14 @@ function onImagesLoaded(start) {
         onComplete: () => {
             gsap.set('body', { overflow: 'auto' });
             gsap.set('.loader-wrap', { display: 'none' });
+
+            // Reset progress elements after loader is hidden
+            const progressBar = document.querySelector('.progress-bar');
+            const loaderPercent = document.querySelector('.loader-percent');
+            if (progressBar && loaderPercent) {
+                gsap.set(progressBar, { scaleX: 0 });
+                loaderPercent.textContent = '0%';
+            }
         }
     });
 }

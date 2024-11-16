@@ -42,7 +42,8 @@
                                 <video
                                     class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
                                     autoplay loop muted playsinline>
-                                    <source src="{{ Storage::disk('r2')->url('aps_iphone.mp4') }}" type="video/mp4">
+                                    <source src="{{ Storage::disk('r2')->url('aps_iphone.mp4') }}" type="video/mp4"
+                                        wire:ignore>
                                     Your browser does not support the video tag.
                                 </video>
                             </a>
@@ -55,7 +56,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline>
+                                    loop muted playsinline wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('aps_tablet.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -213,7 +214,7 @@
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 flex justify-center items-center">
                         <div class="max-w-3xl mx-auto text-center">
-                            <h3 class="large-text-description" reveal-type>This website was created using <strong
+                            <h3 class="large-text-description" reveal-type>Rublevsky Studio was created using <strong
                                     class="font-semibold">Laravel</strong>, <strong
                                     class="font-semibold">Alpine.js</strong>, and <strong
                                     class="font-semibold">Tailwind</strong></h3>
