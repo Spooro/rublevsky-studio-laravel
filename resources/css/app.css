@@ -656,3 +656,15 @@ body:has(.page-with-loader:not(.loader-hidden)) {
     align-items: center;
     justify-content: center;
 }
+
+video {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+}
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+}

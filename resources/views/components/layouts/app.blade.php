@@ -52,27 +52,6 @@
                     }
                 });
             }
-
-            // Clean up Swiper instances
-            // document.querySelectorAll('.swiper').forEach(swiperEl => {
-            //     if (swiperEl.swiper) {
-            //         swiperEl.swiper.destroy(true, true);
-            //     }
-            // });
-
-            // Reinitialize videos
-            document.querySelectorAll('video').forEach(video => {
-                // Reset the video source to force reload
-                const currentSrc = video.src;
-                video.src = '';
-                video.load();
-                video.src = currentSrc;
-
-                // If the video should autoplay, restart it
-                if (video.hasAttribute('autoplay')) {
-                    video.play().catch(e => console.log('Video autoplay failed:', e));
-                }
-            });
         });
     </script>
 </body>
