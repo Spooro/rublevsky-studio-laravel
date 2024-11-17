@@ -11,7 +11,7 @@
         content="{{ $metaDescription ?? 'Creative design studio specializing in web design and development, branding, photography, and screen printing.' }}">
 
 
-    @stack('head')
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -22,6 +22,7 @@
     <script src="{{ asset('js/loader.js') }}"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script defer src="https://unpkg.com/split-type"></script>
+    @stack('head')
 </head>
 
 <body style="background-color: white;">
