@@ -11,7 +11,7 @@
         content="{{ $metaDescription ?? 'Creative design studio specializing in web design and development, branding, photography, and screen printing.' }}">
 
 
-
+    @stack('head')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -22,16 +22,11 @@
     <script src="{{ asset('js/loader.js') }}"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script defer src="https://unpkg.com/split-type"></script>
-    @stack('head')
+
 </head>
 
 <body style="background-color: white;">
     @livewire('partials.navbar')
-
-
-
-
-
 
     <main>
         {{ $slot }}
@@ -44,22 +39,20 @@
     <script defer src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
     <script>
         document.addEventListener('livewire:navigated', () => {
-            // Clean up GSAP ScrollTriggers more selectively
+            // Clean up GSAP ScrollTriggers
             if (window.ScrollTrigger) {
-                ScrollTrigger.getAll().forEach(st => {
-                    // Only kill ScrollTriggers that aren't being immediately recreated
-                    if (!document.querySelector(st.vars.trigger)) {
-                        st.kill();
-                    }
-                });
+                ScrollTrigger.getAll().forEach(st => st.kill());
             }
 
             // Clean up Swiper instances
-            document.querySelectorAll('.swiper').forEach(swiperEl => {
-                if (swiperEl.swiper) {
-                    swiperEl.swiper.destroy(true, true);
-                }
-            });
+            if (typeof Swiper !== 'undefined') {
+                document.querySelectorAll('.swiper').forEach(swiperEl => {
+                    const swiperInstance = swiperEl.swiper;
+                    if (swiperInstance && swiperInstance.destroy) {
+                        swiperInstance.destroy(true, true);
+                    }
+                });
+            }
         });
     </script>
 </body>

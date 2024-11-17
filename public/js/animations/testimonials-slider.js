@@ -1,21 +1,20 @@
 function initializeTestimonialsSlider() {
-    // Ensure Swiper is available
-    if (typeof Swiper === 'undefined') {
-        console.warn('Swiper not loaded yet, retrying in 100ms');
-        setTimeout(initializeTestimonialsSlider, 100);
-        return;
-    }
-
     const sliderElement = document.querySelector('.tinyflow-slider');
     if (!sliderElement) return;
 
+    // Ensure Swiper is available
+    if (typeof Swiper === 'undefined') {
+        console.warn('Swiper not loaded');
+        return;
+    }
+
     // Destroy existing swiper instance if it exists
-    if (window.testimonialSwiper) {
+    if (window.testimonialSwiper && window.testimonialSwiper.destroy) {
         window.testimonialSwiper.destroy(true, true);
     }
 
-    const defaultDeg = 5;
-    try {
+    // Small delay to ensure DOM is fully ready
+    setTimeout(() => {
         window.testimonialSwiper = new Swiper(".tinyflow-slider", {
             slidesPerView: "auto",
             spaceBetween: 0,
@@ -51,34 +50,22 @@ function initializeTestimonialsSlider() {
                 }
             }
         });
+    }, 100);
 
-        // Add a flag to indicate successful initialization
-        window.testimonialSwiper.initialized = true;
-
-        console.log('Testimonials slider initialized successfully');
-    } catch (error) {
-        console.error('Error initializing testimonials slider:', error);
-    }
+    return window.testimonialSwiper;
 }
 
-// Initialize on script load
-initializeTestimonialsSlider();
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initializeTestimonialsSlider);
 
-// Re-initialize on Livewire navigation
+// Initialize on Livewire navigation
 document.addEventListener('livewire:navigated', () => {
-    // Check if we're on the work page
-    if (document.querySelector('.tinyflow-slider')) {
-        console.log('Reinitializing testimonials slider after navigation');
-        // Give DOM time to update
-        setTimeout(initializeTestimonialsSlider, 200);
-    }
+    setTimeout(initializeTestimonialsSlider, 100);
 });
 
-// Backup initialization for edge cases
-window.addEventListener('load', () => {
-    if (document.querySelector('.tinyflow-slider') &&
-        (!window.testimonialSwiper || !window.testimonialSwiper.initialized)) {
-        console.log('Backup initialization of testimonials slider');
-        initializeTestimonialsSlider();
+// Cleanup on navigation
+document.addEventListener('livewire:navigating', () => {
+    if (window.testimonialSwiper && window.testimonialSwiper.destroy) {
+        window.testimonialSwiper.destroy(true, true);
     }
 });
