@@ -7,7 +7,15 @@
     <script defer src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
 @endpush
 
-<div class="page-with-loader relative lg:pb-36">
+<div class="page-with-loader relative lg:pb-36" x-init="document.addEventListener('livewire:navigated', () => {
+    setTimeout(() => {
+        document.querySelectorAll('video').forEach(video => {
+            if (video.paused && video.hasAttribute('autoplay')) {
+                video.play().catch(e => console.log('Video autoplay failed:', e));
+            }
+        });
+    }, 100);
+})">
     <x-loader wire:ignore />
 
     <div class=" w-screen h-screen">
@@ -50,7 +58,7 @@
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video
                                     class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
-                                    autoplay loop muted playsinline>
+                                    autoplay loop muted playsinline loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('aps_iphone.mp4') }}" type="video/mp4"
                                         wire:ignore>
                                     Your browser does not support the video tag.
@@ -65,7 +73,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline wire:ignore>
+                                    loop muted playsinline wire:ignore loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('aps_tablet.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -117,7 +125,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline>
+                                    loop muted playsinline loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('bfloor_tablet.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -153,7 +161,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline>
+                                    loop muted playsinline loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('32karata_tablet.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -192,7 +200,7 @@
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video
                                     class="absolute inset-[3%] bottom-[4.5%] w-[94%] h-[92.5%] object-cover rounded-[12%]"
-                                    autoplay loop muted playsinline>
+                                    autoplay loop muted playsinline loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('femtech_iphone.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -207,7 +215,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline>
+                                    loop muted playsinline loading="lazy" x-init="$el.play().catch(e => console.log('Video play failed:', e))">
                                     <source src="{{ Storage::disk('r2')->url('femtech_tablet.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.

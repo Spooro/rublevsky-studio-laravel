@@ -28,6 +28,11 @@
 <body style="background-color: white;">
     @livewire('partials.navbar')
 
+
+
+
+
+
     <main>
         {{ $slot }}
     </main>
@@ -39,20 +44,35 @@
     <script defer src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
     <script>
         document.addEventListener('livewire:navigated', () => {
-            // Clean up GSAP ScrollTriggers
+            // Clean up GSAP ScrollTriggers more selectively
             if (window.ScrollTrigger) {
-                ScrollTrigger.getAll().forEach(st => st.kill());
-            }
-
-            // Clean up Swiper instances
-            if (typeof Swiper !== 'undefined') {
-                document.querySelectorAll('.swiper').forEach(swiperEl => {
-                    const swiperInstance = swiperEl.swiper;
-                    if (swiperInstance && swiperInstance.destroy) {
-                        swiperInstance.destroy(true, true);
+                ScrollTrigger.getAll().forEach(st => {
+                    if (!document.querySelector(st.vars.trigger)) {
+                        st.kill();
                     }
                 });
             }
+
+            // Clean up Swiper instances
+            // document.querySelectorAll('.swiper').forEach(swiperEl => {
+            //     if (swiperEl.swiper) {
+            //         swiperEl.swiper.destroy(true, true);
+            //     }
+            // });
+
+            // Reinitialize videos
+            document.querySelectorAll('video').forEach(video => {
+                // Reset the video source to force reload
+                const currentSrc = video.src;
+                video.src = '';
+                video.load();
+                video.src = currentSrc;
+
+                // If the video should autoplay, restart it
+                if (video.hasAttribute('autoplay')) {
+                    video.play().catch(e => console.log('Video autoplay failed:', e));
+                }
+            });
         });
     </script>
 </body>
