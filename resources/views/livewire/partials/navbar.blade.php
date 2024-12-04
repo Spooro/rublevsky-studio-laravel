@@ -21,17 +21,23 @@
         <!-- Main Menu (always centered) -->
         <nav class="inline-flex space-x-0.5 sm:space-x-1 glass-background rounded-full p-1">
             <a href="{{ route('work') }}" wire:navigate
-                class="px-2 sm:px-4 py-1 sm:py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'work' ? 'nav-link-active' : 'nav-link' }}">
+                class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'work' ? 'nav-link-active' : 'nav-link' }}">
                 Work
             </a>
             <a href="{{ route('contact') }}" wire:navigate
-                class="px-2 sm:px-4 py-1 sm:py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'contact' ? 'nav-link-active' : 'nav-link' }}">
+                class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'contact' ? 'nav-link-active' : 'nav-link' }}">
                 Contact
             </a>
             <a href="{{ route('store') }}" wire:navigate
-                class="px-2 sm:px-4 py-1 sm:py-1.5 rounded-full text-base sm:text-lg transition-colors duration-200 {{ $currentRoute === 'store' ? 'nav-link-active' : 'nav-link' }}">
+                class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'store' ? 'nav-link-active' : 'nav-link' }}">
                 Store
             </a>
+            {{-- Blog link temporarily hidden
+            <a href="{{ route('blog') }}" wire:navigate
+                class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'blog' ? 'nav-link-active' : 'nav-link' }}">
+                Blog
+            </a>
+            --}}
         </nav>
 
         <!-- Cart Button -->

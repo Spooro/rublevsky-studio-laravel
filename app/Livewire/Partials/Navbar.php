@@ -44,7 +44,17 @@ class Navbar extends Component
     private function checkIsStorePage()
     {
         $routeName = request()->route()->getName();
-        return in_array($routeName, ['store', 'store.product', 'cart', 'checkout', 'success', 'cancel', 'my-orders', 'my-orders.show', 'my-account']);
+        return in_array($routeName, [
+            'store',
+            'store.product',
+            'cart',
+            'checkout',
+            'success',
+            'cancel',
+            'my-orders',
+            'my-orders.show',
+            'my-account'
+        ]);
     }
 
     private function setAnchors()
@@ -67,6 +77,9 @@ class Navbar extends Component
                         'isAccent' => true
                     ],
                 ];
+                break;
+            case 'blog':
+                $this->anchors = []; // Add any blog-specific anchors here if needed
                 break;
             default:
                 $this->anchors = [];
