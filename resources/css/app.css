@@ -643,6 +643,7 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 /* LOADER */
+/*
 body:has(.page-with-loader:not(.loader-hidden)) {
     overflow: hidden;
 }
@@ -656,6 +657,7 @@ body:has(.page-with-loader:not(.loader-hidden)) {
     align-items: center;
     justify-content: center;
 }
+*/
 
 video {
     -webkit-backface-visibility: hidden;

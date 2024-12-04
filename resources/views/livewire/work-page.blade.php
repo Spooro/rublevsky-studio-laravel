@@ -7,8 +7,8 @@
     <script defer src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
 @endpush
 
-<div class="page-with-loader relative lg:pb-36" x-data="videoHandler">
-    <x-loader wire:ignore />
+<div class="relative lg:pb-36" x-data="videoHandler">
+    {{-- <x-loader wire:ignore /> --}}
 
     <div class=" w-screen h-screen">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>

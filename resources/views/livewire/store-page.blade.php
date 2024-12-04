@@ -1,5 +1,5 @@
-<div class="page-with-loader" no-scrollbar>
-    <x-loader wire:ignore />
+<div no-scrollbar>
+    {{-- <x-loader wire:ignore /> --}}
 
     <!-- filters -->
     <div wirex-data="{ showFilters: true, lastScrollTop: 0, scrollThreshold: 200 }" x-init="window.addEventListener('scroll', () => {

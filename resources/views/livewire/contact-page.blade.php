@@ -1,8 +1,8 @@
 @push('scripts')
     <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}" defer></script>
 @endpush
-<div class="page-with-loader relative pb-36">
-    <x-loader wire:ignore />
+<div class="relative pb-36">
+    {{-- <x-loader wire:ignore /> --}}
 
     <section class="pt-4 overflow-visible">
         <div class="flex flex-col md:grid md:grid-cols-3 md:gap-4 md:relative">
