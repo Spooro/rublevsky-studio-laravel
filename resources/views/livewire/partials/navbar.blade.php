@@ -32,15 +32,15 @@
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'store' ? 'nav-link-active' : 'nav-link' }}">
                 Store
             </a>
-            <a href="{{ route('blog') }}" wire:navigate
+            {{-- <a href="{{ route('blog') }}" wire:navigate
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'blog' ? 'nav-link-active' : 'nav-link' }}">
                 Blog
-            </a>
+            </a> --}}
 
         </nav>
 
         <!-- Cart Button -->
-        <div class="absolute left-full ml-1 sm:ml-2">
+        <div class="absolute left-full ml-1">
             @if ($isStorePage)
                 <a href="{{ route('cart') }}" wire:navigate
                     class="relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 glass-background rounded-full {{ $currentRoute === 'cart' ? 'nav-link-active' : 'nav-link' }}">
@@ -63,5 +63,25 @@
                 </a>
             @endif
         </div>
+
+        <!-- Progress Indicator -->
+        @if ($currentRoute === 'blog.post')
+            <div class="absolute left-full ml-1">
+                <div class="inline-flex glass-background rounded-full p-1">
+                    <div class="px-1 sm:px-2 py-1 text-sm sm:text-base text-black">
+                        <span class="progress"></span>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
+
+    <!-- Add this script section at the bottom -->
+    <script>
+        document.addEventListener('livewire:navigated', () => {
+            if (window.initScrollProgress) {
+                window.initScrollProgress();
+            }
+        });
+    </script>
 </div>

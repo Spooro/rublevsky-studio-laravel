@@ -670,3 +670,23 @@ video {
     position: relative;
     overflow: hidden;
 }
+
+
+
+/* BLOG POST PAGE */
+
+/* Progress Indicator Styles */
+@property --progress {
+    initial-value: 0;
+    syntax: "<number>";
+    inherits: true;
+}
+
+.progress::before {
+    content: counter(progress) "%";
+    counter-reset: progress var(--progress);
+    font-variant-numeric: tabular-nums;
+    min-width: 2.5rem;
+    display: inline-block;
+    text-align: center;
+}
