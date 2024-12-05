@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\BlogPost;
 use Livewire\Component;
 use Illuminate\View\View;
 
@@ -17,9 +18,12 @@ class BlogPage extends Component
 
     public function render(): View
     {
+        $posts = BlogPost::latest()->get();
+
         return view('livewire.blog-page', [
             'title' => $this->title,
-            'metaDescription' => $this->metaDescription
+            'metaDescription' => $this->metaDescription,
+            'posts' => $posts
         ]);
     }
 }

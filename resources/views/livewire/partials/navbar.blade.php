@@ -32,21 +32,20 @@
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'store' ? 'nav-link-active' : 'nav-link' }}">
                 Store
             </a>
-            {{-- Blog link temporarily hidden
             <a href="{{ route('blog') }}" wire:navigate
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'blog' ? 'nav-link-active' : 'nav-link' }}">
                 Blog
             </a>
-            --}}
+
         </nav>
 
         <!-- Cart Button -->
         <div class="absolute left-full ml-1 sm:ml-2">
             @if ($isStorePage)
                 <a href="{{ route('cart') }}" wire:navigate
-                    class="relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 glass-background rounded-full {{ $currentRoute === 'cart' ? 'nav-link-active' : 'nav-link' }}">
+                    class="relative flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 glass-background rounded-full {{ $currentRoute === 'cart' ? 'nav-link-active' : 'nav-link' }}">
                     <!-- Cart SVG Icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8" fill="none"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-6 sm:h-6" fill="none"
                         viewBox="0 0 33 30">
                         <path
                             d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
@@ -57,7 +56,7 @@
                     <!-- Cart Counter Badge -->
                     @if ($total_count > 0)
                         <span
-                            class="absolute top-0 right-0 -mt-1 -mr-1 bg-black text-white text-xs font-semibold w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full">
+                            class="absolute top-0 right-0 -mt-1 -mr-1 bg-black text-white text-xs font-semibold w-3.5 h-3.5 sm:w-4 sm:h-4 flex items-center justify-center rounded-full">
                             {{ $total_count }}
                         </span>
                     @endif

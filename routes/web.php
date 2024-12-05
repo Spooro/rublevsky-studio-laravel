@@ -34,6 +34,7 @@ Route::get('/order/{order_id}', OrderPage::class)->name('order.show');
 Route::get('/cancel', CancelPage::class)->name('cancel');
 
 Route::get('/blog', App\Livewire\BlogPage::class)->name('blog');
+Route::get('/blog/{slug}', App\Livewire\BlogPostPage::class)->name('blog.post');
 
 Route::get('/mail', function () {
     $order = Order::latest()->firstOrFail();
