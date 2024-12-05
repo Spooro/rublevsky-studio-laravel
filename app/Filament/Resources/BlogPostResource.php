@@ -42,10 +42,19 @@ class BlogPostResource extends Resource
                                     ->helperText('Optional - will be set automatically on update')
                                     ->nullable(),
                             ])->columns(2),
+                        Forms\Components\Select::make('blog_category_id')
+                            ->relationship('category', 'name')
+                            ->label('Category')
+                            ->searchable()
+                            ->preload(),
                     ])->columns(2),
-                Forms\Components\FileUpload::make('featured_image')
+                Forms\Components\FileUpload::make('images')
+                    ->multiple()
                     ->image()
-                    ->directory('blog-images'),
+                    ->reorderable()
+                    ->directory('blog-images')
+                    ->imageResizeMode('contain')
+                    ->preserveFilenames(),
                 Forms\Components\RichEditor::make('body')
                     ->required()
                     ->columnSpanFull()
@@ -61,7 +70,10 @@ class BlogPostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('featured_image'),
+                Tables\Columns\ImageColumn::make('images')
+                    ->circular(false)
+                    ->stacked()
+                    ->limit(3),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
@@ -69,10 +81,14 @@ class BlogPostResource extends Resource
                     ->dateTime()
                     ->label('Last Edited')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->sortable(),
             ])
             ->defaultSort('published_at', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('blog_category_id')
+                    ->relationship('category', 'name')
+                    ->label('Category'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

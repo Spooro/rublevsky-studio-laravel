@@ -14,14 +14,16 @@ class BlogPost extends Model
         'title',
         'slug',
         'body',
-        'featured_image',
+        'images',
         'published_at',
         'last_edited_at',
+        'blog_category_id',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
         'last_edited_at' => 'datetime',
+        'images' => 'array',
     ];
 
     protected static function boot()
@@ -37,7 +39,7 @@ class BlogPost extends Model
         });
 
         static::updating(function ($post) {
-            if ($post->isDirty(['title', 'body', 'featured_image'])) {
+            if ($post->isDirty(['title', 'body', 'images'])) {
                 $post->last_edited_at = now();
             }
         });
@@ -51,5 +53,10 @@ class BlogPost extends Model
     public function getIsEditedAttribute()
     {
         return $this->last_edited_at && $this->last_edited_at->gt($this->published_at);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'blog_category_id');
     }
 }

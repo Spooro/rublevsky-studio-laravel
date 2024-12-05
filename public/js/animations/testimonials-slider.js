@@ -1,14 +1,26 @@
-function initializeTestimonialsSlider() {
-    const sliderElement = document.querySelector('.tinyflow-slider');
-    if (!sliderElement) return;
+let testimonialSwiper;
 
-    // Destroy existing swiper instance if it exists
-    if (window.testimonialSwiper) {
-        window.testimonialSwiper.destroy(true, true);
+function initializeTestimonialsSlider() {
+    // Wait for DOM to be fully ready
+    if (typeof Swiper === 'undefined') {
+        console.warn('Swiper not loaded yet');
+        return;
+    }
+
+    const sliderElement = document.querySelector('.tinyflow-slider');
+    if (!sliderElement) {
+        console.warn('Slider element not found');
+        return;
+    }
+
+    // Clean up existing instance
+    if (testimonialSwiper) {
+        testimonialSwiper.destroy(true, true);
+        testimonialSwiper = null;
     }
 
     const defaultDeg = 5;
-    window.testimonialSwiper = new Swiper(".tinyflow-slider", {
+    testimonialSwiper = new Swiper(".tinyflow-slider", {
         slidesPerView: "auto",
         spaceBetween: 0,
         threshold: 0,
@@ -44,12 +56,32 @@ function initializeTestimonialsSlider() {
         }
     });
 
-    return window.testimonialSwiper;
+    return testimonialSwiper;
 }
 
-// Initialize on page load and Livewire navigation
-document.addEventListener('DOMContentLoaded', initializeTestimonialsSlider);
+// Cleanup function
+function destroyTestimonialsSlider() {
+    if (testimonialSwiper) {
+        testimonialSwiper.destroy(true, true);
+        testimonialSwiper = null;
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initializeTestimonialsSlider, 100);
+});
+
+// Handle Livewire navigation
 document.addEventListener('livewire:navigated', () => {
-    // Small delay to ensure DOM is ready
-    setTimeout(initializeTestimonialsSlider, 0);
+    // First destroy the old instance
+    destroyTestimonialsSlider();
+
+    // Then initialize new instance with a delay
+    setTimeout(initializeTestimonialsSlider, 100);
+});
+
+// Cleanup on navigation away
+document.addEventListener('livewire:navigating', () => {
+    destroyTestimonialsSlider();
 });

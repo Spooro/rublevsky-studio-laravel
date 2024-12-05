@@ -3,27 +3,53 @@
 namespace App\Livewire;
 
 use App\Models\BlogPost;
+use App\Models\BlogCategory;
 use Livewire\Component;
-use Illuminate\View\View;
+use Livewire\Attributes\Url;
 
 class BlogPage extends Component
 {
-    public $title = "Blog | Rublevsky Studio";
-    public $metaDescription = "Read the latest articles and insights from Rublevsky Studio about design, development, and creative processes.";
+    #[Url(as: 'categories')]
+    public $selected_categories = '';
 
-    public function mount()
+    public function setCategory($categoryId)
     {
-        // Add any initialization logic here
+        if ($categoryId === null) {
+            $this->selected_categories = '';
+            return;
+        }
+
+        $categorySlug = $this->getCategorySlugFromId($categoryId);
+        $categories = $this->selected_categories ? explode(',', $this->selected_categories) : [];
+
+        if (($key = array_search($categorySlug, $categories)) !== false) {
+            unset($categories[$key]);
+        } else {
+            $categories[] = $categorySlug;
+        }
+
+        $this->selected_categories = implode(',', array_filter($categories));
     }
 
-    public function render(): View
+    private function getCategorySlugFromId($id)
     {
-        $posts = BlogPost::latest()->get();
+        return BlogCategory::where('id', $id)->value('slug');
+    }
+
+    public function render()
+    {
+        $postsQuery = BlogPost::query()
+            ->when($this->selected_categories, function ($query) {
+                $categoryIds = BlogCategory::whereIn('slug', explode(',', $this->selected_categories))
+                    ->pluck('id')
+                    ->toArray();
+                $query->whereIn('blog_category_id', $categoryIds);
+            })
+            ->orderBy('published_at', 'desc');
 
         return view('livewire.blog-page', [
-            'title' => $this->title,
-            'metaDescription' => $this->metaDescription,
-            'posts' => $posts
+            'posts' => $postsQuery->get(),
+            'categories' => BlogCategory::where('is_active', true)->get(),
         ]);
     }
 }
