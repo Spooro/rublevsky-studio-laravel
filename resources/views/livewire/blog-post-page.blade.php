@@ -4,12 +4,15 @@
             <h1 class="mb-8">{{ $post->title }}</h1>
 
             <div class="text-sm text-gray-500 mb-8">
-                {{ $post->created_at->format('F j, Y') }}
+                Published {{ $post->display_date }}
+                @if ($post->is_edited)
+                    · Last edited {{ $post->last_edited_at->format('F j, Y') }}
+                @endif
             </div>
 
             @if ($post->featured_image)
                 <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}"
-                    class="w-full h-64 object-cover rounded-lg mb-8">
+                    class="w-full h-auto rounded-lg mb-8 max-w-md">
             @endif
 
             <div class="prose prose-lg max-w-none">

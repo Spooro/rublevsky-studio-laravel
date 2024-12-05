@@ -21,14 +21,28 @@ class BlogPostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(fn(string $state, Forms\Set $set) => $set('slug', Str::slug($state))),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Section::make('Post Details')
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(string $state, Forms\Set $set) => $set('slug', Str::slug($state))),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Grid::make()
+                            ->schema([
+                                Forms\Components\DateTimePicker::make('published_at')
+                                    ->label('Publication Date')
+                                    ->default(now())
+                                    ->required(),
+                                Forms\Components\DateTimePicker::make('last_edited_at')
+                                    ->label('Last Edited')
+                                    ->helperText('Optional - will be set automatically on update')
+                                    ->nullable(),
+                            ])->columns(2),
+                    ])->columns(2),
                 Forms\Components\FileUpload::make('featured_image')
                     ->image()
                     ->directory('blog-images'),
@@ -45,11 +59,15 @@ class BlogPostResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('featured_image'),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('last_edited_at')
+                    ->dateTime()
+                    ->label('Last Edited')
+                    ->sortable(),
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('published_at', 'desc')
             ->filters([
                 //
             ])
