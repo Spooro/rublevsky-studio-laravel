@@ -1,4 +1,14 @@
 <div>
+    @push('head')
+        <script defer src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js">
+        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    @endpush
+
+    @push('scripts')
+        <script defer src="{{ asset('js/animations/blog-images-slider.js') }}"></script>
+    @endpush
+
     <section class="pt-24 sm:pt-32">
         <div class="container mx-auto">
             <!-- Filters Section -->
@@ -32,13 +42,19 @@
                         <article class="prose prose-lg max-w-none">
                             <!-- Post Header -->
                             <div class="mb-8">
-                                @if ($post->images)
-                                    <div class="space-y-4">
-                                        @foreach ($post->images as $image)
-                                            <img src="{{ Storage::url($image) }}"
-                                                alt="{{ $post->title }} - Image {{ $loop->iteration }}"
-                                                class="w-full rounded-lg">
-                                        @endforeach
+                                @if ($post->images && count($post->images) > 0)
+                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw]">
+                                        <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($post->images as $image)
+                                                    <div class="swiper-slide">
+                                                        <img src="{{ Storage::url($image) }}"
+                                                            alt="{{ $post->title }} - Image {{ $loop->iteration }}"
+                                                            class="w-full h-full object-cover">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                 @endif
                                 <h2 class="!mb-2 mt-8">{{ $post->title }}</h2>
@@ -100,6 +116,57 @@
             right: 0;
             height: 1px;
             background: linear-gradient(to right, transparent, #e5e7eb 35%, #e5e7eb 65%, transparent);
+        }
+
+        .blog-images-slider {
+            width: 100%;
+            padding: 60px 0;
+            overflow: visible;
+        }
+
+        .blog-images-slider .swiper-slide {
+            width: auto;
+            max-width: 85%;
+
+            @media (max-width: 768px) {
+                max-width: 70%;
+            }
+
+            transition: transform 0.3s;
+            overflow: hidden;
+            transform-origin: center;
+            opacity: 0.4;
+            transition: all 0.3s ease;
+            height: auto;
+            max-height: 30rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-images-slider .swiper-slide-active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .blog-images-slider .swiper-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 1;
+            box-shadow: 0 0 0 100vmax currentColor;
+            color: white;
+        }
+
+        .blog-images-slider .swiper-slide img {
+            width: auto;
+            height: auto;
+            max-height: 30rem;
+            max-width: 100%;
+            display: block;
+            border-radius: 8px;
         }
     </style>
 </div>
