@@ -8,4 +8,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    optimizeDeps: {
+        exclude: ['@rollup/rollup-linux-x64-gnu']
+    },
+    build: {
+        commonjsOptions: {
+            include: [/node_modules/],
+            exclude: ['@rollup/rollup-linux-x64-gnu']
+        }
+    }
 });

@@ -675,7 +675,7 @@ video {
 
 /* BLOG POST PAGE */
 
-/* Progress Indicator Styles */
+/* Progress Indicator Styles
 @property --progress {
     initial-value: 0;
     syntax: "<number>";
@@ -690,3 +690,4 @@ video {
     display: inline-block;
     text-align: center;
 }
+*/

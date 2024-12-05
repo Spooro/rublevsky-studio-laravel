@@ -1,25 +1,36 @@
 function initScrollProgress() {
     const content = document.querySelector('.content');
+    const progressElement = document.querySelector('.progress');
 
-    if (!content) return;
+    if (!content || !progressElement) return;
 
     const calculateProgress = () => {
-        const windowHeight = window.innerHeight;
         const scrollTop = window.scrollY;
-        const scrollHeight = content.scrollHeight - windowHeight;
-        const progress = Math.round((scrollTop / scrollHeight) * 100);
+        const docHeight = content.offsetHeight;
+        const winHeight = window.innerHeight;
+        const scrollPercent = scrollTop / (docHeight - winHeight);
+        const scrollPercentRounded = Math.round(scrollPercent * 100);
 
-        document.documentElement.style.setProperty('--progress',
-            Math.min(Math.max(progress, 0), 100));
+        // Ensure the percentage stays between 0 and 100
+        const finalPercent = Math.min(Math.max(scrollPercentRounded, 0), 100);
+        progressElement.textContent = `${finalPercent}%`;
     };
 
-    window.addEventListener('scroll', calculateProgress);
+    // Use requestAnimationFrame for smoother updates
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                calculateProgress();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
     window.addEventListener('resize', calculateProgress);
     calculateProgress();
 }
 
-// Initialize on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', initScrollProgress);
-
-// Export for Livewire navigation
 window.initScrollProgress = initScrollProgress;
