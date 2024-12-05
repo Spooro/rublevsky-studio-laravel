@@ -48,7 +48,10 @@ class BlogPostResource extends Resource
                     ->directory('blog-images'),
                 Forms\Components\RichEditor::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsDirectory('blog-content')
+                    ->fileAttachmentsVisibility('public'),
             ]);
     }
 
