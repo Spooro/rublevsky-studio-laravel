@@ -84,7 +84,16 @@
                             </div>
 
                             <!-- Post Content -->
-                            <div class="prose-img:rounded-lg prose-a:text-blue-600">
+                            <div
+                                class="prose-img:rounded-lg prose-a:text-blue-600
+                                prose
+                                prose-lg
+                                prose-p:text-black
+                                prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-black
+                                prose-h2:text-2xl prose-h2:mb-4 prose-h2:text-black
+                                prose-h3:text-xl prose-h3:mb-3 prose-h3:text-black
+                                prose-h4:text-lg prose-h4:mb-2 prose-h4:text-black
+                                prose-h5:text-lg prose-h5:mt-8 prose-h5:mb-0 prose-h5:text-black">
                                 {!! $post->body !!}
                             </div>
 
