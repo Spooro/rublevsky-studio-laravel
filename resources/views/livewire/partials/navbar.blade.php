@@ -32,10 +32,10 @@
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'store' ? 'nav-link-active' : 'nav-link' }}">
                 Store
             </a>
-            {{-- <a href="{{ route('blog') }}" wire:navigate
+            <a href="{{ route('blog') }}" wire:navigate
                 class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 {{ $currentRoute === 'blog' ? 'nav-link-active' : 'nav-link' }}">
                 Blog
-            </a> --}}
+            </a>
 
         </nav>
 

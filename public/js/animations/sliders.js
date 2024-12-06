@@ -101,6 +101,11 @@ class SliderManager {
                     depth: 100,
                     modifier: 1,
                     slideShadows: false,
+                },
+                on: {
+                    init: function() {
+                        this.slideTo(0, 0, false);
+                    }
                 }
             });
 

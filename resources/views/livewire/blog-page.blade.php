@@ -20,7 +20,7 @@
 
     <section class="pt-24 sm:pt-32">
         <div class="mx-auto">
-            <!-- Filters Section -->
+            {{-- <!--Filters Section -->
             <div
                 class="sticky top-0 left-0 right-0 z-10 mb-6 bg-transparent backdrop-blur-md w-full transition-transform duration-300 ease-in-out">
                 <div class="max-w-[95rem] mx-auto px-4 py-2">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-
+--}}
             <!-- Blog Feed -->
             @if ($posts->count() > 0)
                 <div class="max-w-3xl mx-auto space-y-16">
