@@ -2,19 +2,24 @@
     class="fixed inset-x-0 bottom-0 flex flex-col items-center z-[9999] transition-all duration-300 ease-in-out px-2 pb-2 pointer-events-none">
     <!-- Anchors -->
     @if (count($anchors) > 0)
-        <div class="flex flex-wrap justify-center gap-1 mb-0.5 sm:mb-1 pointer-events-auto">
-            @foreach ($anchors as $anchor)
-                <a href="{{ $anchor['href'] }}"
-                    @if (!($anchor['isExternal'] ?? false)) onclick="event.preventDefault(); document.querySelector('{{ $anchor['href'] }}').scrollIntoView({ behavior: 'smooth' })" @endif
-                    target="{{ $anchor['isExternal'] ?? false ? '_blank' : '_self' }}"
-                    class="px-4 py-1.5 rounded-full smaller-text transition-colors duration-200
-                        {{ $anchor['isAccent'] ?? false
-                            ? 'bg-[var(--accent-color)] text-black hover:bg-black hover:text-[var(--accent-color)]'
-                            : 'glass-background text-black hover:bg-gray-400/50' }}">
-                    {{ $anchor['label'] }}
-                </a>
-            @endforeach
-        </div>
+        <nav class="inline-flex glass-background rounded-full p-1 mb-0.5 sm:mb-1 pointer-events-auto relative">
+            <ul class="flex space-x-0.5 sm:space-x-1">
+                @foreach ($anchors as $anchor)
+                    <li>
+                        <a href="{{ $anchor['href'] }}"
+                            @if (!($anchor['isExternal'] ?? false)) onclick="event.preventDefault(); document.querySelector('{{ $anchor['href'] }}').scrollIntoView({ behavior: 'smooth' })" @endif
+                            target="{{ $anchor['isExternal'] ?? false ? '_blank' : '_self' }}"
+                            class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 anchor-link
+                                {{ $anchor['isAccent'] ?? false ? 'accent-anchor' : '' }}">
+                            <span>{{ $anchor['label'] }}</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="indicator-bar">
+                <div class="indicator"></div>
+            </div>
+        </nav>
     @endif
 
     <div class="relative inline-flex items-center pointer-events-auto">

@@ -31,6 +31,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    timeline-scope: --web-vt, --branding-vt, --photos-vt, --posters-vt;
 }
 
 main {
@@ -691,3 +692,118 @@ video {
     text-align: center;
 }
 */
+
+/* Anchor link styles */
+.anchor-link {
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    /* Make text white and use difference blend mode */
+    color: white;
+    mix-blend-mode: difference;
+}
+
+.anchor-link:not(.accent-anchor):hover {
+    background-color: rgba(156, 163, 175, 0.5);
+}
+
+.anchor-link span {
+    display: inline-block;
+    transition: transform 0.2s;
+}
+
+/* Update the active state styles */
+@keyframes change {
+    0%, 100% {
+        color: black;
+    }
+    50% {
+        color: white;
+        --active: 1;
+
+    }
+
+}
+
+/* Anchor names and timelines */
+[href="#web"] {
+    anchor-name: --web;
+    animation-timeline: --web-vt;
+}
+[href="#branding"] {
+    anchor-name: --branding;
+    animation-timeline: --branding-vt;
+}
+[href="#photos"] {
+    anchor-name: --photos;
+    animation-timeline: --photos-vt;
+}
+[href="#posters"] {
+    anchor-name: --posters;
+    animation-timeline: --posters-vt;
+}
+
+/* Section view timelines */
+#web {
+    view-timeline-name: --web-vt;
+}
+#branding {
+    view-timeline-name: --branding-vt;
+}
+#photos {
+    view-timeline-name: --photos-vt;
+}
+#posters {
+    view-timeline-name: --posters-vt;
+}
+
+/* Indicator styles */
+.indicator {
+    position: absolute;
+    top: anchor(--web top);
+    bottom: anchor(--web bottom);
+    border-radius: 9999px;
+    left: calc(
+        anchor(--web left) +
+        ((anchor(--branding left) - anchor(--web left)) * var(--branding-show, 0)) +
+        ((anchor(--photos left) - anchor(--branding left)) * var(--photos-show, 0)) +
+        ((anchor(--posters left) - anchor(--photos left)) * var(--posters-show, 0))
+    );
+    right: calc(
+        anchor(--web right) -
+        ((anchor(--web right) - anchor(--branding right)) * var(--branding-show, 0)) -
+        ((anchor(--branding right) - anchor(--photos right)) * var(--photos-show, 0)) -
+        ((anchor(--photos right) - anchor(--posters right)) * var(--posters-show, 0))
+    );
+    background: black;
+    transition: all 0.2s linear;
+    z-index: 0;
+}
+
+.indicator-bar {
+    animation: indicate-branding, indicate-photos, indicate-posters;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-timeline: --branding-vt, --photos-vt, --posters-vt;
+    animation-range: entry;
+}
+
+@keyframes indicate-branding {
+    to {
+        --branding-show: 1;
+    }
+}
+
+@keyframes indicate-photos {
+    to {
+        --photos-show: 1;
+    }
+}
+
+@keyframes indicate-posters {
+    to {
+        --posters-show: 1;
+    }
+}
+

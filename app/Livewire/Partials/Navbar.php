@@ -65,6 +65,7 @@ class Navbar extends Component
                     ['label' => 'Web', 'href' => '#web'],
                     ['label' => 'Branding', 'href' => '#branding'],
                     ['label' => 'Photos', 'href' => '#photos'],
+                    ['label' => 'Posters', 'href' => '#posters'],
                 ];
                 break;
             case 'contact':
