@@ -52,7 +52,8 @@
                             <!-- Post Header -->
                             <div class="mb-8">
                                 @if ($post->images && count($post->images) > 0)
-                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden">
+                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden"
+                                        wire:ignore>
                                         <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
                                             <div class="swiper-wrapper">
                                                 @foreach ($post->images as $image)
