@@ -5,9 +5,8 @@
 @endpush
 
 @push('scripts')
-    <script defer src="{{ asset('js/animations/testimonials-slider.js') }}"></script>
+    <script defer src="{{ asset('js/animations/sliders.js') }}"></script>
 @endpush
-
 <div class="relative lg:pb-36" x-data="videoHandler">
     {{-- <x-loader wire:ignore /> --}}
 

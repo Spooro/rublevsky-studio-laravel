@@ -1,4 +1,13 @@
 <div>
+    <style>
+        /* Prevent horizontal scroll */
+        html,
+        body {
+            overflow-x: hidden;
+            position: relative;
+            width: 100%;
+        }
+    </style>
     @push('head')
         <script defer src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js">
         </script>
@@ -6,11 +15,11 @@
     @endpush
 
     @push('scripts')
-        <script defer src="{{ asset('js/animations/blog-images-slider.js') }}"></script>
+        <script defer src="{{ asset('js/animations/sliders.js') }}"></script>
     @endpush
 
     <section class="pt-24 sm:pt-32">
-        <div class="container mx-auto">
+        <div class="mx-auto">
             <!-- Filters Section -->
             <div
                 class="sticky top-0 left-0 right-0 z-10 mb-6 bg-transparent backdrop-blur-md w-full transition-transform duration-300 ease-in-out">
@@ -43,7 +52,7 @@
                             <!-- Post Header -->
                             <div class="mb-8">
                                 @if ($post->images && count($post->images) > 0)
-                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw]">
+                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden">
                                         <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
                                             <div class="swiper-wrapper">
                                                 @foreach ($post->images as $image)
@@ -120,7 +129,7 @@
 
         .blog-images-slider {
             width: 100%;
-            padding: 60px 0;
+            padding: 0px 0;
             overflow: visible;
         }
 
@@ -130,6 +139,7 @@
 
             @media (max-width: 768px) {
                 max-width: 70%;
+                max-height: 25rem;
             }
 
             transition: transform 0.3s;
@@ -164,6 +174,11 @@
             width: auto;
             height: auto;
             max-height: 30rem;
+
+            @media (max-width: 768px) {
+                max-height: 25rem;
+            }
+
             max-width: 100%;
             display: block;
             border-radius: 8px;
