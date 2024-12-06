@@ -163,6 +163,61 @@
                 </div>
             </div>
 
+            {{-- After 32KARATA project and before FemTech project, add: --}}
+
+            <div class="mb-52">
+                <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
+                    <div class="col-span-12 lg:col-span-8 mb-6 lg:mb-0">
+                        <h3 class="large-text-description" reveal-type>Website design and development for InkSoul, a
+                            Tattoo studio with a grounded, personalized approach, specializing in graphical and
+                            ornamental styles</h3>
+                    </div>
+                    <div class="col-span-12 lg:col-span-4 flex flex-col lg:items-end mb-6 lg:mb-0">
+                        <h4>Tools used:</h4>
+                        <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
+                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
+                                class="h-[1.8rem] logo-hover">
+                            <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                                class="h-[1.8rem] logo-hover">
+                        </div>
+                        <h3><a href="https://inksoul.webflow.io/" class="blur-link" target="_blank">Live website</a>
+                        </h3>
+                    </div>
+
+                    <div class="col-span-12 lg:col-span-4 mb-6 lg:mb-0">
+                        <div class="max-w-[300px] mx-auto lg:max-w-none">
+                            <a href="https://inksoul.webflow.io/" class="block w-full relative aspect-[9/19.5]"
+                                target="_blank">
+                                <img src="{{ Storage::disk('r2')->url('iphone-mockup.svg') }}" alt="iPhone Mockup"
+                                    class="absolute inset-0 w-full h-full object-contain z-10">
+                                <video
+                                    class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
+                                    autoplay loop muted playsinline loading="lazy" x-ref="video" wire:ignore>
+                                    <source src="{{ Storage::disk('r2')->url('inksoul-iphone.mp4') }}"
+                                        type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-span-8">
+                        <div class="lg:sticky lg:top-8">
+                            <a href="https://inksoul.webflow.io/" class="block w-full relative aspect-[4/3]"
+                                target="_blank">
+                                <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
+                                    class="absolute inset-0 w-full h-full object-contain z-10">
+                                <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
+                                    loop muted playsinline loading="lazy" x-ref="video">
+                                    <source src="{{ Storage::disk('r2')->url('inksoul-tablet.mp4') }}"
+                                        type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- FemTech Project --}}
             <div class="mb-52">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
@@ -221,11 +276,12 @@
             <div class="mb-0">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:gap-y-6">
                     <div class="col-span-12 flex justify-center items-center">
-                        <div class="max-w-3xl mx-auto text-center">
-                            <h3 class="large-text-description" reveal-type>Rublevsky Studio was created using <strong
-                                    class="font-semibold">Laravel</strong>, <strong
+                        <div class="mx-auto text-center">
+                            <h2 class="large-text-description" reveal-type>Rublevsky Studio was created using
+                                <strong class="font-semibold">Laravel</strong>, <strong
                                     class="font-semibold">Alpine.js</strong>, and <strong
-                                    class="font-semibold">Tailwind</strong></h3>
+                                    class="font-semibold">Tailwind</strong>
+                            </h2>
                         </div>
                     </div>
                 </div>

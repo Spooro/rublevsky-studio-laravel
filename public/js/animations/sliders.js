@@ -47,6 +47,11 @@ class SliderManager {
                 enabled: true,
                 onlyInViewport: true,
             },
+            mousewheel: {
+                forceToAxis: true,
+                sensitivity: 1,
+                releaseOnEdges: true,
+            },
             effect: "coverflow",
             coverflowEffect: {
                 rotate: 0,
