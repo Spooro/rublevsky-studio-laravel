@@ -885,4 +885,14 @@ video {
     }
 }
 
+.tinyflow-slider .swiper-slide {
+    width: auto;
+    max-width: 85%;
+    transition: all 0.3s ease;
+}
+
+.tinyflow-slider .swiper-slide-active {
+    opacity: 1;
+}
+
 
