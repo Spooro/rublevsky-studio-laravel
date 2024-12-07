@@ -81,40 +81,45 @@ class SliderManager {
 
         document.querySelectorAll('.blog-images-slider').forEach(element => {
             const postId = element.dataset.postId;
-            const swiper = new Swiper(element, {
-                slidesPerView: "auto",
-                spaceBetween: -100,
-                threshold: 0,
-                centeredSlides: true,
-                grabCursor: true,
-                loop: false,
-                initialSlide: 0,
-                keyboard: {
-                    enabled: true,
-                    onlyInViewport: true,
-                },
-                mousewheel: {
-                    forceToAxis: true,
-                    sensitivity: 0.01,
-                    releaseOnEdges: true,
-                    thresholdDelta: 5
-                },
-                effect: "coverflow",
-                coverflowEffect: {
-                    rotate: 5,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 1,
-                    slideShadows: false,
-                },
-                on: {
-                    init: function() {
-                        this.slideTo(0, 0, false);
-                    }
-                }
-            });
 
-            this.blogImageSwipers.push({ id: postId, instance: swiper });
+            // Wait for images to load before initializing Swiper
+            const images = element.querySelectorAll('img');
+            Promise.all(Array.from(images).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                });
+            })).then(() => {
+                const swiper = new Swiper(element, {
+                    slidesPerView: "auto",
+                    spaceBetween: -100,
+                    threshold: 0,
+                    centeredSlides: true,
+                    grabCursor: true,
+                    loop: false,
+                    initialSlide: 0,
+                    keyboard: {
+                        enabled: true,
+                        onlyInViewport: true,
+                    },
+                    mousewheel: {
+                        forceToAxis: true,
+                        sensitivity: 0.01,
+                        releaseOnEdges: true,
+                        thresholdDelta: 5
+                    },
+                    effect: "coverflow",
+                    coverflowEffect: {
+                        rotate: 5,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: false,
+                    }
+                });
+
+                this.blogImageSwipers.push({ id: postId, instance: swiper });
+            });
         });
     }
 

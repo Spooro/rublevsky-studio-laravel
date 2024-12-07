@@ -8,15 +8,6 @@
             width: 100%;
         }
     </style>
-    @push('head')
-        <script defer src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js">
-        </script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    @endpush
-
-    @push('scripts')
-        <script defer src="{{ asset('js/animations/sliders.js') }}"></script>
-    @endpush
 
     <section class="pt-24 sm:pt-32">
         <div class="mx-auto">
