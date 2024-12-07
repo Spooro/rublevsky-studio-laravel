@@ -49,8 +49,11 @@ class SliderManager {
             },
             mousewheel: {
                 forceToAxis: true,
-                sensitivity: 1,
+                sensitivity: 0.9,
                 releaseOnEdges: true,
+                thresholdDelta: 5,
+                thresholdTime: 50,
+                eventsTarget: '.tinyflow-slider'
             },
             effect: "coverflow",
             coverflowEffect: {

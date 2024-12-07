@@ -886,6 +886,8 @@ video {
 }
 
 .tinyflow-slider .swiper-slide {
+    padding-bottom: 2rem;
+    padding-top: 2rem;
     width: auto;
     max-width: 85%;
     transition: all 0.3s ease;
