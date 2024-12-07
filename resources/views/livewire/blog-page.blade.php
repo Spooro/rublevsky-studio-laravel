@@ -11,35 +11,11 @@
 
     <section class="pt-24 sm:pt-32">
         <div class="mx-auto">
-            {{-- <!--Filters Section -->
-            <div
-                class="sticky top-0 left-0 right-0 z-10 mb-6 bg-transparent backdrop-blur-md w-full transition-transform duration-300 ease-in-out">
-                <div class="max-w-[95rem] mx-auto px-4 py-2">
-                    <div class="flex flex-wrap items-center justify-between gap-2 transition-all duration-300">
-                        <!-- Categories -->
-                        <div class="w-full sm:w-auto">
-                            <div
-                                class="filter-container bg-white backdrop-blur-sm rounded-full inline-flex space-x-0.5 sm:space-x-1 overflow-x-auto h-10">
-                                @foreach ($categories as $category)
-                                    <button wire:click="setCategory({{ $category->id }})"
-                                        class="px-2 sm:px-4 h-full rounded-full transition-colors duration-200 whitespace-nowrap text-sm sm:text-lg
-                                            {{ in_array($category->slug, $selected_categories ? explode(',', $selected_categories) : [])
-                                                ? 'bg-black text-white'
-                                                : 'text-gray-700 hover:bg-black/10' }}">
-                                        {{ $category->name }}
-                                    </button>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
---}}
             <!-- Blog Feed -->
             @if ($posts->count() > 0)
                 <div class="max-w-3xl mx-auto space-y-16">
                     @foreach ($posts as $post)
-                        <article class="prose prose-lg max-w-none">
+                        <article class="prose prose-lg max-w-none" x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
                             <!-- Post Header -->
                             <div class="mb-8">
                                 @if ($post->images && count($post->images) > 0)
@@ -51,11 +27,16 @@
                                                     <div class="swiper-slide">
                                                         <img src="{{ Storage::url($image) }}"
                                                             alt="{{ $post->title }} - Image {{ $loop->iteration }}"
-                                                            class="w-full h-full object-cover">
+                                                            class="w-full h-full object-cover cursor-zoom-in"
+                                                            @click="openGallery(); currentIndex = {{ $loop->index }}">
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
+                                    </div>
+                                    <div x-show="isOpen" class="fixed inset-0 z-[999999999] bg-black bg-opacity-[0.92]"
+                                        x-cloak>
+                                        <x-lightbox-gallery />
                                     </div>
                                 @endif
                                 <h2 class="!mb-2 mt-8">{{ $post->title }}</h2>
@@ -185,4 +166,37 @@
             border-radius: 8px;
         }
     </style>
+
+    <!-- Add this script at the bottom of the file -->
+    <script>
+        function getImageUrl(image) {
+            return `{{ Storage::url('') }}${image}`;
+        }
+
+        function productGallery(images, initialImage) {
+            return {
+                images: images,
+                selectedImage: initialImage,
+                isOpen: false,
+                currentIndex: 0,
+                get currentImage() {
+                    return this.images[this.currentIndex];
+                },
+                openGallery() {
+                    this.isOpen = true;
+                },
+                closeGallery() {
+                    this.isOpen = false;
+                },
+                nextImage() {
+                    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                    this.selectedImage = this.images[this.currentIndex];
+                },
+                prevImage() {
+                    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                    this.selectedImage = this.images[this.currentIndex];
+                }
+            };
+        }
+    </script>
 </div>
