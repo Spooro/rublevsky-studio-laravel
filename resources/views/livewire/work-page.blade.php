@@ -1,10 +1,14 @@
 <div class="relative lg:pb-36" x-data="videoHandler">
     {{-- <x-loader wire:ignore /> --}}
 
-    <div class=" w-screen h-screen">
+    <div class="relative w-screen h-screen">
         <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
         <spline-viewer loading-anim-type="spinner-big-dark"
             url="https://prod.spline.design/XRydKQhqfpYOjapX/scene.splinecode"></spline-viewer>
+
+        <!-- Change the gradient overlay -->
+        <div class="absolute bottom-0 left-0 right-0 h-[12rem] bg-gradient-to-t from-white via-white/70 to-transparent">
+        </div>
     </div>
 
 
