@@ -208,15 +208,7 @@
 
                         <!-- Product description -->
                         <div>
-                            <div
-                                class="mt-12
-                                prose prose-sm
-                                prose-p:text-black
-                                prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-black
-                                prose-h2:text-2xl prose-h2:mb-4 prose-h2:text-black
-                                prose-h3:text-xl prose-h3:mb-3 prose-h3:text-black
-                                prose-h4:text-lg prose-h4:mb-2 prose-h4:text-black
-                                prose-h5:text-lg prose-h5:mt-8 prose-h5:mb-0 prose-h5:text-black">
+                            <div class="prose-content">
                                 {!! Str::markdown($product->description) !!}
                             </div>
                             <p class="text-gray-500 mt-4">Brand: {{ $product->brand->name }}</p>
@@ -255,36 +247,5 @@
                 behavior: 'smooth'
             });
         }
-    }
-
-    function getImageUrl(image) {
-        return `{{ Storage::url('') }}${image}`;
-    }
-
-    function productGallery(images, initialImage) {
-        return {
-            images: images,
-            selectedImage: initialImage,
-            isOpen: false,
-            currentIndex: 0,
-            get currentImage() {
-                return this.images[this.currentIndex];
-            },
-            openGallery() {
-                this.currentIndex = this.images.indexOf(this.selectedImage);
-                this.isOpen = true;
-            },
-            closeGallery() {
-                this.isOpen = false;
-            },
-            nextImage() {
-                this.currentIndex = (this.currentIndex + 1) % this.images.length;
-                this.selectedImage = this.images[this.currentIndex];
-            },
-            prevImage() {
-                this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-                this.selectedImage = this.images[this.currentIndex];
-            }
-        };
     }
 </script>

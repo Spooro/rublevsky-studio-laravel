@@ -57,6 +57,9 @@
             }
         });
     </script>
+    <script>
+        window.storageUrl = "{{ Storage::url('') }}";
+    </script>
 </body>
 
 </html>
