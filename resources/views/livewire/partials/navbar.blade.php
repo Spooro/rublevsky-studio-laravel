@@ -9,8 +9,7 @@
                         <a href="{{ $anchor['href'] }}"
                             @if (!($anchor['isExternal'] ?? false)) onclick="event.preventDefault(); document.querySelector('{{ $anchor['href'] }}').scrollIntoView({ behavior: 'smooth' })" @endif
                             target="{{ $anchor['isExternal'] ?? false ? '_blank' : '_self' }}"
-                            class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 anchor-link
-                                {{ $anchor['isAccent'] ?? false ? 'accent-anchor' : '' }}">
+                            class="px-2 sm:px-3 py-1 rounded-full text-sm sm:text-base transition-colors duration-200 anchor-link">
                             <span>{{ $anchor['label'] }}</span>
                         </a>
                     </li>

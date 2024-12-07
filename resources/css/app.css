@@ -203,6 +203,34 @@ p {
     }
 }
 
+
+/* BUTTONS */
+.main-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    border: 2px solid black;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.main-button:hover {
+    background-color: white;
+    color: black;
+}
+
+.main-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
 /* SCROLLBAR */
 
 /* Hide scrollbar on Safari */
@@ -283,62 +311,7 @@ input[type="range"]::-moz-range-thumb:active {
     display: none !important;
 }
 
-/* NAV BAR */
 
-.glass-background {
-    background-color: rgba(229, 231, 235, 0.7);
-    backdrop-filter: blur(8px);
-    transition: all 0.3s ease;
-}
-
-.nav-link {
-    color: black;
-}
-
-.nav-link:hover {
-    background-color: rgba(156, 163, 175, 0.5);
-    color: black;
-}
-
-.nav-link-active {
-    background-color: black !important;
-    color: white !important;
-}
-
-.cart-button-active {
-    background-color: black !important;
-    color: white !important;
-}
-
-.cart-button-active:hover {
-    background-color: rgba(156, 163, 175, 0.5) !important;
-    color: black !important;
-}
-
-/* BUTTONS */
-.main-button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    text-align: center;
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    border: 2px solid black;
-    border-radius: 0.75rem;
-    transition: all 0.3s ease;
-}
-
-.main-button:hover {
-    background-color: white;
-    color: black;
-}
-
-.main-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
 
 /* column (masonory) layout */
 .container {
@@ -674,24 +647,38 @@ video {
 
 
 
-/* BLOG POST PAGE */
+/* NAV BAR */
 
-/* Progress Indicator Styles
-@property --progress {
-    initial-value: 0;
-    syntax: "<number>";
-    inherits: true;
+.glass-background {
+    background-color: rgba(229, 231, 235, 0.7);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
 }
 
-.progress::before {
-    content: counter(progress) "%";
-    counter-reset: progress var(--progress);
-    font-variant-numeric: tabular-nums;
-    min-width: 2.5rem;
-    display: inline-block;
-    text-align: center;
+.nav-link {
+    color: black;
 }
-*/
+
+.nav-link:hover {
+    background-color: rgba(156, 163, 175, 0.5);
+    color: black;
+}
+
+.nav-link-active {
+    background-color: black !important;
+    color: white !important;
+}
+
+.cart-button-active {
+    background-color: black !important;
+    color: white !important;
+}
+
+.cart-button-active:hover {
+    background-color: rgba(156, 163, 175, 0.5) !important;
+    color: black !important;
+}
+
 
 /* Anchor link styles */
 .anchor-link {
@@ -699,111 +686,113 @@ video {
     display: inline-block;
     position: relative;
     z-index: 1;
-    /* Make text white and use difference blend mode */
-    color: white;
-    mix-blend-mode: difference;
-}
-
-.anchor-link:not(.accent-anchor):hover {
-    background-color: rgba(156, 163, 175, 0.5);
+    color: black; /* Default color for unsupported browsers */
 }
 
 .anchor-link span {
     display: inline-block;
     transition: transform 0.2s;
 }
+.anchor-link:hover {
+    background-color: rgba(156, 163, 175, 0.5);
+}
 
-/* Update the active state styles */
-@keyframes change {
-    0%, 100% {
-        color: black;
-    }
-    50% {
+/* Apply the blend mode difference only when timeline animations are supported */
+@supports (animation-timeline: view()) {
+    .anchor-link  {
         color: white;
-        --active: 1;
-
+        mix-blend-mode: difference;
     }
 
-}
 
-/* Anchor names and timelines */
-[href="#web"] {
-    anchor-name: --web;
-    animation-timeline: --web-vt;
-}
-[href="#branding"] {
-    anchor-name: --branding;
-    animation-timeline: --branding-vt;
-}
-[href="#photos"] {
-    anchor-name: --photos;
-    animation-timeline: --photos-vt;
-}
-[href="#posters"] {
-    anchor-name: --posters;
-    animation-timeline: --posters-vt;
-}
+    /* Anchor names and timelines */
+    [href="#web"] {
+        anchor-name: --web;
+        animation-timeline: --web-vt;
+    }
+    [href="#branding"] {
+        anchor-name: --branding;
+        animation-timeline: --branding-vt;
+    }
+    [href="#photos"] {
+        anchor-name: --photos;
+        animation-timeline: --photos-vt;
+    }
+    [href="#posters"] {
+        anchor-name: --posters;
+        animation-timeline: --posters-vt;
+    }
 
-/* Section view timelines */
-#web {
-    view-timeline-name: --web-vt;
-}
-#branding {
-    view-timeline-name: --branding-vt;
-}
-#photos {
-    view-timeline-name: --photos-vt;
-}
-#posters {
-    view-timeline-name: --posters-vt;
-}
+    /* Section view timelines */
+    #web {
+        view-timeline-name: --web-vt;
+    }
+    #branding {
+        view-timeline-name: --branding-vt;
+    }
+    #photos {
+        view-timeline-name: --photos-vt;
+    }
+    #posters {
+        view-timeline-name: --posters-vt;
+    }
 
-/* Indicator styles */
-.indicator {
-    position: absolute;
-    top: anchor(--web top);
-    bottom: anchor(--web bottom);
-    border-radius: 9999px;
-    left: calc(
-        anchor(--web left) +
-        ((anchor(--branding left) - anchor(--web left)) * var(--branding-show, 0)) +
-        ((anchor(--photos left) - anchor(--branding left)) * var(--photos-show, 0)) +
-        ((anchor(--posters left) - anchor(--photos left)) * var(--posters-show, 0))
-    );
-    right: calc(
-        anchor(--web right) -
-        ((anchor(--web right) - anchor(--branding right)) * var(--branding-show, 0)) -
-        ((anchor(--branding right) - anchor(--photos right)) * var(--photos-show, 0)) -
-        ((anchor(--photos right) - anchor(--posters right)) * var(--posters-show, 0))
-    );
-    background: black;
-    transition: all 0.2s linear;
-    z-index: 0;
-}
+    /* Indicator styles */
+    .indicator {
+        position: absolute;
+        top: anchor(--web top);
+        bottom: anchor(--web bottom);
+        border-radius: 9999px;
+        left: calc(
+            anchor(--web left) +
+            ((anchor(--branding left) - anchor(--web left)) * var(--branding-show, 0)) +
+            ((anchor(--photos left) - anchor(--branding left)) * var(--photos-show, 0)) +
+            ((anchor(--posters left) - anchor(--photos left)) * var(--posters-show, 0))
+        );
+        right: calc(
+            anchor(--web right) -
+            ((anchor(--web right) - anchor(--branding right)) * var(--branding-show, 0)) -
+            ((anchor(--branding right) - anchor(--photos right)) * var(--photos-show, 0)) -
+            ((anchor(--photos right) - anchor(--posters right)) * var(--posters-show, 0))
+        );
+        background: black;
+        transition: all 0.2s linear;
+        z-index: 0;
+    }
 
-.indicator-bar {
-    animation: indicate-branding, indicate-photos, indicate-posters;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: --branding-vt, --photos-vt, --posters-vt;
-    animation-range: entry;
-}
+    .indicator-bar {
+        animation: indicate-branding, indicate-photos, indicate-posters;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --branding-vt, --photos-vt, --posters-vt;
+        animation-range: entry;
+    }
 
-@keyframes indicate-branding {
-    to {
-        --branding-show: 1;
+    @keyframes indicate-branding {
+        to {
+            --branding-show: 1;
+        }
+    }
+
+    @keyframes indicate-photos {
+        to {
+            --photos-show: 1;
+        }
+    }
+
+    @keyframes indicate-posters {
+        to {
+            --posters-show: 1;
+        }
     }
 }
 
-@keyframes indicate-photos {
-    to {
-        --photos-show: 1;
+/* Fallback styles for browsers that don't support timeline animations */
+@supports not (animation-timeline: view()) {
+    .indicator-bar {
+        display: none; /* Hide the indicator bar */
     }
-}
 
-@keyframes indicate-posters {
-    to {
-        --posters-show: 1;
-    }
+
 }
 
