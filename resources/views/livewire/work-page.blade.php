@@ -285,95 +285,107 @@
     </section>
 
 
-    <section id="testimonials" class="no-padding" wire:ignore>
+    <section id="testimonials" class="no-padding">
 
         <h1 class="text-center work-page-section-title-holder" heading-reveal>Testimonials</h1>
 
-        <div class="swiper tinyflow-slider" data-rotate="5" data-speed="500">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide tinyflow-slide">
-                    <div class="testimonial-card">
-                        <p class="mb-6">
-                            "We initially faced challenges with our website's design and were unhappy with its look. We
-                            contacted Alexander for a redesign, and he exceeded our expectations. As the lead designer,
-                            he led
-                            the project with a developer he helped us to find, ensuring our vision was realized."
-                        </p>
-                        <a href="https://www.instagram.com/beautyfloor_vl/" target="_blank" rel="noopener noreferrer"
-                            class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
-                            <img src="{{ Storage::disk('r2')->url('roman.jpg') }}" alt="Roman Galavura"
-                                class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold group-hover:underline">Roman Galavura</p>
-                                <p class="text-sm text-gray-500">CEO at BeautyFloor</p>
-                            </div>
-                        </a>
+        <div wire:ignore>
+            <div class="swiper testimonials-slider" data-rotate="5" data-speed="500">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="mb-6">
+                                "We initially faced challenges with our website's design and were unhappy with its look.
+                                We
+                                contacted Alexander for a redesign, and he exceeded our expectations. As the lead
+                                designer,
+                                he led
+                                the project with a developer he helped us to find, ensuring our vision was realized."
+                            </p>
+                            <a href="https://www.instagram.com/beautyfloor_vl/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
+                                <img src="{{ Storage::disk('r2')->url('roman.jpg') }}" alt="Roman Galavura"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-semibold group-hover:underline">Roman Galavura</p>
+                                    <p class="text-sm text-gray-500">CEO at BeautyFloor</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="swiper-slide tinyflow-slide">
-                    <div class="testimonial-card">
-                        <p class="mb-6">
-                            "In our interaction I liked Alexander's attentiveness to my requests, detailed analysis of
-                            my
-                            activity and his desire to find unusual and yet functional design solutions, suitable for
-                            the
-                            specifics of my work."
-                        </p>
-                        <a href="https://www.instagram.com/diana_inksoul/" target="_blank" rel="noopener noreferrer"
-                            class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
-                            <img src="{{ Storage::disk('r2')->url('diana.jpg') }}" alt="Diana Egorova"
-                                class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold group-hover:underline">Diana Egorova</p>
-                                <p class="text-sm text-gray-500">CEO at InkSoul</p>
-                            </div>
-                        </a>
+                    <div class="swiper-slide testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="mb-6">
+                                "In our interaction I liked Alexander's attentiveness to my requests, detailed analysis
+                                of
+                                my
+                                activity and his desire to find unusual and yet functional design solutions, suitable
+                                for
+                                the
+                                specifics of my work."
+                            </p>
+                            <a href="https://www.instagram.com/diana_inksoul/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
+                                <img src="{{ Storage::disk('r2')->url('diana.jpg') }}" alt="Diana Egorova"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-semibold group-hover:underline">Diana Egorova</p>
+                                    <p class="text-sm text-gray-500">CEO at InkSoul</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="swiper-slide tinyflow-slide">
-                    <div class="testimonial-card">
-                        <p class="mb-6">
-                            "I reached out to Alexander to help expand my personal brand, and he assisted with creating
-                            merchandise, including clothing, stickers, and posters. I really appreciated his creativity
-                            and
-                            straightforward approach to the task."
-                        </p>
-                        <a href="https://www.instagram.com/abalych" target="_blank" rel="noopener noreferrer"
-                            class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
-                            <img src="{{ Storage::disk('r2')->url('kristina-testimonial.jpg') }}" alt="Kristina"
-                                class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold group-hover:underline">Kristina</p>
-                                <p class="text-sm text-gray-500">Street Artist</p>
-                            </div>
-                        </a>
+                    <div class="swiper-slide testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="mb-6">
+                                "I reached out to Alexander to help expand my personal brand, and he assisted with
+                                creating
+                                merchandise, including clothing, stickers, and posters. I really appreciated his
+                                creativity
+                                and
+                                straightforward approach to the task."
+                            </p>
+                            <a href="https://www.instagram.com/abalych" target="_blank" rel="noopener noreferrer"
+                                class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
+                                <img src="{{ Storage::disk('r2')->url('kristina-testimonial.jpg') }}" alt="Kristina"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-semibold group-hover:underline">Kristina</p>
+                                    <p class="text-sm text-gray-500">Street Artist</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="swiper-slide tinyflow-slide">
-                    <div class="testimonial-card">
-                        <p class="mb-6">
-                            "Alexander did an outstanding job with pre-press editing and large-format printing of
-                            posters that brilliantly showcase my artistic vision. His attention to detail and expertise
-                            brought my ideas to life, delivering mind-blowing quality that was absolutely top-notch.
-                            Everything was fabulous—from the prints themselves to the entire experience—which has helped
-                            elevate my brand presence and supported my music journey immensely."
-                        </p>
-                        <a href="https://on.soundcloud.com/yBk5X3a4cWA4xnWdA" target="_blank"
-                            rel="noopener noreferrer"
-                            class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
-                            <img src="{{ Storage::disk('r2')->url('brighton.jpg') }}" alt="Brighton"
-                                class="w-12 h-12 rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold group-hover:underline">Brighton</p>
-                                <p class="text-sm text-gray-500">Music Artist</p>
-                            </div>
-                        </a>
+                    <div class="swiper-slide testimonial-slide">
+                        <div class="testimonial-card">
+                            <p class="mb-6">
+                                "Alexander did an outstanding job with pre-press editing and large-format printing of
+                                posters that brilliantly showcase my artistic vision. His attention to detail and
+                                expertise
+                                brought my ideas to life, delivering mind-blowing quality that was absolutely top-notch.
+                                Everything was fabulous—from the prints themselves to the entire experience—which has
+                                helped
+                                elevate my brand presence and supported my music journey immensely."
+                            </p>
+                            <a href="https://on.soundcloud.com/yBk5X3a4cWA4xnWdA" target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center group transition-transform duration-300 ease-in-out transform hover:translate-y-[-5px]">
+                                <img src="{{ Storage::disk('r2')->url('brighton.jpg') }}" alt="Brighton"
+                                    class="w-12 h-12 rounded-full mr-4">
+                                <div>
+                                    <p class="font-semibold group-hover:underline">Brighton</p>
+                                    <p class="text-sm text-gray-500">Music Artist</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </section>

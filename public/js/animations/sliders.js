@@ -18,7 +18,7 @@ class SliderManager {
 
     initializeSliders() {
         // Only initialize sliders that exist on the current page
-        if (document.querySelector('.tinyflow-slider')) {
+        if (document.querySelector('.testimonials-slider')) {
             this.initializeTestimonials();
         }
 
@@ -33,7 +33,7 @@ class SliderManager {
             this.testimonialSwiper.destroy(true, true);
         }
 
-        const element = document.querySelector('.tinyflow-slider');
+        const element = document.querySelector('.testimonials-slider');
         if (!element) return;
 
         this.testimonialSwiper = new Swiper(element, {
@@ -49,11 +49,8 @@ class SliderManager {
             },
             mousewheel: {
                 forceToAxis: true,
-                sensitivity: 0.9,
+                sensitivity: 1,
                 releaseOnEdges: true,
-                thresholdDelta: 5,
-                thresholdTime: 50,
-                eventsTarget: '.tinyflow-slider'
             },
             effect: "coverflow",
             coverflowEffect: {
