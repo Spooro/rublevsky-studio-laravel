@@ -232,61 +232,133 @@
     </section>
 
     {{-- Experience Section --}}
-    <section class="mb-32">
-        <h2 class="mb-10" heading-reveal>Experience</h2>
-        <div class="column-layout">
-            <div class="experience-card border-2 border-[#f58025] hover:bg-[#f58025] hover:text-white group mb-4">
-                <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo"
-                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
-                <p class="mb-2">01/2022 — 04/2024</p>
-                <h5 class="font-semibold">Graphic design advanced 3 year program</h5>
-                <p>Gained hands-on experience in various aspects of graphic design, including print, branding, web
-                    design, through a comprehensive 3-year advanced program.</p>
-            </div>
-            <div class="experience-card border-2 border-[#821c1c] hover:bg-[#821c1c] hover:text-white  group mb-4">
-                <img src="{{ Storage::disk('r2')->url('beautyfloor.svg') }}" alt="Beauty Floor Logo"
-                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
-                <p class="mb-2">05/2023 - 09/2023</p>
-                <h5 class="font-semibold">Flooring Business</h5>
-                <p>I have designed an e-commerce website for a flooring Business.</p>
-            </div>
-            {{-- For the HPL card --}}
-            <div class="experience-card border-2 border-[#23598e] hover:bg-[#23598e] hover:text-white  group mb-4">
-                <img src="{{ Storage::disk('r2')->url('hpl.svg') }}" alt="Hamilton Public Library Logo"
-                    class="h-24 w-auto mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
-                <p class="mb-2">01/2024 - 04/2024</p>
-                <h5 class="font-semibold">Government-funded public organization</h5>
-                <p>I was in charge of creating brand identities for the library events in various mediums from print
-                    materials to web and social media.</p>
-            </div>
-            <div class="experience-card border-2 border-black hover:bg-black hover:text-white  group mb-4">
-
-                <img src="{{ Storage::disk('r2')->url('inksoul.svg') }}" alt="Inksoul Logo"
-                    class="w-24 h-24 mb-8 object-contain">
-
-                <p class="mb-2">01/2024 - 04/2024</p>
-                <h5 class="font-semibold">Tattoo studio</h5>
-                <p>I have designed and developed a website for a tattoo studio based in Vladivostok, Russia.</p>
-            </div>
-            {{-- For the Africa Power Supply card --}}
-            <div class="experience-card border-2 border-[#669933] hover:bg-[#669933] hover:text-white  group mb-4">
-                <img src="{{ Storage::disk('r2')->url('aps.svg') }}" alt="Africa Power Supply Logo"
-                    class="h-24 w-auto mb-8 group-hover:brightness-0 group-hover:invert">
-                <p class="mb-2">04/2024 - 05/2024</p>
-                <h5 class="font-semibold">Africa Power Supply</h5>
-                <p>I have designed and developed a website for a Canadian startup that strives to revolutionize African
-                    waste-to-energy systems.</p>
-            </div>
-            <div class="experience-card border-2 border-black hover:bg-black hover:text-white group mb-4">
-                <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
-                    class="w-full mb-8 group-hover:filter group-hover:brightness-0 group-hover:invert">
-                <p class="mb-2">01/2024 - 04/2024</p>
-                <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
-                <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth program.
-                </p>
-            </div>
-        </div>
+    <section class="pb-10">
+        <h2 heading-reveal>Experience</h2>
     </section>
+
+
+
+    <section class="experience_timeline_section">
+        <div class="experience_timeline_component">
+            <div class="experience_timeline_progress_bar"></div>
+
+
+            <div class="experience_timeline_progress"></div>
+
+            {{-- Timeline Items --}}
+            {{-- Mohawk College --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">01/22 — 04/24</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo"
+                            class="w-full mb-8">
+                        <h5 class="font-semibold">Graphic design advanced 3 year program</h5>
+                        <p>Gained hands-on experience in various aspects of graphic design, including print, branding,
+                            web design, through a comprehensive 3-year advanced program.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Beauty Floor --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">05/23 - 09/23</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('beautyfloor.svg') }}" alt="Beauty Floor Logo"
+                            class="w-full mb-8">
+                        <h5 class="font-semibold">Flooring Business</h5>
+                        <p>I have designed an e-commerce website for a flooring Business.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Hamilton Public Library --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('hpl.svg') }}" alt="Hamilton Public Library Logo"
+                            class="h-24 w-auto mb-8">
+                        <h5 class="font-semibold">Government-funded public organization</h5>
+                        <p>I was in charge of creating brand identities for the library events in various mediums from
+                            print materials to web and social media.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Inksoul --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('inksoul.svg') }}" alt="Inksoul Logo"
+                            class="w-24 h-24 mb-8 object-contain">
+                        <h5 class="font-semibold">Tattoo studio</h5>
+                        <p>I have designed and developed a website for a tattoo studio based in Vladivostok, Russia.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Africa Power Supply --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">04/24 - 05/24</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('aps.svg') }}" alt="Africa Power Supply Logo"
+                            class="h-24 w-auto mb-8">
+                        <h5 class="font-semibold">Africa Power Supply</h5>
+                        <p>I have designed and developed a website for a Canadian startup that strives to revolutionize
+                            African waste-to-energy systems.</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Centre3 --}}
+            <div class="experience_timeline_item grid grid-cols-3 gap-0">
+                <div class="experience_timeline_left">
+                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                </div>
+                <div class="experience_timeline_center">
+                    <div class="experience_timeline_circle"></div>
+                </div>
+                <div class="experience_timeline_right">
+                    <div class="experience_timeline_content">
+                        <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
+                            class="w-full mb-8">
+                        <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
+                        <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth
+                            program.</p>
+                    </div>
+                </div>
+            </div>
+    </section>
+
 
     {{-- Process Section --}}
     <section class="section-features h-[500vh] relative" wire:ignore>

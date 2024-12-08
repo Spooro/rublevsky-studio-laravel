@@ -40,9 +40,14 @@ main {
 
 
 section {
+    background-color: white;
     padding-bottom: 13rem;
     padding-left: 1rem;
+    z-index: 1;
     padding-right: 1rem;
+}
+.section-process {
+    padding-top: 13rem;
 }
 
 section.no-padding {
@@ -361,11 +366,7 @@ input[type="range"]::-moz-range-thumb:active {
     }
 }
 
-@media (max-width: 640px) {
-    section:has(.experience-card) .column-layout {
-        column-count: 1;
-    }
-}
+
 
 /* STORE PAGE */
 
@@ -543,22 +544,7 @@ input[type="range"]::-moz-range-thumb:active {
     color: white; /* Change text color on hover if desired */
 }
 
-/* experience card  */
-.experience-card {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 3rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
-}
 
-.experience-card img {
-    transition: all 0.2s ease-in-out;
-}
-
-.experience-card:hover img {
-    transform: none;
-}
 
 /* fix for ios not showing photo/poster? */
 .photo-item {
@@ -887,6 +873,107 @@ video {
         max-height: 25rem;
     }
 }
+
+
+
+
+/* Experience Timeline */
+
+.experience_timeline_section {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    background-color: transparent;
+    z-index: -3;
+}
+
+.experience_timeline_component {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+/* Timeline Progress (gray line) */
+.experience_timeline_progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 3px;
+    background-color: #e5e5e5;
+    z-index: -2;
+}
+
+/* Timeline Progress Bar (colored) */
+.experience_timeline_progress_bar {
+    position: fixed;
+    top: 0;
+    bottom: 5vh;
+    height: 50vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    background: var(--accent-color);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.experience_timeline_item {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.experience_timeline_left {
+    padding-right: 2rem;
+    text-align: right;
+}
+
+.experience_timeline_date-text {
+
+    color: #666;
+    transition: color 0.3s ease;
+    position: sticky;
+    top: 50vh;
+}
+
+.experience_timeline_center {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.experience_timeline_circle {
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+    border: 2px solid #000;
+    border-radius: 50%;
+    position: sticky;
+    top: 50vh;
+    z-index: 3;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+}
+
+.experience_timeline_right {
+    padding-left: 2rem;
+}
+
+.experience_timeline_content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience_timeline_content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
 
 
 

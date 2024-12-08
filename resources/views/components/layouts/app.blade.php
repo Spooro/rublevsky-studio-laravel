@@ -24,17 +24,11 @@
     <script defer src="https://developer-zahid.github.io/Custom-Coverflow-Slider/assets/plugins/swiper/js/swiper.min.js">
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script defer src="{{ asset('js/animations/sliders.js') }}"></script>
 
 </head>
 
 <body style="background-color: white;">
     @livewire('partials.navbar')
-
-
-
-
-
 
     <main>
         {{ $slot }}
@@ -44,7 +38,6 @@
     <script defer src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
     @stack('scripts')
-    <script defer src="{{ asset('js/animations/gsap-text-reading-and-heading.js') }}"></script>
     <script>
         document.addEventListener('livewire:navigated', () => {
             // Clean up GSAP ScrollTriggers more selectively

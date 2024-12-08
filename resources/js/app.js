@@ -7,7 +7,9 @@ import anchor from '@alpinejs/anchor'
 import { productGallery, getImageUrl } from './components/gallery'
 
 // Import scroll progress
-import './scroll-progress.js';
+import './blog-percentage-scroll-progress.js';
+import './animations/sliders.js';
+import './animations/gsap-text-reading-and-heading.js';
 
 Alpine.plugin(anchor)
 
