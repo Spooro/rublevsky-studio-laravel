@@ -55,7 +55,7 @@ class SliderManager {
             effect: "coverflow",
             coverflowEffect: {
                 rotate: 0,
-                stretch: 48,
+                stretch: 35,
                 depth: 0,
                 slideShadows: false,
                 modifier: 1
