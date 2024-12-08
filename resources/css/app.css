@@ -37,24 +37,7 @@ body {
 main {
     height: 100%;
 }
-/* not working to fix filters being draggable: */
-/* .filter-container {
-    -webkit-app-region: no-drag;
-    -webkit-user-drag: none;
-    user-drag: none;
-}
 
-input[type="range"] {
-    -webkit-app-region: no-drag;
-    -webkit-user-drag: none;
-    user-drag: none;
-}
-
-nav.sticky {
-    -webkit-app-region: no-drag;
-    -webkit-user-drag: none;
-    user-drag: none;
-} */
 
 section {
     padding-bottom: 13rem;
@@ -820,31 +803,28 @@ video {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.testimonials-slider {
+.tinyflow-slider {
     overflow: hidden;
     position: relative;
     padding: 2rem 0;
     min-height: var(--_min-card-height, auto);
 }
 
-.testimonial-slide {
+.tinyflow-slide {
     width: auto;
     transition-property: transform;
 }
 
-.swiper-slide.testimonial-slide {
-    z-index: 0 !important;
-}
-
-.testimonials-slider .swiper-slide {
+.tinyflow-slider .swiper-slide {
     padding-bottom: 2rem;
     padding-top: 2rem;
     width: auto;
     max-width: 85%;
     transition: all 0.3s ease;
+    z-index: 0 !important;
 }
 
-.testimonials-slider .swiper-slide-active {
+.tinyflow-slider .swiper-slide-active {
     opacity: 1;
 }
 

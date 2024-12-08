@@ -18,7 +18,7 @@ class SliderManager {
 
     initializeSliders() {
         // Only initialize sliders that exist on the current page
-        if (document.querySelector('.testimonials-slider')) {
+        if (document.querySelector('.tinyflow-slider')) {
             this.initializeTestimonials();
         }
 
@@ -33,7 +33,7 @@ class SliderManager {
             this.testimonialSwiper.destroy(true, true);
         }
 
-        const element = document.querySelector('.testimonials-slider');
+        const element = document.querySelector('.tinyflow-slider');
         if (!element) return;
 
         this.testimonialSwiper = new Swiper(element, {

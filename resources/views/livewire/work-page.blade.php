@@ -290,9 +290,9 @@
         <h1 class="text-center work-page-section-title-holder" heading-reveal>Testimonials</h1>
 
         <div wire:ignore>
-            <div class="swiper testimonials-slider" data-rotate="5" data-speed="500">
+            <div class="swiper tinyflow-slider" data-rotate="5" data-speed="500">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide testimonial-slide">
+                    <div class="swiper-slide tinyflow-slide">
                         <div class="testimonial-card">
                             <p class="mb-6">
                                 "We initially faced challenges with our website's design and were unhappy with its look.
@@ -315,7 +315,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide testimonial-slide">
+                    <div class="swiper-slide tinyflow-slide">
                         <div class="testimonial-card">
                             <p class="mb-6">
                                 "In our interaction I liked Alexander's attentiveness to my requests, detailed analysis
@@ -339,7 +339,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide testimonial-slide">
+                    <div class="swiper-slide tinyflow-slide">
                         <div class="testimonial-card">
                             <p class="mb-6">
                                 "I reached out to Alexander to help expand my personal brand, and he assisted with
@@ -361,7 +361,7 @@
                         </div>
                     </div>
 
-                    <div class="swiper-slide testimonial-slide">
+                    <div class="swiper-slide tinyflow-slide">
                         <div class="testimonial-card">
                             <p class="mb-6">
                                 "Alexander did an outstanding job with pre-press editing and large-format printing of
