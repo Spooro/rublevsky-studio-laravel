@@ -700,8 +700,6 @@
     }
 </script>
 
-<script src="{{ asset('js/animations/gsap-section-progress.js') }}"></script>
-
 <script>
     document.addEventListener('livewire:navigated', () => {
         document.querySelectorAll('video').forEach(video => {

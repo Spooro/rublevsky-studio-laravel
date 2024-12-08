@@ -636,7 +636,7 @@ video {
 /* NAV BAR */
 
 .glass-background {
-    background-color: rgba(229, 231, 235, 0.7);
+    background-color: rgba(233, 233, 233, 0.7);
     backdrop-filter: blur(8px);
     transition: all 0.3s ease;
 }
@@ -779,7 +779,15 @@ video {
         display: none; /* Hide the indicator bar */
     }
 
+    .anchor-link.active {
+        background-color: black !important;
+        color: white !important;
+    }
 
+    .anchor-link {
+        color: black;
+        mix-blend-mode: normal;
+    }
 }
 
 
