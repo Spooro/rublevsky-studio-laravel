@@ -37,19 +37,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }, '<');
     });
 
-    // Control visibility of progress elements based on scroll position
-    ScrollTrigger.create({
-        start: 0,
-        end: 'max',
-        onUpdate: (self) => {
-            const progress = self.progress;
-            const elements = document.querySelectorAll(progressElements);
-            const opacity = (progress > 0.05 && progress < 0.95) ? 1 : 0;
+    // Control visibility of progress elements based on timeline component position
+    const timelineComponent = document.querySelector('.experience_timeline_component');
+    if (!timelineComponent) return;
 
-            // Direct DOM manipulation for immediate effect
-            elements.forEach(element => {
-                element.style.opacity = opacity;
-            });
+    ScrollTrigger.create({
+        trigger: timelineComponent,
+        // Start showing 20% before the section enters viewport from bottom
+        start: 'top 120%',
+        // Hide 20% after the section leaves viewport from top
+        end: 'bottom -20%',
+        onEnter: () => {
+            gsap.to(progressElements, { opacity: 1, duration: 0.1 });
+        },
+        onLeave: () => {
+            gsap.to(progressElements, { opacity: 0, duration: 0.1 });
+        },
+        onEnterBack: () => {
+            gsap.to(progressElements, { opacity: 1, duration: 0.1 });
+        },
+        onLeaveBack: () => {
+            gsap.to(progressElements, { opacity: 0, duration: 0.1 });
         }
     });
 });
