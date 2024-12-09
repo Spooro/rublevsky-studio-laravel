@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="QHS4IzoRkvNVNx7CR3V44UeeN0lK8O22WZJMUhdWY3k" />
 
     <title>{{ $title ?? 'Rublevsky Studio' }}</title>
 
