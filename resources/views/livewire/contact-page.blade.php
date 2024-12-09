@@ -167,22 +167,8 @@
                 </div>
                 <div class="lg:col-span-6 order-2 flex lg:justify-end">
                     <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        The <strong x-data="{ tooltip: false }" class="font-semibold relative">
-                            <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                class="!underline !underline-offset-2 decoration-1 border-b border-current"
-                                style="text-decoration: underline !important;">WWX</span>
-                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0 transform -translate-y-2"
-                                x-transition:enter-end="opacity-100 transform translate-y-0"
-                                x-transition:leave="transition ease-in duration-500"
-                                x-transition:leave-start="opacity-100 transform translate-y-0"
-                                x-transition:leave-end="opacity-0 transform -translate-y-2"
-                                x-anchor.top.offset.10="$el.parentElement"
-                                class="absolute bg-white text-black text-[1rem] text-normal p-4 rounded shadow-md z-50 w-48 text-center border border-gray-200"
-                                x-cloak>
-                                Webflow, Wized, Xano
-                            </div>
-                        </strong> combination allows me for hyper-fast delivery speeds, never lacking in quality or
+                        The <strong class="font-semibold"> WWX </strong> combination allows me for hyper-fast delivery
+                        speeds, never lacking in quality or
                         functionality, yet providing results of a whole web team.
                     </h3>
                 </div>

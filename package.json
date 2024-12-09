@@ -20,7 +20,6 @@
         "wrangler": "^3.80.3"
     },
     "dependencies": {
-        "@alpinejs/anchor": "^3.14.3",
         "alpinejs": "^3.14.1",
         "gsap": "^3.12.5"
     },
