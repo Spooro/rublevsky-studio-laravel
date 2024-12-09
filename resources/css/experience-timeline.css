@@ -21,6 +21,7 @@
 
 /* Timeline Progress (gray line) */
 .experience_timeline_progress {
+
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
@@ -33,6 +34,7 @@
 
 /* Timeline Progress Bar (colored) */
 .experience_timeline_progress_bar {
+
     position: fixed;
     left: 50%;
     transform: translateX(-50%);

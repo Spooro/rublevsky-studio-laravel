@@ -16,7 +16,7 @@ import { productGallery, getImageUrl } from './components/gallery'
 import './blog-percentage-scroll-progress.js';
 import './animations/sliders.js';
 import './animations/gsap-text-reading-and-heading.js';
-import './animations/timeline-scroll.js';
+import './animations/experience-timeline-scroll.js';
 
 Alpine.plugin(anchor)
 
