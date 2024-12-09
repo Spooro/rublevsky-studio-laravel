@@ -95,8 +95,6 @@
 
     {{-- My Expertise Section --}}
     <section class="w-full" wire:ignore>
-
-
         <h2 class="mb-10" heading-reveal>My expertise</h2>
 
         {{-- Parent container --}}
@@ -174,7 +172,7 @@
                 </div>
             </div>
 
-            {{-- Third row --}}
+            <!-- Third row -->
             <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
                 <div class="lg:col-span-6 order-2 lg:order-1">
                     <h3 class="large-text-description text-left" reveal-type>
@@ -197,7 +195,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
                 <div class="lg:col-span-4 flex justify-center items-center order-1">
                     <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline
-                        x-data="videoHandler" x-init="initVideo($el)">
+                        wire:ignore>
                         <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -213,9 +211,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </section>
 
 

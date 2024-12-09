@@ -8,6 +8,8 @@ import '../css/experience-timeline.css'
 import '../css/services-offered.css'
 import '../css/buttons.css'
 
+// Import video handler
+import './video-handler.js';
 
 import { productGallery, getImageUrl } from './components/gallery'
 

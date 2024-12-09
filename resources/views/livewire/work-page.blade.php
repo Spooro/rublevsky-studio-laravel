@@ -1,4 +1,4 @@
-<div class="relative lg:pb-36" x-data="videoHandler">
+<div class="relative lg:pb-36">
     {{-- <x-loader wire:ignore /> --}}
 
     <div class="relative w-screen h-screen">
@@ -45,7 +45,7 @@
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video
                                     class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
-                                    autoplay loop muted playsinline loading="lazy" x-ref="video" wire:ignore>
+                                    autoplay loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('aps_iphone.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -59,7 +59,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline wire:ignore loading="lazy" x-ref="video">
+                                    loop muted playsinline wire:ignore loading="lazy">
                                     <source src="{{ Storage::disk('r2')->url('aps_tablet.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -111,7 +111,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline loading="lazy" x-ref="video">
+                                    loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('bfloor_tablet.mp4') }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
@@ -147,7 +147,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline loading="lazy" x-ref="video">
+                                    loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('32karata_tablet.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -187,7 +187,7 @@
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video
                                     class="absolute inset-[3%] bottom-[3.75%] w-[94%] h-[93.25%] object-cover rounded-[12%]"
-                                    autoplay loop muted playsinline loading="lazy" x-ref="video" wire:ignore>
+                                    autoplay loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('inksoul-iphone.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -202,7 +202,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline loading="lazy" x-ref="video">
+                                    loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('inksoul-tablet.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -241,7 +241,7 @@
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video
                                     class="absolute inset-[3%] bottom-[4.5%] w-[94%] h-[92.5%] object-cover rounded-[12%]"
-                                    autoplay loop muted playsinline loading="lazy" x-ref="video" wire:ignore>
+                                    autoplay loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('femtech_iphone.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
@@ -256,7 +256,7 @@
                                 <img src="{{ Storage::disk('r2')->url('ipad-mockup.svg') }}" alt="iPad Mockup"
                                     class="absolute inset-0 w-full h-full object-contain z-10">
                                 <video class="absolute inset-[4%] w-[92%] h-[92%] object-cover rounded-[3%]" autoplay
-                                    loop muted playsinline loading="lazy" x-ref="video">
+                                    loop muted playsinline loading="lazy" wire:ignore>
                                     <source src="{{ Storage::disk('r2')->url('femtech_tablet.mp4') }}"
                                         type="video/mp4">
                                     Your browser does not support the video tag.
