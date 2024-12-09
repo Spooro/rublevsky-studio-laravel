@@ -196,7 +196,8 @@
             {{-- Print/Photo row --}}
             <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
                 <div class="lg:col-span-4 flex justify-center items-center order-1">
-                    <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
+                    <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline
+                        x-data="videoHandler" x-init="initVideo($el)">
                         <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>

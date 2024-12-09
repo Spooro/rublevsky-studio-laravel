@@ -22,6 +22,11 @@ document.addEventListener('alpine:init', () => {
                     playVideo();
                 }
             });
+
+            // Handle Livewire navigation
+            document.addEventListener('livewire:navigated', () => {
+                playVideo();
+            });
         },
 
         reinitVideo(videoElement) {
@@ -34,4 +39,11 @@ document.addEventListener('alpine:init', () => {
             this.initVideo(videoElement);
         }
     }));
+});
+
+// Global handler for videos that don't have explicit Alpine initialization
+document.addEventListener('livewire:navigated', () => {
+    document.querySelectorAll('video:not([x-data])').forEach(video => {
+        video.play().catch(e => console.warn('Global video play failed:', e));
+    });
 });
