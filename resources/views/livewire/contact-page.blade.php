@@ -358,7 +358,7 @@
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
                         <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
-                            class="h-20 w-auto mb-8">
+                            class="w-auto h-16 sm:h-20 mb-8">
                         <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
                         <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth
                             program.</p>
