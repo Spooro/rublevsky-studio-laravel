@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', initializeAnimations);
             }, {
                 y: 0,
                 opacity: 1,
-                duration: 0.5,
-                delay: 0.3, // Added delay of 0.3 seconds
+                duration: 1,
+                //delay: 0.2,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: heading,
-                    start: "top 80%",
+                    start: "top 50%",
                     once: true
                 }
             });

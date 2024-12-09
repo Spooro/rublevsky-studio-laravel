@@ -1,0 +1,93 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Overused Grotesk", sans-serif;
+}
+
+h1 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 0.9;
+}
+
+h2 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    font-weight: 100;
+}
+
+h4 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    font-weight: 100;
+}
+
+h5 {
+    font-size: var(--h5-size);
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+h6 {
+    font-size: var(--h6-size);
+    line-height: 1.05;
+    font-weight: 600;
+}
+
+p {
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    h1 {
+        font-size: 3rem; /* Adjust this value as needed */
+    }
+    h2 {
+        font-size: 2.5rem; /* Adjust this value as needed */
+    }
+    h3 {
+        font-size: 2.1rem; /* Adjust this value as needed */
+    }
+}
+
+.large-text-description {
+    line-height: 1.1;
+    font-weight: 100;
+    max-width: 45ch;
+}
+
+.blur-link {
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
+    text-decoration-thickness: 0.15rem;
+    transition: filter 0.3s ease;
+    cursor: pointer;
+}
+
+.blur-link:hover {
+    filter: blur(0.3rem); /* Apply blur effect on hover */
+}
+
+.smaller-text {
+    font-size: 0.9rem;
+}
+
+/* Shared Prose Styles */
+.prose-content {
+    @apply prose prose-lg
+    prose-p:text-black
+    prose-h1:text-3xl prose-h1:mb-6 prose-h1:text-black
+    prose-h2:text-2xl prose-h2:mb-4 prose-h2:text-black
+    prose-h3:text-xl prose-h3:mb-3 prose-h3:text-black
+    prose-h4:text-lg prose-h4:mb-2 prose-h4:text-black
+    prose-h5:text-lg prose-h5:mt-8 prose-h5:mb-0 prose-h5:text-black;
+}

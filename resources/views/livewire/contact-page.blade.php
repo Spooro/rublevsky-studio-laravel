@@ -1,7 +1,7 @@
 @push('scripts')
     <script src="{{ asset('js/animations/gsap-cards-stacking.js') }}" defer></script>
 @endpush
-<div class="relative pb-36">
+<div class="relative">
     {{-- <x-loader wire:ignore /> --}}
 
     <section class="pt-4 overflow-visible">
@@ -93,144 +93,6 @@
         </div>
     </section>
 
-    {{-- My Expertise Section --}}
-    <section class="w-full" wire:ignore>
-
-
-        <h2 class="mb-10" heading-reveal>My expertise</h2>
-
-        {{-- Parent container --}}
-        <div class="grid grid-cols-1 gap-16">
-            {{-- First row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-6 order-2 lg:order-1">
-                    <h3 class="large-text-description text-left" reveal-type>
-                        With over <strong class="font-semibold">3</strong> years of industry experience, I
-                        specialize in
-                        <strong class="font-semibold">Laravel</strong>, <strong class="font-semibold">PHP</strong>,
-                        <strong class="font-semibold">Tailwind CSS</strong>, and <strong
-                            class="font-semibold">Figma</strong>,
-                        enabling me to design and build robust and scalable web applications with powerful database
-                        management and
-                        advanced functionality.
-                    </h3>
-                </div>
-                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
-                    <div class="flex flex-col w-full">
-                        <div class="flex justify-center items-center">
-                            <div class="h-full w-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="w-3/4 h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('php.svg') }}" alt="PHP Logo" class="logo-hover">
-                            </div>
-                            <div class="w-3/4 h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('git.svg') }}" alt="Git Logo" class="logo-hover">
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center items-center">
-                            <div class="w-full h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('tailwind.svg') }}" alt="Tailwind CSS Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="h-full w-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('alpine-js.svg') }}" alt="Alpine.js Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="h-full w-3/4 flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma Logo"
-                                    class="logo-hover">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Second row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-4 flex justify-center items-center order-1">
-                    <div class="flex justify-center items-center w-full">
-                        <div class="w-3/4 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('xano.svg') }}" alt="Xano Logo" class="logo-hover">
-                        </div>
-                        <div class="w-full h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('client-first.svg') }}" alt="Client First Logo"
-                                class="logo-hover">
-                        </div>
-                        <div class="w-3/4 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('wized.svg') }}" alt="Wized Logo"
-                                class="logo-hover">
-                        </div>
-                    </div>
-                </div>
-                <div class="lg:col-span-6 order-2 flex lg:justify-end">
-                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        The <strong x-data="{ tooltip: false }" class="font-semibold relative">
-                            <span @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                class="!underline !underline-offset-2 decoration-1 border-b border-current"
-                                style="text-decoration: underline !important;">WWX</span>
-                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-300"
-                                x-transition:enter-start="opacity-0 transform -translate-y-2"
-                                x-transition:enter-end="opacity-100 transform translate-y-0"
-                                x-transition:leave="transition ease-in duration-500"
-                                x-transition:leave-start="opacity-100 transform translate-y-0"
-                                x-transition:leave-end="opacity-0 transform -translate-y-2"
-                                x-anchor.top.offset.10="$el.parentElement"
-                                class="absolute bg-white text-black text-[1rem] text-normal p-4 rounded shadow-md z-50 w-48 text-center border border-gray-200"
-                                x-cloak>
-                                Webflow, Wized, Xano
-                            </div>
-                        </strong> combination allows me for hyper-fast delivery speeds, never lacking in quality or
-                        functionality, yet providing results of a whole web team.
-                    </h3>
-                </div>
-            </div>
-
-            {{-- Third row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-6 order-2 lg:order-1">
-                    <h3 class="large-text-description text-left" reveal-type>
-                        Using <strong class="font-semibold">Client First</strong> methodology makes projects easy
-                        to
-                        understand for other developers, while <strong class="font-semibold">Wized</strong> enables
-                        seamless integration with any third-party service, database, or API.
-                    </h3>
-                </div>
-                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
-                    <div class="h-18 w-full">
-                        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
-                        <spline-viewer
-                            url="https://prod.spline.design/QXnaSK-s1c-VXGpm/scene.splinecode"></spline-viewer>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Print/Photo row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-4 flex justify-center items-center order-1">
-                    <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline>
-                        <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="lg:col-span-6 order-2 flex lg:justify-end">
-                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong>
-                        for
-                        apparel and posters, as well as professional <strong class="font-semibold">photography</strong>
-                        services capturing
-                        anything from portraits to products.
-                    </h3>
-                </div>
-            </div>
-        </div>
-
-
-
-    </section>
-
     {{-- Experience Section --}}
     <section class="pb-10">
         <h2 heading-reveal>Experience</h2>
@@ -240,24 +102,27 @@
 
     <section class="experience_timeline_section">
         <div class="experience_timeline_component">
+            <div class="experience_timeline_overlay-top"></div>
+            <div class="experience_timeline_overlay-bottom"></div>
             <div class="experience_timeline_progress_bar"></div>
-
-
             <div class="experience_timeline_progress"></div>
 
             {{-- Timeline Items --}}
             {{-- Mohawk College --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">01/22 — 04/24</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">01/22 — 04/24</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo"
-                            class="w-full mb-8">
+                        <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo" class="w-full mb-8">
                         <h5 class="font-semibold">Graphic design advanced 3 year program</h5>
                         <p>Gained hands-on experience in various aspects of graphic design, including print, branding,
                             web design, through a comprehensive 3-year advanced program.</p>
@@ -268,10 +133,14 @@
             {{-- Beauty Floor --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">05/23 - 09/23</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">05/23 - 09/23</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
@@ -286,10 +155,14 @@
             {{-- Hamilton Public Library --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
@@ -305,10 +178,14 @@
             {{-- Inksoul --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
@@ -323,10 +200,14 @@
             {{-- Africa Power Supply --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">04/24 - 05/24</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">04/24 - 05/24</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
@@ -342,24 +223,31 @@
             {{-- Centre3 --}}
             <div class="experience_timeline_item grid grid-cols-3 gap-0">
                 <div class="experience_timeline_left">
-                    <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    <div class="experience_timeline_date-wrapper">
+                        <h4 class="experience_timeline_date-text">01/24 - 04/24</h4>
+                    </div>
                 </div>
                 <div class="experience_timeline_center">
-                    <div class="experience_timeline_circle"></div>
+                    <div class="experience_timeline_circle-wrapper">
+                        <div class="experience_timeline_circle"></div>
+                    </div>
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
                         <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
-                            class="w-full mb-8">
+                            class="h-20 w-auto mb-8">
                         <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
                         <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth
                             program.</p>
+                        <img src="{{ Storage::disk('r2')->url('screen-printing-me.jpg') }}"
+                            alt="Me screen printing at Centre3" class="w-full mt-8 rounded-lg">
                     </div>
                 </div>
             </div>
     </section>
 
 
+    <div class="h-[10rem] bg-white"> </div>
     {{-- Process Section --}}
     <section class="section-features h-[500vh] relative" wire:ignore>
         <!-- Removed w-screen and -mx-4 -->
