@@ -36,13 +36,14 @@
 
 
                 <div class="mt-auto flex flex-wrap -ml-6">
-                    <h3 class="ml-6"><a href="mailto:alexander.rublevskii@gmail.com" class="blur-link">Email</a></h3>
-                    <h3 class="ml-6"><a href="https://t.me/alexrublevsky" class="blur-link"
+                    <h3 class="ml-6"><a href="mailto:alexander.rublevskii@gmail.com"
+                            class="blur-link email-link">Email</a></h3>
+                    <h3 class="ml-6"><a href="https://t.me/alexrublevsky" class="blur-link telegram-link"
                             target="_blank">Telegram</a></h3>
-                    <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link"
+                    <h3 class="ml-6"><a href="https://www.linkedin.com/in/rublevsky/" class="blur-link linkedin-link"
                             target="_blank">LinkedIn</a></h3>
-                    <h3 class="ml-6"><a href="https://www.instagram.com/rublevsky.studio/" class="blur-link"
-                            target="_blank">Instagram</a></h3>
+                    <h3 class="ml-6"><a href="https://www.instagram.com/rublevsky.studio/"
+                            class="blur-link instagram-link" target="_blank">Instagram</a></h3>
 
 
 
