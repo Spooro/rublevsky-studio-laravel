@@ -127,6 +127,19 @@ body::-webkit-scrollbar {
 }
 
 /* INPUTS */
+input[type="text"],
+input[type="email"],
+textarea {
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: black;
+}
+
 input[type="checkbox"] {
     accent-color: #ff6f61;
 }
