@@ -38,9 +38,10 @@ const TimelineManager = {
             gsap.timeline({
                 scrollTrigger: {
                     trigger: item,
-                    start: 'start 33%',
-                    end: 'start 26%',
+                    start: 'start 45%',
+                    end: 'start 35%',
                     scrub: true,
+
                 }
             })
             .to(item.querySelectorAll('.experience_timeline_right, .experience_timeline_date-text'), {

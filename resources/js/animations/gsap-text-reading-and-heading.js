@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', initializeAnimations);
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: heading,
-                    start: "top 50%",
+                    start: "top 80%",
                     once: true
                 }
             });
