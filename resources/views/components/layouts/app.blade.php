@@ -18,7 +18,7 @@
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5BFB5VPN');
+        })(window, document, 'script', 'dataLayer', 'GTM-5L2C4ZNM');
     </script>
     <!-- End Google Tag Manager -->
 
@@ -56,10 +56,9 @@
 
 <body style="background-color: white;">
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5BFB5VPN" height="0" width="0"
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5L2C4ZNM" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-
 
     @livewire('partials.navbar')
 
