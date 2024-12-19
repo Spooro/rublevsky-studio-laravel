@@ -50,7 +50,6 @@
     opacity: 0.4;
     transition: all 0.3s ease;
     height: auto;
-    max-height: 30rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,8 +57,7 @@
 
 @media (max-width: 768px) {
     .blog-images-slider .swiper-slide {
-        max-width: 70%;
-        max-height: 25rem;
+        max-width: 81%;
     }
 }
 

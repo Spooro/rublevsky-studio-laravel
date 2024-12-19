@@ -49,7 +49,7 @@ p {
 
 @media (max-width: 640px) {
     h1 {
-        font-size: 3rem; /* Adjust this value as needed */
+        font-size: 2.9rem; /* Adjust this value as needed */
     }
     h2 {
         font-size: 2.5rem; /* Adjust this value as needed */
@@ -94,6 +94,7 @@ p {
 
 .prose {
     @apply max-w-none;
+    @apply px-0 !important;
 }
 
 .prose img {
@@ -101,7 +102,7 @@ p {
 }
 
 .blog-content-container {
-    @apply max-w-2xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-2xl mx-auto;
 }
 
 .blog-post-header {

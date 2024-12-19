@@ -17,11 +17,11 @@
             @if ($posts->count() > 0)
                 <div class="space-y-16">
                     @foreach ($posts as $post)
-                        <article class="prose prose-lg" x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
+                        <article class="prose prose-lg mx-auto" x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
                             <!-- Post Header -->
                             <div class="blog-post-header">
                                 @if ($post->images && count($post->images) > 0)
-                                    <div class="blog-image-container">
+                                    <div class="blog-image-container -mx-4 sm:-mx-6 md:mx-0">
                                         <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
                                             <div class="swiper-wrapper">
                                                 @foreach ($post->images as $image)
