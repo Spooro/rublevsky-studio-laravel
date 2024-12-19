@@ -31,6 +31,14 @@ class BlogPostResource extends Resource
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Active')
+                            ->default(true)
+                            ->helperText('Toggle to show/hide this post on the blog'),
+                        Forms\Components\Toggle::make('show_title')
+                            ->label('Show Title')
+                            ->default(true)
+                            ->helperText('Toggle to show/hide the title on the blog post'),
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\DateTimePicker::make('published_at')
@@ -70,6 +78,10 @@ class BlogPostResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Active'),
+                Tables\Columns\ToggleColumn::make('show_title')
+                    ->label('Show Title'),
                 Tables\Columns\ImageColumn::make('images')
                     ->circular(false)
                     ->stacked()

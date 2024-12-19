@@ -28,7 +28,7 @@
                     <h5 class="my-8 large-text-description break-words max-w-[46ch]">
                         When I'm not coding or designing, you can find me organizing <strong
                             class="font-medium">traditional
-                            Chinese tea ceremony</strong> events, or <a
+                            Chinese tea ceremony</strong> events, or <a id='social-link-soundcloud'
                             href="https://soundcloud.com/alexrublevsky/let-god" class="blur-link">rhyming over
                             beats</a>.
                     </h5>

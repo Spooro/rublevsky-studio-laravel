@@ -39,6 +39,7 @@ class BlogPage extends Component
     public function render()
     {
         $postsQuery = BlogPost::query()
+            ->where('is_active', true)
             ->when($this->selected_categories, function ($query) {
                 $categoryIds = BlogCategory::whereIn('slug', explode(',', $this->selected_categories))
                     ->pluck('id')

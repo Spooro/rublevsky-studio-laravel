@@ -93,3 +93,8 @@
         max-height: 25rem;
     }
 }
+
+/* BLOG IMAGE SLIDER */
+.blog-image-container {
+    padding-bottom: 2rem;
+}

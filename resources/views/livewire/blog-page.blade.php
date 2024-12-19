@@ -9,17 +9,19 @@
 
 <div>
     <section class="pt-24 sm:pt-32">
-        <div class="mx-auto">
+        <div class="blog-content-container">
+            <!-- Blog Title -->
+            <h1 class="text-center mb-24">What's in gaiwan?</h1>
+
             <!-- Blog Feed -->
             @if ($posts->count() > 0)
-                <div class="max-w-3xl mx-auto space-y-16">
+                <div class="space-y-16">
                     @foreach ($posts as $post)
-                        <article class="prose prose-lg max-w-none" x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
+                        <article class="prose prose-lg" x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
                             <!-- Post Header -->
-                            <div class="mb-8">
+                            <div class="blog-post-header">
                                 @if ($post->images && count($post->images) > 0)
-                                    <div class="relative w-screen left-1/2 right-1/2 -mx-[50vw] overflow-hidden"
-                                        wire:ignore>
+                                    <div class="blog-image-container">
                                         <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
                                             <div class="swiper-wrapper">
                                                 @foreach ($post->images as $image)
@@ -38,8 +40,10 @@
                                         <x-lightbox-gallery />
                                     </div>
                                 @endif
-                                <h2 class="!mb-2 mt-8">{{ $post->title }}</h2>
-                                <div class="flex items-center text-sm text-gray-500 !mt-0">
+                                @if ($post->show_title)
+                                    <h2 class="!mb-2">{{ $post->title }}</h2>
+                                @endif
+                                <div class="blog-post-meta">
                                     <time datetime="{{ $post->published_at->toDateString() }}">
                                         {{ $post->display_date }}
                                     </time>
@@ -51,6 +55,29 @@
                                         <span class="mx-2">·</span>
                                         <span>Updated {{ $post->last_edited_at->diffForHumans() }}</span>
                                     @endif
+                                    <div x-data="{ copied: false }" class="copy-link-button" :class="{ 'copied': copied }"
+                                        @click="
+                                             navigator.clipboard.writeText(window.location.origin + '/blog/' + '{{ $post->slug }}');
+                                             copied = true;
+                                             setTimeout(() => copied = false, 2000)
+                                         "
+                                        title="Copy link to post">
+                                        <template x-if="!copied">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                                            </svg>
+                                        </template>
+                                        <template x-if="copied">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                        </template>
+                                        <span class="copied-text">Link copied</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -65,7 +92,7 @@
                     @endforeach
                 </div>
             @else
-                <div class="max-w-3xl mx-auto">
+                <div class="text-center">
                     <p class="large-text-description">
                         Coming soon. Stay tuned for articles about design, development, and creative processes.
                     </p>
