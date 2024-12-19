@@ -11,7 +11,12 @@
     <section class="pt-24 sm:pt-32">
         <div class="blog-content-container">
             <!-- Blog Title -->
-            <h1 class="text-center mb-24">What's in gaiwan?</h1>
+            <h1 class="text-center mb-4">What's in gaiwan?</h1>
+
+            <!-- Russian Version Link -->
+            <div class="text-center mb-16 sm:mb-24">
+                <h3><a href="https://t.me/gaiwan_contents" class="blur-link">🇷🇺RU blog version</a></h3>
+            </div>
 
             <!-- Blog Feed -->
             @if ($posts->count() > 0)

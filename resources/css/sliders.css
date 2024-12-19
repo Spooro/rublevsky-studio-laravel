@@ -83,16 +83,11 @@
     max-height: 30rem;
     max-width: 100%;
     display: block;
-    border-radius: 8px;
+    border-radius: 0.8rem;
 }
 
 @media (max-width: 768px) {
     .blog-images-slider .swiper-slide img {
         max-height: 25rem;
     }
-}
-
-/* BLOG IMAGE SLIDER */
-.blog-image-container {
-    padding-bottom: 2rem;
 }
