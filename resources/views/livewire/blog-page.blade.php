@@ -15,7 +15,7 @@
 
             <!-- Russian Version Link -->
             <div class="text-center mb-16 sm:mb-24">
-                <h3><a href="https://t.me/gaiwan_contents" class="blur-link">🇷🇺RU blog version</a></h3>
+                <h5><a href="https://t.me/gaiwan_contents" class="blur-link">🇷🇺RU blog version</a></h5>
             </div>
 
             <!-- Blog Feed -->
