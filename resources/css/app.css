@@ -471,3 +471,6 @@ video {
 .image-preview-container {
     width: 100%;
 }
+.preview-image-wrapper img {
+    margin: 0;
+}
