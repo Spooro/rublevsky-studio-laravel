@@ -72,17 +72,18 @@
                                     <h2 class="!mb-2">{{ $post->title }}</h2>
                                 @endif
                                 <div class="blog-post-meta">
-                                    <time datetime="{{ $post->published_at->toDateString() }}">
+                                    <time datetime="{{ $post->published_at->toDateString() }}"
+                                        class="whitespace-nowrap">
                                         {{ $post->display_date }}
                                     </time>
                                     @if ($post->category)
                                         <span class="mx-2">·</span>
                                         <span>{{ $post->category->name }}</span>
                                     @endif
-                                    @if ($post->is_edited)
+                                    {{-- @if ($post->is_edited)
                                         <span class="mx-2">·</span>
                                         <span>Updated {{ $post->last_edited_at->diffForHumans() }}</span>
-                                    @endif
+                                    @endif --}}
                                     <div x-data="{ copied: false }" class="copy-link-button" :class="{ 'copied': copied }"
                                         @click="
                                              navigator.clipboard.writeText(window.location.origin + '/blog/' + '{{ $post->slug }}');
