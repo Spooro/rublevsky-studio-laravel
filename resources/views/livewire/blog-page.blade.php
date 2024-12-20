@@ -28,6 +28,7 @@
                             <div class="blog-post-header">
                                 @if ($post->images && count($post->images) > 0)
                                     <div class="blog-image-container -mx-4 sm:-mx-6 md:mx-0">
+                                        <!-- Main Slider -->
                                         <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
                                             <div class="swiper-wrapper">
                                                 @foreach ($post->images as $image)
@@ -36,6 +37,24 @@
                                                             alt="{{ $post->title }} - Image {{ $loop->iteration }}"
                                                             class="w-full h-full object-cover cursor-zoom-in"
                                                             @click="openGallery(); currentIndex = {{ $loop->index }}">
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                        <!-- Image Previews -->
+                                        <div class="image-preview-container mt-4 px-4">
+                                            <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar"
+                                                id="preview-container-{{ $post->id }}">
+                                                @foreach ($post->images as $index => $image)
+                                                    <div class="flex-shrink-0">
+                                                        <div class="preview-image-wrapper rounded-lg"
+                                                            data-post-id="{{ $post->id }}"
+                                                            data-index="{{ $index }}">
+                                                            <img src="{{ Storage::url($image) }}"
+                                                                alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
+                                                                class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>

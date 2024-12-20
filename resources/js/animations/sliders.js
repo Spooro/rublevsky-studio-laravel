@@ -76,13 +76,11 @@ class SliderManager {
     }
 
     initializeBlogImages() {
-        // Cleanup existing instances
         this.cleanupBlogSliders();
 
         document.querySelectorAll('.blog-images-slider').forEach(element => {
             const postId = element.dataset.postId;
 
-            // Wait for images to load before initializing Swiper
             const images = element.querySelectorAll('img');
             Promise.all(Array.from(images).map(img => {
                 if (img.complete) return Promise.resolve();
@@ -115,10 +113,40 @@ class SliderManager {
                         depth: 100,
                         modifier: 1,
                         slideShadows: false,
+                    },
+                    on: {
+                        slideChange: function() {
+                            // Update preview active state
+                            const activeIndex = this.activeIndex;
+                            const postId = this.el.dataset.postId;
+                            updatePreviewActive(postId, activeIndex);
+                        }
                     }
                 });
 
                 this.blogImageSwipers.push({ id: postId, instance: swiper });
+
+                // Initialize preview clicks
+                this.initializePreviewClicks(postId);
+
+                // Set initial active preview
+                updatePreviewActive(postId, 0);
+            });
+        });
+    }
+
+    initializePreviewClicks(postId) {
+        const previewContainer = document.getElementById(`preview-container-${postId}`);
+        if (!previewContainer) return;
+
+        const previews = previewContainer.querySelectorAll('.preview-image-wrapper');
+        previews.forEach(preview => {
+            preview.addEventListener('click', () => {
+                const index = parseInt(preview.dataset.index);
+                const swiper = this.blogImageSwipers.find(s => s.id === postId)?.instance;
+                if (swiper) {
+                    swiper.slideTo(index);
+                }
             });
         });
     }
@@ -153,6 +181,35 @@ class SliderManager {
         });
 
         this.initialized = true;
+    }
+}
+
+// Add this helper function outside the class
+function updatePreviewActive(postId, activeIndex) {
+    const previewContainer = document.getElementById(`preview-container-${postId}`);
+    if (!previewContainer) return;
+
+    // Remove active class from all previews
+    previewContainer.querySelectorAll('.preview-image-wrapper').forEach(preview => {
+        preview.classList.remove('active');
+    });
+
+    // Add active class to current preview
+    const activePreview = previewContainer.querySelector(
+        `.preview-image-wrapper[data-index="${activeIndex}"]`
+    );
+    if (activePreview) {
+        activePreview.classList.add('active');
+
+        // Center the active preview
+        const containerWidth = previewContainer.offsetWidth;
+        const previewWidth = activePreview.offsetWidth;
+        const scrollLeft = activePreview.offsetLeft - (containerWidth / 2) + (previewWidth / 2);
+
+        previewContainer.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+        });
     }
 }
 

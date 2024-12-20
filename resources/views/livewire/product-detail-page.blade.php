@@ -23,7 +23,8 @@
                                 'pr-2 lg:pr-0': index === images.length - 1
                             }"
                                 class="flex-shrink-0">
-                                <div :class="{ 'border-2 border-black': selectedImage === image }" class="rounded-lg">
+                                <div class="preview-image-wrapper rounded-lg"
+                                    :class="{ 'active': selectedImage === image }">
                                     <img :src="'{{ Storage::url('') }}' + image" :alt="'{{ $product->name }}'"
                                         class="w-24 h-24 object-cover rounded-[calc(0.5rem-2px)] cursor-pointer hover:opacity-75 transition"
                                         @click="selectedImage = image; $nextTick(() => centerSelectedImage($event.target))">

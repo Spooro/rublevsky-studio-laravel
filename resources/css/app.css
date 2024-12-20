@@ -455,3 +455,19 @@ video {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+
+/* image previews for sliders, galleries */
+.preview-image-wrapper img {
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.preview-image-wrapper.active img {
+    border: 2px solid black;
+    border-radius: calc(0.5rem - 2px);
+}
+
+.image-preview-container {
+    width: 100%;
+}
