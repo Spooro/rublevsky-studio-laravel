@@ -116,7 +116,7 @@
                         @endif
 
                         @if (!$product->unlimited_stock)
-                            <div class="text-sm text-black">
+                            <div class="flex items-center gap-4 text-sm text-black">
                                 @if ($product->coming_soon)
                                     <div class="flex gap-8 items-center">
                                         <span>In stock: {{ $availableStock }}</span>
@@ -125,6 +125,7 @@
                                 @else
                                     In stock: {{ $availableStock }}
                                 @endif
+                                {{-- <span class="text-gray-500">Brand: {{ $product->brand->name }}</span> --}}
                             </div>
                         @endif
 
@@ -233,7 +234,6 @@
                                     @endif
                                 </div>
                             </div>
-                            <p class="text-gray-500 mt-4">Brand: {{ $product->brand->name }}</p>
                         </div>
                     </div>
                 </div>
