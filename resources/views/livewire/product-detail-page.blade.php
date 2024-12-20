@@ -213,7 +213,7 @@
                         <!-- Product description -->
                         <div>
                             <div class="prose-content">
-                                <div class="relative mt-8">
+                                <div class="relative mt-8 mb-16">
                                     @if ($product->blogPosts->count() > 0)
                                         <div
                                             class="absolute -inset-y-1.5 sm:-inset-y-3 bg-gray-100
