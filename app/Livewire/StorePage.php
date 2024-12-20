@@ -97,6 +97,7 @@ class StorePage extends Component
         // Start with base query
         $productQuery = Product::query()
             ->where('is_active', 1)
+            ->where('coming_soon', false)
             ->with(['variations' => function ($query) {
                 $query->orderBy('price', 'asc');
             }]);

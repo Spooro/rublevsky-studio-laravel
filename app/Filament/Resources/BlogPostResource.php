@@ -11,6 +11,8 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Get;
 
 class BlogPostResource extends Resource
 {
@@ -61,7 +63,8 @@ class BlogPostResource extends Resource
                             ->label('Related Product')
                             ->searchable()
                             ->preload()
-                            ->helperText('Optional - Select a product this post is about')
+                            ->helperText('Optional - Select a product this post is about. If selected, product images will be used instead of blog images.')
+                            ->live()
                             ->nullable(),
                     ])->columns(2),
                 Forms\Components\FileUpload::make('images')
@@ -70,7 +73,8 @@ class BlogPostResource extends Resource
                     ->reorderable()
                     ->directory('blog-images')
                     ->imageResizeMode('contain')
-                    ->preserveFilenames(),
+                    ->preserveFilenames()
+                    ->hidden(fn(Get $get): bool => filled($get('product_id'))),
                 Forms\Components\RichEditor::make('body')
                     ->required()
                     ->columnSpanFull()
@@ -93,7 +97,13 @@ class BlogPostResource extends Resource
                 Tables\Columns\ImageColumn::make('images')
                     ->circular(false)
                     ->stacked()
-                    ->limit(3),
+                    ->limit(3)
+                    ->getStateUsing(function ($record): array {
+                        if ($record->product_id) {
+                            return $record->product?->images ?? [];
+                        }
+                        return $record->images ?? [];
+                    }),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()
                     ->sortable(),

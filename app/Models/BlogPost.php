@@ -67,4 +67,15 @@ class BlogPost extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getImagesAttribute($value)
+    {
+        // If this post has a linked product, return product images
+        if ($this->product_id && $this->product) {
+            return $this->product->images;
+        }
+
+        // Otherwise return the post's own images
+        return $value ? json_decode($value, true) : [];
+    }
 }
