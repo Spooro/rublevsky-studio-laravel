@@ -93,7 +93,8 @@ p {
 }
 
 .prose h2 {
-    margin-top: 0.5rem !important;
+    margin-top: 0rem !important;
+    margin-bottom: 0rem !important;
 }
 
 

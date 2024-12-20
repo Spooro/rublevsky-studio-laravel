@@ -468,9 +468,6 @@ video {
     border-radius: calc(0.5rem - 2px);
 }
 
-.image-preview-container {
-    width: 100%;
-}
 .preview-image-wrapper img {
     margin: 0;
 }

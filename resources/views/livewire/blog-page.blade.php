@@ -44,7 +44,7 @@
 
                                         <!-- Image Previews - Only show if there's more than one image -->
                                         @if (count($post->images) > 1)
-                                            <div class="w-full max-w-2xl mx-auto">
+                                            <div class="w-full max-w-2xl mx-auto pb-4">
                                                 <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
                                                     id="preview-container-{{ $post->id }}">
                                                     @foreach ($post->images as $index => $image)
