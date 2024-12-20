@@ -20,6 +20,7 @@ class BlogPost extends Model
         'blog_category_id',
         'is_active',
         'show_title',
+        'product_id',
     ];
 
     protected $casts = [
@@ -60,5 +61,10 @@ class BlogPost extends Model
     public function category()
     {
         return $this->belongsTo(BlogCategory::class, 'blog_category_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

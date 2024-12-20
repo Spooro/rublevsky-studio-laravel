@@ -56,6 +56,12 @@ class Product extends Model
         return $this->hasMany(ProductVariation::class)->orderBy('sort');
     }
 
+    // Add this relationship method
+    public function blogPosts()
+    {
+        return $this->hasMany(BlogPost::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

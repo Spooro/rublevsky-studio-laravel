@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\BlogPostResource\Pages;
 use App\Models\BlogPost;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -55,6 +56,13 @@ class BlogPostResource extends Resource
                             ->label('Category')
                             ->searchable()
                             ->preload(),
+                        Forms\Components\Select::make('product_id')
+                            ->relationship('product', 'name')
+                            ->label('Related Product')
+                            ->searchable()
+                            ->preload()
+                            ->helperText('Optional - Select a product this post is about')
+                            ->nullable(),
                     ])->columns(2),
                 Forms\Components\FileUpload::make('images')
                     ->multiple()

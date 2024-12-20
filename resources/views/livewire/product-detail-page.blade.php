@@ -209,7 +209,29 @@
                         <!-- Product description -->
                         <div>
                             <div class="prose-content">
-                                {!! Str::markdown($product->description) !!}
+                                <div class="relative mt-8">
+                                    @if ($product->blogPosts->count() > 0)
+                                        <div
+                                            class="absolute -inset-y-1.5 sm:-inset-y-3 bg-gray-100
+                                                -left-4 -right-4
+                                                rounded-2xl">
+                                        </div>
+                                        <div class="relative">
+                                            <div class="flex items-center gap-3 mb-6">
+                                                <span class="text-gray-700">From a blog post:</span>
+                                                <h6>
+                                                    <a href="/blog#post-{{ $product->blogPosts->first()->id }}"
+                                                        class="blur-link">
+                                                        Read full article
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                            {!! $product->blogPosts->first()->body !!}
+                                        </div>
+                                    @else
+                                        {!! Str::markdown($product->description) !!}
+                                    @endif
+                                </div>
                             </div>
                             <p class="text-gray-500 mt-4">Brand: {{ $product->brand->name }}</p>
                         </div>
