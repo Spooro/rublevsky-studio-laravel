@@ -92,6 +92,11 @@ p {
     prose-h5:text-lg prose-h5:mt-8 prose-h5:mb-0 prose-h5:text-black;
 }
 
+.prose h2 {
+    margin-top: 0.5rem !important;
+}
+
+
 .prose {
     @apply max-w-none;
     @apply px-0 !important;
@@ -113,3 +118,4 @@ p {
 .blog-post-meta {
     @apply flex items-center text-sm text-gray-500 mt-2;
 }
+

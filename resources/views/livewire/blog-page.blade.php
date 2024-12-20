@@ -42,24 +42,26 @@
                                             </div>
                                         </div>
 
-                                        <!-- Image Previews -->
-                                        <div class="w-full max-w-2xl mx-auto">
-                                            <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
-                                                id="preview-container-{{ $post->id }}">
-                                                @foreach ($post->images as $index => $image)
-                                                    <div
-                                                        class="flex-shrink-0 {{ $loop->first ? 'pl-4 md:pl-0' : '' }} {{ $loop->last ? 'pr-4 md:pr-0' : '' }}">
-                                                        <div class="preview-image-wrapper rounded-lg"
-                                                            data-post-id="{{ $post->id }}"
-                                                            data-index="{{ $index }}">
-                                                            <img src="{{ Storage::url($image) }}"
-                                                                alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
-                                                                class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
+                                        <!-- Image Previews - Only show if there's more than one image -->
+                                        @if (count($post->images) > 1)
+                                            <div class="w-full max-w-2xl mx-auto">
+                                                <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
+                                                    id="preview-container-{{ $post->id }}">
+                                                    @foreach ($post->images as $index => $image)
+                                                        <div
+                                                            class="flex-shrink-0 {{ $loop->first ? 'pl-4 md:pl-0' : '' }} {{ $loop->last ? 'pr-4 md:pr-0' : '' }}">
+                                                            <div class="preview-image-wrapper rounded-lg"
+                                                                data-post-id="{{ $post->id }}"
+                                                                data-index="{{ $index }}">
+                                                                <img src="{{ Storage::url($image) }}"
+                                                                    alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
+                                                                    class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                     <div x-show="isOpen" class="fixed inset-0 z-[999999999] bg-black bg-opacity-[0.92]"
                                         x-cloak>
