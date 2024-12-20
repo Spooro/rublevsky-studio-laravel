@@ -133,9 +133,9 @@ class StorePage extends Component
                     WHEN category_id = (SELECT id FROM categories WHERE name = "Apparel" LIMIT 1) THEN 1
                     WHEN category_id = (SELECT id FROM categories WHERE name = "Posters" LIMIT 1) THEN 2
                     WHEN category_id = (SELECT id FROM categories WHERE name = "Produce" LIMIT 1) THEN 3
-                    WHEN category_id = (SELECT id FROM categories WHERE name = "Stickers" LIMIT 1) THEN 4
-                    WHEN category_id = (SELECT id FROM categories WHERE name = "Tea" LIMIT 1) THEN 5
-                    ELSE 5 END');
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Tea" LIMIT 1) THEN 4
+                    WHEN category_id = (SELECT id FROM categories WHERE name = "Stickers" LIMIT 1) THEN 5
+                    ELSE 6 END');
                 break;
 
             case 'latest':
