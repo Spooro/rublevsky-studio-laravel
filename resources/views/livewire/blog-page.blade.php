@@ -22,7 +22,7 @@
             @if ($posts->count() > 0)
                 <div class="space-y-16">
                     @foreach ($posts as $post)
-                        <article id="post-{{ $post->id }}" class="prose prose-lg mx-auto scroll-mt-32"
+                        <article id="{{ $post->slug }}" class="prose prose-lg mx-auto scroll-mt-32"
                             x-data="productGallery(@js($post->images), '{{ $post->images[0] ?? '' }}')">
                             <!-- Post Header -->
                             <div class="blog-post-header">
@@ -86,7 +86,7 @@
                                     @endif --}}
                                     <div x-data="{ copied: false }" class="copy-link-button" :class="{ 'copied': copied }"
                                         @click="
-                                             navigator.clipboard.writeText(window.location.origin + '/blog/' + '{{ $post->slug }}');
+                                             navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#' + '{{ $post->slug }}');
                                              copied = true;
                                              setTimeout(() => copied = false, 2000)
                                          "

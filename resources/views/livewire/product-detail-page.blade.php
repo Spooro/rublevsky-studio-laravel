@@ -224,7 +224,7 @@
                                             <div class="flex items-center gap-3 mb-6">
                                                 <span class="text-gray-700">From a blog post:</span>
                                                 <h6>
-                                                    <a href="/blog#post-{{ $product->blogPosts->first()->id }}"
+                                                    <a href="/blog#{{ $product->blogPosts->first()->slug }}"
                                                         class="blur-link">
                                                         Read full article
                                                     </a>
