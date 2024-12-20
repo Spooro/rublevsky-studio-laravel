@@ -12,9 +12,10 @@
     <div class="flex items-start justify-center p-0 lg:p-4">
         <div class="w-full max-w-[95rem] flex flex-col lg:flex-row gap-4 lg:gap-10 items-start">
             <!-- Image gallery -->
-            <div class="w-full lg:w-3/5 xl:w-2/3 flex flex-col lg:flex-row gap-2 lg:gap-4 lg:sticky lg:top-4 self-start">
+            <div
+                class="w-full lg:w-3/5 xl:w-2/3 flex flex-col lg:flex-row gap-2 lg:gap-[0.833rem] lg:sticky lg:top-4 self-start">
                 <!-- Thumbnail preview row/column -->
-                <div class="order-2 lg:order-1 lg:w-24 flex-shrink-0">
+                <div class="order-2 lg:order-1 lg:w-20 flex-shrink-0">
                     <div id="image-preview-container"
                         class="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-y-auto lg:max-h-[calc(100vh-2rem)] pb-2 lg:pb-0 no-scrollbar">
                         <template x-for="(image, index) in images" :key="image">
@@ -26,7 +27,7 @@
                                 <div class="preview-image-wrapper rounded-lg"
                                     :class="{ 'active': selectedImage === image }">
                                     <img :src="'{{ Storage::url('') }}' + image" :alt="'{{ $product->name }}'"
-                                        class="w-24 h-24 object-cover rounded-[calc(0.5rem-2px)] cursor-pointer hover:opacity-75 transition"
+                                        class="w-20 h-20 object-cover rounded-[calc(0.5rem-2px)] cursor-pointer hover:opacity-75 transition"
                                         @click="selectedImage = image; $nextTick(() => centerSelectedImage($event.target))">
                                 </div>
                             </div>

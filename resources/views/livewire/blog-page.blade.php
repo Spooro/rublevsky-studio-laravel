@@ -43,17 +43,18 @@
                                         </div>
 
                                         <!-- Image Previews -->
-                                        <div class="image-preview-container mt-4 px-4">
-                                            <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar"
+                                        <div class="image-preview-container">
+                                            <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
                                                 id="preview-container-{{ $post->id }}">
                                                 @foreach ($post->images as $index => $image)
-                                                    <div class="flex-shrink-0">
+                                                    <div
+                                                        class="flex-shrink-0 {{ $loop->first ? 'pl-4' : '' }} {{ $loop->last ? 'pr-4' : '' }}">
                                                         <div class="preview-image-wrapper rounded-lg"
                                                             data-post-id="{{ $post->id }}"
                                                             data-index="{{ $index }}">
                                                             <img src="{{ Storage::url($image) }}"
                                                                 alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
-                                                                class="w-24 h-24 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
+                                                                class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
                                                         </div>
                                                     </div>
                                                 @endforeach

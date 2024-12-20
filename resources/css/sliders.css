@@ -37,9 +37,7 @@
 /* blog images */
 .blog-images-slider {
     width: 100%;
-    padding: 0px 0;
     overflow: visible;
-    margin-bottom: 1rem;
 }
 
 .blog-images-slider .swiper-slide {
