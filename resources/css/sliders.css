@@ -35,6 +35,16 @@
 }
 
 /* blog images */
+.blog-image-container {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+
+}
+
 .blog-images-slider {
     width: 100%;
     overflow: visible;
@@ -57,6 +67,7 @@
 @media (max-width: 768px) {
     .blog-images-slider .swiper-slide {
         max-width: 81%;
+
     }
 }
 

@@ -95,6 +95,7 @@ p {
 .prose {
     @apply max-w-none;
     @apply px-0 !important;
+    overflow-x: visible;
 }
 
 .prose img {

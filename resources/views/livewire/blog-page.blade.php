@@ -43,12 +43,12 @@
                                         </div>
 
                                         <!-- Image Previews -->
-                                        <div class="image-preview-container">
+                                        <div class="w-full max-w-2xl mx-auto">
                                             <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
                                                 id="preview-container-{{ $post->id }}">
                                                 @foreach ($post->images as $index => $image)
                                                     <div
-                                                        class="flex-shrink-0 {{ $loop->first ? 'pl-4' : '' }} {{ $loop->last ? 'pr-4' : '' }}">
+                                                        class="flex-shrink-0 {{ $loop->first ? 'pl-4 md:pl-0' : '' }} {{ $loop->last ? 'pr-4 md:pr-0' : '' }}">
                                                         <div class="preview-image-wrapper rounded-lg"
                                                             data-post-id="{{ $post->id }}"
                                                             data-index="{{ $index }}">
