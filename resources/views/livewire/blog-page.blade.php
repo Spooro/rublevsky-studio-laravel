@@ -71,9 +71,8 @@
                                 @if ($post->show_title)
                                     <h2 class="!mb-2">{{ $post->title }}</h2>
                                 @endif
-                                <div class="blog-post-meta">
-                                    <time datetime="{{ $post->published_at->toDateString() }}"
-                                        class="whitespace-nowrap">
+                                <div class="blog-post-meta flex items-center">
+                                    <time datetime="{{ $post->published_at->toDateString() }}">
                                         {{ $post->display_date }}
                                     </time>
                                     @if ($post->category)
@@ -86,7 +85,7 @@
                                     @endif --}}
                                     <div x-data="{ copied: false }" class="copy-link-button" :class="{ 'copied': copied }"
                                         @click="
-                                             navigator.clipboard.writeText(window.location.origin + window.location.pathname + '#' + '{{ $post->slug }}');
+                                             navigator.clipboard.writeText(window.location.origin + '/blog/' + '{{ $post->slug }}');
                                              copied = true;
                                              setTimeout(() => copied = false, 2000)
                                          "
