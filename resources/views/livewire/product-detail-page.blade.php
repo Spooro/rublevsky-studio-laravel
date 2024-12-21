@@ -55,9 +55,9 @@
 
                         <!-- Variation selection -->
                         @if ($product->has_variations)
-                            <div class="flex gap-8">
+                            <div class="flex flex-wrap gap-8">
                                 @foreach ($availableAttributes as $attributeName => $attributeValues)
-                                    <div class="w-auto">
+                                    <div class="w-auto min-w-fit">
                                         <h4 class="text-lg font-semibold mb-3">
                                             @if ($attributeName === 'apparel_type')
                                                 Type
