@@ -24,11 +24,13 @@
                                 'pr-2 lg:pr-0': index === images.length - 1
                             }"
                                 class="flex-shrink-0">
-                                <div class="preview-image-wrapper rounded-lg"
+                                <div class="preview-image-wrapper rounded-lg relative"
                                     :class="{ 'active': selectedImage === image }">
                                     <img :src="'{{ Storage::url('') }}' + image" :alt="'{{ $product->name }}'"
-                                        class="w-20 h-20 object-cover rounded-[calc(0.5rem-2px)] cursor-pointer hover:opacity-75 transition"
-                                        @click="selectedImage = image; $nextTick(() => centerSelectedImage($event.target))">
+                                        class="w-20 h-20 object-cover rounded-[calc(0.5rem-2px)] cursor-pointer hover:opacity-75 transition opacity-0"
+                                        @click="selectedImage = image; $nextTick(() => centerSelectedImage($event.target))"
+                                        onload="this.parentElement.classList.add('loaded')">
+                                    <div class="absolute inset-0 skeleton rounded-lg loaded-hide"></div>
                                 </div>
                             </div>
                         </template>
@@ -36,10 +38,11 @@
                 </div>
                 <!-- Main image container -->
                 <div
-                    class="flex items-center justify-center lg:items-start lg:justify-start order-1 lg:order-2 lg:flex-grow">
+                    class="flex items-center justify-center lg:items-start lg:justify-start order-1 lg:order-2 lg:flex-grow relative">
                     <img :src="'{{ Storage::url('') }}' + selectedImage" :alt="'{{ $product->name }}'"
-                        class="max-w-full w-full lg:w-auto max-h-[calc(100vh-5rem)] object-contain rounded-none lg:rounded-lg cursor-zoom-in"
-                        @click="openGallery()">
+                        class="max-w-full w-full lg:w-auto max-h-[calc(100vh-5rem)] object-contain rounded-none lg:rounded-lg cursor-zoom-in opacity-0"
+                        @click="openGallery()" onload="this.parentElement.classList.add('loaded')">
+                    <div class="absolute inset-0 skeleton rounded-none lg:rounded-lg loaded-hide"></div>
                 </div>
             </div>
 
