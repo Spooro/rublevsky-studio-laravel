@@ -133,14 +133,22 @@
                 <div class="w-full product-card overflow-hidden rounded-lg group" wire:key="{{ $product->id }}">
                     <div class="bg-white h-full flex flex-col">
                         <div class="relative aspect-square overflow-hidden">
-                            <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full">
-                                <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
-                                    class="object-cover w-full h-full transition-transform duration-500 ease-in-out">
+                            <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full relative">
+                                <!-- Primary Image with Skeleton -->
+                                <div class="relative h-full">
+                                    <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
+                                        class="object-cover w-full h-full transition-transform duration-500 ease-in-out opacity-0"
+                                        onload="this.parentElement.classList.add('loaded')">
+                                    <div class="absolute inset-0 skeleton loaded-hide"></div>
+                                </div>
+
+                                <!-- Secondary Image (if exists) -->
                                 @if (count($product->images) > 1)
                                     <img src="{{ Storage::url($product->images[1]) }}" alt="{{ $product->name }}"
                                         class="object-cover w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
                                 @endif
                             </a>
+
                             <!-- Add to Cart button (desktop only) -->
                             <button wire:click="addToCart({{ $product->id }})"
                                 class="absolute bottom-0 left-0 right-0 hidden opacity-0 group-hover:opacity-100 md:flex items-center justify-center space-x-2 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-black hover:text-white transition-all duration-500 py-2 add-to-cart-btn">
