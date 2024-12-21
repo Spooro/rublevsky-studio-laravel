@@ -1,6 +1,6 @@
 /* SLIDERS */
 
-/* testimonials */
+/* testimonials slider */
 .testimonial-card {
     max-width: 40ch;
     background: white;
@@ -34,7 +34,7 @@
     opacity: 1;
 }
 
-/* blog images */
+/* blog images slider */
 .blog-image-container {
     position: relative;
     width: 100vw;
@@ -67,7 +67,6 @@
 @media (max-width: 768px) {
     .blog-images-slider .swiper-slide {
         max-width: 81%;
-
     }
 }
 
@@ -102,35 +101,44 @@
     }
 }
 
-/* image previews for sliders, galleries */
+/* image previews for sliders and galleries */
 .preview-image-wrapper img {
     border: 2px solid transparent;
     transition: border-color 0.2s ease;
+    border-radius: 0.5rem;
 }
 
 .preview-image-wrapper.active img {
     border: 2px solid black;
-    border-radius: calc(0.5rem - 2px);
+    border-radius: 0.5rem;
 }
 
 .preview-image-wrapper img {
     margin: 0;
 }
 
+/* SKELETON */
+
 .loaded {
     & .loaded-hide {
         opacity: 0;
         pointer-events: none;
+        transition: opacity 0.2s ease-out;
     }
     & img {
         opacity: 1 !important;
+        transition: opacity 0.2s ease-in;
     }
 }
 
 /* Skeleton loading Animation */
 @keyframes shimmer {
-    0% { background-color: #f0f0f0; }
-    100% { background-color: #d6d6d6; }
+    0% {
+        background-color: #f0f0f0;
+    }
+    100% {
+        background-color: #d6d6d6;
+    }
 }
 
 .skeleton {
@@ -138,7 +146,7 @@
     animation: shimmer 1s infinite alternate ease-in-out;
 }
 
-/* Simplified Blog Slider Skeleton */
+/* Blog Slider Skeleton */
 .blog-skeleton-wrapper {
     position: absolute;
     inset: 0;
@@ -183,12 +191,12 @@
 }
 
 .blog-image-skeleton.left {
-    transform: rotate(-3deg) scale(0.90) translateX(80%) translateY(2%);
+    transform: rotate(-3deg) scale(0.9) translateX(80%) translateY(2%);
     z-index: 2;
 }
 
 .blog-image-skeleton.right {
-    transform: rotate(3deg) scale(0.90) translateX(-80%) translateY(2%);
+    transform: rotate(3deg) scale(0.9) translateX(-80%) translateY(2%);
     z-index: 2;
 }
 
@@ -199,17 +207,114 @@
     }
     .blog-image-skeleton.left {
         transform: rotate(-5deg) scale(0.65) translateX(90%) translateY(4%);
-
     }
 
     .blog-image-skeleton.right {
         transform: rotate(5deg) scale(0.65) translateX(-90%) translateY(4%);
-
     }
 }
 
-/* Hide skeletons when content is loaded */
 .swiper.swiper-initialized + .blog-skeleton-wrapper {
     display: none;
 }
 
+/* product details skeleton */
+img {
+    &[loading="lazy"] {
+        opacity: 0;
+    }
+    &.opacity-0 {
+        transition: opacity 0.2s ease-out;
+    }
+}
+
+/* Update skeleton styles */
+.gallery-skeleton-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .gallery-skeleton-wrapper {
+        flex-direction: row;
+        gap: 0.833rem;
+    }
+}
+
+/* Hide Alpine elements before initialization */
+[x-cloak] {
+    display: none;
+}
+
+/* Add these transition classes */
+.transition-opacity {
+    transition-property: opacity;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+}
+
+/* Grid stacking for gallery */
+.gallery-stack {
+    display: grid;
+    width: 100%;
+    isolation: isolate;
+}
+
+.gallery-stack > * {
+    grid-area: 1 / 1;
+    width: 100%;
+}
+
+/* Loading state management */
+.skeleton-gallery {
+    z-index: 2;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+    pointer-events: none;
+}
+
+.gallery-content {
+    z-index: 1;
+    opacity: 1;
+}
+
+/* Individual image loading states */
+.preview-image-wrapper,
+.main-image-wrapper {
+    position: relative;
+}
+
+.preview-image-wrapper img,
+.main-image-wrapper img {
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+    position: relative;
+    z-index: 2;
+}
+
+.preview-image-wrapper .skeleton,
+.main-image-wrapper .skeleton {
+    position: absolute;
+    inset: 2px;
+    z-index: 1;
+    border-radius: calc(0.5rem - 2px);
+}
+
+/* Only hide skeleton and show image when loaded */
+.loaded {
+    img {
+        opacity: 1;
+    }
+    .loaded-hide {
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+    }
+}
+/* Remove overall skeleton only when all images are loaded */
+.gallery-stack.all-loaded {
+    .skeleton-gallery {
+        display: none;
+    }
+}
