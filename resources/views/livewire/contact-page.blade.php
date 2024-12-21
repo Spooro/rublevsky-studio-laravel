@@ -52,8 +52,11 @@
 
             {{-- Image column --}}
             <div class="w-full mb-4 md:mb-0 md:col-span-1 -order-1 md:order-none">
-                <div class="work-visual-item rounded-lg overflow-hidden">
-                    <img src="{{ Storage::url('me.jpg') }}" alt="Profile picture" class="w-full h-auto">
+                <div class="work-visual-item rounded-lg overflow-hidden relative aspect-[1/1]">
+                    <img src="{{ Storage::url('me.jpg') }}" alt="Profile picture"
+                        class="w-full h-full object-cover opacity-0"
+                        onload="this.parentElement.classList.add('loaded')">
+                    <div class="absolute inset-0 skeleton loaded-hide"></div>
                 </div>
             </div>
         </div>
