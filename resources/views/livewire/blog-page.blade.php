@@ -28,21 +28,32 @@
                             <div class="blog-post-header">
                                 @if ($post->images && count($post->images) > 0)
                                     <div class="blog-image-container -mx-4 sm:-mx-6 md:mx-0">
-                                        <!-- Main Slider -->
-                                        <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
-                                            <div class="swiper-wrapper">
-                                                @foreach ($post->images as $image)
-                                                    <div class="swiper-slide">
-                                                        <img src="{{ Storage::url($image) }}"
-                                                            alt="{{ $post->title }} - Image {{ $loop->iteration }}"
-                                                            class="w-full h-full object-cover cursor-zoom-in"
-                                                            @click="openGallery(); currentIndex = {{ $loop->index }}">
-                                                    </div>
-                                                @endforeach
+                                        <div class=" relative">
+                                            <!-- Main Slider -->
+                                            <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
+                                                <div class="swiper-wrapper">
+                                                    @foreach ($post->images as $image)
+                                                        <div class="swiper-slide">
+                                                            <img src="{{ Storage::url($image) }}"
+                                                                alt="{{ $post->title }} - Image {{ $loop->iteration }}"
+                                                                class="w-full h-full object-cover cursor-zoom-in"
+                                                                @click="openGallery(); currentIndex = {{ $loop->index }}">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+
+                                            <!-- Slider Skeleton -->
+                                            <div class="blog-skeleton-wrapper">
+                                                <div class="blog-skeleton-slides">
+                                                    <div class="skeleton blog-image-skeleton side left "></div>
+                                                    <div class="skeleton blog-image-skeleton center"></div>
+                                                    <div class="skeleton blog-image-skeleton right side"></div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <!-- Image Previews - Only show if there's more than one image -->
+                                        <!-- Image Previews -->
                                         @if (count($post->images) > 1)
                                             <div class="w-full max-w-2xl mx-auto pb-4">
                                                 <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
@@ -53,9 +64,16 @@
                                                             <div class="preview-image-wrapper rounded-lg"
                                                                 data-post-id="{{ $post->id }}"
                                                                 data-index="{{ $index }}">
-                                                                <img src="{{ Storage::url($image) }}"
-                                                                    alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
-                                                                    class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 transition">
+                                                                <div class="w-20 h-20 relative">
+                                                                    <img src="{{ Storage::url($image) }}"
+                                                                        alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
+                                                                        class="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-75 transition opacity-0"
+                                                                        onload="this.parentElement.classList.add('loaded')"
+                                                                        style="transition: opacity 0.2s">
+                                                                    <div
+                                                                        class="absolute inset-0 skeleton rounded-lg loaded-hide">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     @endforeach

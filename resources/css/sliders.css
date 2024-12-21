@@ -42,7 +42,7 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-
+    min-height: calc(30rem + 4rem);
 }
 
 .blog-images-slider {
@@ -101,3 +101,115 @@
         max-height: 25rem;
     }
 }
+
+/* image previews for sliders, galleries */
+.preview-image-wrapper img {
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.preview-image-wrapper.active img {
+    border: 2px solid black;
+    border-radius: calc(0.5rem - 2px);
+}
+
+.preview-image-wrapper img {
+    margin: 0;
+}
+
+.loaded {
+    & .loaded-hide {
+        opacity: 0;
+        pointer-events: none;
+    }
+    & img {
+        opacity: 1 !important;
+    }
+}
+
+/* Skeleton loading Animation */
+@keyframes shimmer {
+    0% { background-color: #f0f0f0; }
+    100% { background-color: #d6d6d6; }
+}
+
+.skeleton {
+    background-color: #f0f0f0;
+    animation: shimmer 1s infinite alternate ease-in-out;
+}
+
+/* Simplified Blog Slider Skeleton */
+.blog-skeleton-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: white;
+    padding: 2rem 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.blog-skeleton-slides {
+    width: 100%;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.blog-image-skeleton {
+    position: absolute;
+    width: 30rem;
+    aspect-ratio: 1/1;
+    max-width: 85%;
+    border-radius: 0.8rem;
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-image-skeleton.center {
+    position: relative;
+    opacity: 1;
+    z-index: 3;
+}
+
+.blog-image-skeleton.side {
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.blog-image-skeleton.left {
+    transform: rotate(-3deg) scale(0.90) translateX(80%) translateY(2%);
+    z-index: 2;
+}
+
+.blog-image-skeleton.right {
+    transform: rotate(3deg) scale(0.90) translateX(-80%) translateY(2%);
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .blog-image-skeleton {
+        width: 25rem;
+        max-width: 81%;
+    }
+    .blog-image-skeleton.left {
+        transform: rotate(-5deg) scale(0.65) translateX(90%) translateY(4%);
+
+    }
+
+    .blog-image-skeleton.right {
+        transform: rotate(5deg) scale(0.65) translateX(-90%) translateY(4%);
+
+    }
+}
+
+/* Hide skeletons when content is loaded */
+.swiper.swiper-initialized + .blog-skeleton-wrapper {
+    display: none;
+}
+

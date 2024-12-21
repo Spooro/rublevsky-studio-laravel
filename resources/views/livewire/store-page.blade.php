@@ -143,7 +143,7 @@
                             </a>
                             <!-- Add to Cart button (desktop only) -->
                             <button wire:click="addToCart({{ $product->id }})"
-                                class="absolute bottom-0 left-0 right-0 bg-gray-200/70 backdrop-blur-sm text-black flex items-center justify-center space-x-2 hover:bg-black hover:text-white transition-all duration-500 py-2 opacity-0 group-hover:opacity-100 hidden md:flex add-to-cart-btn">
+                                class="absolute bottom-0 left-0 right-0 hidden opacity-0 group-hover:opacity-100 md:flex items-center justify-center space-x-2 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-black hover:text-white transition-all duration-500 py-2 add-to-cart-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
                                     viewBox="0 0 33 30" class="cart-icon">
                                     <path
