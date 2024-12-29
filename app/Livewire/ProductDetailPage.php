@@ -108,16 +108,8 @@ class ProductDetailPage extends Component
                     $this->selectedVariation->id,
                     $this->quantity
                 );
-                if (!$this->product->unlimited_stock) {
-                    $this->selectedVariation->decrement('stock', $this->quantity);
-                    $this->availableStock = $this->selectedVariation->fresh()->stock;
-                }
             } else {
                 $total_count = CartManagement::addItemToCartWithQuantity($this->product->id, $this->quantity);
-                if (!$this->product->unlimited_stock) {
-                    $this->product->decrement('stock', $this->quantity);
-                    $this->availableStock = $this->product->fresh()->stock;
-                }
             }
 
             $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
