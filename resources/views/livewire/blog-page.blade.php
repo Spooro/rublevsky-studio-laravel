@@ -11,7 +11,7 @@
     <section class="pt-24 sm:pt-32">
         <div class="blog-content-container">
             <!-- Blog Title -->
-            <h1 class="text-center mb-8">What's in gaiwan?</h1>
+            <h1 class="text-center mb-8">What's in the gaiwan?</h1>
 
             <!-- Russian Version Link -->
             <div class="text-center mb-16 sm:mb-24">

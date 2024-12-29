@@ -132,7 +132,7 @@
             @foreach ($products as $product)
                 <div class="w-full product-card overflow-hidden rounded-lg group" wire:key="{{ $product->id }}">
                     <div class="bg-white h-full flex flex-col">
-                        <div class="relative aspect-square overflow-hidden">
+                        <div class="relative aspect-square overflow-hidden" wire:ignore>
                             <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full relative">
                                 <!-- Primary Image with Skeleton -->
                                 <div class="relative h-full">
