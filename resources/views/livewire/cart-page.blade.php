@@ -23,14 +23,42 @@
                                             @endforeach
                                         </div>
                                     @endif
-                                    <div class="flex items-center space-x-4 mt-2">
+                                    <div class="flex items-center space-x-3 mt-2">
                                         <button
-                                            wire:click="decreaseQty({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
-                                            class="w-8 h-8 flex items-center justify-center text-lg hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">-</button>
-                                        <span class="text-lg">{{ $item['quantity'] }}</span>
+                                            wire:click="decreaseQty({{ $item['product_id'] }}, {{ $item['variation_id'] ?? 'null' }})"
+                                            @class([
+                                                'w-8 h-8 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center',
+                                                'opacity-50 cursor-not-allowed' => $item['quantity'] <= 1,
+                                            ]) {{ $item['quantity'] <= 1 ? 'disabled' : '' }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M20 12H4" />
+                                            </svg>
+                                        </button>
+
+                                        <p class="w-2 text-center text-lg">{{ $item['quantity'] }}</p>
+
                                         <button
-                                            wire:click="increaseQty({{ $item['product_id'] }}, {{ isset($item['variation_id']) ? $item['variation_id'] : 'null' }})"
-                                            class="w-8 h-8 flex items-center justify-center text-lg hover:bg-gray-100 rounded-full transition duration-300 ease-in-out">+</button>
+                                            wire:click="increaseQty({{ $item['product_id'] }}, {{ $item['variation_id'] ?? 'null' }})"
+                                            @php
+$product = $products[$item['product_id']];
+                                                $variation = isset($item['variation_id']) ? $product->variations->firstWhere('id', $item['variation_id']) : null;
+                                                $maxStock = $variation ? $variation->stock : $product->stock;
+                                                if ($product->unlimited_stock) {
+                                                    $maxStock = PHP_INT_MAX;
+                                                } @endphp
+                                            @class([
+                                                'w-8 h-8 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center',
+                                                'opacity-50 cursor-not-allowed' => $item['quantity'] >= $maxStock,
+                                            ])
+                                            {{ $item['quantity'] >= $maxStock ? 'disabled' : '' }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M12 4v16m8-8H4" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

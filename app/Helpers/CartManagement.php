@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Models\Product;
 use App\Models\ProductVariation;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Event;
 
 class CartManagement
 {
@@ -91,6 +92,7 @@ class CartManagement
         }
 
         self::addCartItemsToCookie($cart_items);
+        self::dispatchCartUpdateEvent();
         return count($cart_items);
     }
 
@@ -213,6 +215,65 @@ class CartManagement
         }
 
         self::addCartItemsToCookie($cart_items);
-        return count($cart_items); // Return the count instead of the cart items
+        self::dispatchCartUpdateEvent();
+        return count($cart_items);
+    }
+
+    static public function getCartItemQuantity($product_id, $variation_id = null)
+    {
+        $cart_items = self::getCartItemsFromCookie();
+
+        foreach ($cart_items as $item) {
+            if ($item['product_id'] == $product_id) {
+                if ($variation_id !== null) {
+                    if (isset($item['variation_id']) && $item['variation_id'] == $variation_id) {
+                        return $item['quantity'];
+                    }
+                } else if (!isset($item['variation_id'])) {
+                    return $item['quantity'];
+                }
+            }
+        }
+
+        return 0;
+    }
+
+    static public function getAvailableQuantity($product, $variation = null)
+    {
+        if ($product->unlimited_stock) {
+            return PHP_INT_MAX;
+        }
+
+        $baseStock = $variation ? $variation->stock : $product->stock;
+        $cartQuantity = self::getCartItemQuantity(
+            $product->id,
+            $variation ? $variation->id : null
+        );
+
+        return max(0, $baseStock - $cartQuantity);
+    }
+
+    static public function canAddToCart($product, $quantity = 1, $variation = null)
+    {
+        if ($product->unlimited_stock) {
+            return true;
+        }
+
+        if ($product->has_variations && !$variation) {
+            return false;
+        }
+
+        $baseStock = $variation ? $variation->stock : $product->stock;
+        $cartQuantity = self::getCartItemQuantity(
+            $product->id,
+            $variation ? $variation->id : null
+        );
+
+        return ($cartQuantity + $quantity) <= $baseStock;
+    }
+
+    private static function dispatchCartUpdateEvent()
+    {
+        Event::dispatch('cart-updated');
     }
 }

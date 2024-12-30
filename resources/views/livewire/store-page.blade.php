@@ -1,3 +1,7 @@
+@php
+    use App\Helpers\CartManagement;
+@endphp
+
 <div no-scrollbar>
     {{-- <x-loader wire:ignore /> --}}
 
@@ -128,105 +132,239 @@
 
     <section>
         <!-- Product grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[95rem] mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-[95rem] mx-auto items-start">
             @foreach ($products as $product)
                 <div class="w-full product-card overflow-hidden rounded-lg group" wire:key="{{ $product->id }}">
-                    <div class="bg-white h-full flex flex-col">
-                        <div class="relative aspect-square overflow-hidden" wire:ignore>
-                            <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full relative">
-                                <!-- Primary Image with Skeleton -->
-                                <div class="relative h-full">
-                                    <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
-                                        class="object-cover w-full h-full transition-transform duration-500 ease-in-out opacity-0"
-                                        onload="this.parentElement.classList.add('loaded')">
-                                    <div class="absolute inset-0 skeleton loaded-hide"></div>
-                                </div>
+                    <div class="bg-white flex flex-col">
+                        <div class="relative aspect-square overflow-hidden">
+                            <div wire:ignore>
+                                <a href="/store/{{ $product->slug }}" wire:navigate class="block h-full relative">
+                                    <!-- Primary Image with Skeleton -->
+                                    <div
+                                        class="relative aspect-square flex items-center justify-center overflow-hidden">
+                                        <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
+                                            class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 ease-in-out opacity-0"
+                                            onload="this.parentElement.classList.add('loaded')">
+                                        <div class="absolute inset-0 skeleton loaded-hide"></div>
+                                    </div>
 
-                                <!-- Secondary Image (if exists) -->
-                                @if (count($product->images) > 1)
-                                    <img src="{{ Storage::url($product->images[1]) }}" alt="{{ $product->name }}"
-                                        class="object-cover w-full h-full absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out">
-                                @endif
-                            </a>
+                                    <!-- Secondary Image (if exists) -->
+                                    @if (count($product->images) > 1)
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <img src="{{ Storage::url($product->images[1]) }}"
+                                                alt="{{ $product->name }}"
+                                                class="absolute inset-0 w-full h-full object-cover object-center opacity-0 transition-opacity duration-500 ease-in-out">
+                                        </div>
+                                    @endif
+                                </a>
+                            </div>
 
-                            <!-- Add to Cart button (desktop only) -->
-                            <button wire:click="addToCart({{ $product->id }})"
-                                class="absolute bottom-0 left-0 right-0 hidden opacity-0 group-hover:opacity-100 md:flex items-center justify-center space-x-2 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-black hover:text-white transition-all duration-500 py-2 add-to-cart-btn">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
-                                    viewBox="0 0 33 30" class="cart-icon">
-                                    <path
-                                        d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                                    <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                                </svg>
-                                <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
-                                    {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
-                                </span>
-                                <span wire:loading wire:target="addToCart({{ $product->id }})">
-                                    {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
-                                </span>
-                            </button>
-                        </div>
-                        <div class="p-4 flex-grow">
-                            <div class="flex flex-col gap-1">
-                                <div class="flex justify-between items-baseline flex-wrap">
-                                    <span
-                                        class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
-                                        @if ($product->has_variations && $product->variations->isNotEmpty())
-                                            @php
-                                                $cheapestVariation = $product->variations->sortBy('price')->first();
-                                            @endphp
-                                            {{ Number::currency($cheapestVariation->price, 'CAD') }}
-                                            @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                <span
-                                                    class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
-                                            @endif
+                            <!-- Desktop Add to Cart button -->
+                            <div wire:key="desktop-cart-container-{{ $product->id }}">
+                                @php
+                                    $selectedVariation = $this->getSelectedVariation($product);
+                                    $availableStock = $this->getAvailableStock($product);
+                                    $canAddToCart = $this->canAddToCart($product);
+                                @endphp
+                                <button wire:click="addToCart({{ $product->id }})" wire:loading.attr="disabled"
+                                    wire:key="desktop-add-to-cart-{{ $product->id }}" @class([
+                                        'absolute bottom-0 left-0 right-0 hidden md:flex items-center justify-center space-x-2 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-black hover:text-white transition-all duration-500 py-2 add-to-cart-btn opacity-0',
+                                        'cursor-not-allowed hover:bg-gray-200/70 hover:text-black group-hover:opacity-50' => !$canAddToCart,
+                                        'group-hover:opacity-100' => $canAddToCart,
+                                    ])
+                                    {{ !$canAddToCart ? 'disabled' : '' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+                                        viewBox="0 0 33 30" class="cart-icon">
+                                        <path
+                                            d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                                        <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                                    </svg>
+                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
+                                        @if (!$canAddToCart)
+                                            Out of Stock
                                         @else
-                                            {{ Number::currency($product->price, 'CAD') }}
-                                            @if ($product->has_volume && $product->volume)
-                                                <span
-                                                    class="text-black smaller-text font-light">/{{ $product->volume }}</span>
-                                            @endif
+                                            {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
                                         @endif
                                     </span>
+                                    <span wire:loading wire:target="addToCart({{ $product->id }})">
+                                        {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Content Section -->
+                        <div class="flex flex-col h-auto md:h-full">
+                            <!-- Info Section -->
+                            <div class="p-4 flex flex-col h-auto md:h-full">
+                                <!-- Price and Stock -->
+                                <div class="flex justify-between items-baseline flex-wrap mb-2">
+                                    <div class="flex items-baseline justify-between w-full">
+                                        <span
+                                            class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
+                                            @if ($product->has_variations && $product->variations->isNotEmpty())
+                                                @php
+                                                    $cheapestVariation = $product->variations->sortBy('price')->first();
+                                                @endphp
+                                                {{ Number::currency($cheapestVariation->price, 'CAD') }}
+                                                @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
+                                                    <span
+                                                        class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
+                                                @endif
+                                            @else
+                                                {{ Number::currency($product->price, 'CAD') }}
+                                                @if ($product->has_volume && $product->volume)
+                                                    <span
+                                                        class="text-black smaller-text font-light">/{{ $product->volume }}</span>
+                                                @endif
+                                            @endif
+                                        </span>
+
+                                        @if (!$product->unlimited_stock)
+                                            <span class="text-xs">
+                                                {{ $availableStock }} in stock
+                                            </span>
+                                        @endif
+
+                                    </div>
                                     @if ($product->coming_soon)
                                         <span class="text-sm hidden sm:inline">Coming Soon</span>
                                         <span class="text-sm w-full block sm:hidden mt-1">Coming Soon</span>
                                     @endif
                                 </div>
-                                <h3 class="text-sm text-gray-700 truncate">
+
+                                <!-- Product Name -->
+                                <h3 class="text-sm mb-3">
                                     {{ $product->name }}
                                 </h3>
+
+                                <!-- Variations -->
+                                @if ($product->has_variations && $product->variations->isNotEmpty())
+                                    <div class="space-y-2" wire:key="variations-container-{{ $product->id }}">
+                                        @php
+                                            $selectedVariation = $this->getSelectedVariation($product);
+                                            $availableStock = $this->getAvailableStock($product);
+                                            $canAddToCart = $this->canAddToCart($product);
+
+                                            // Get available attributes grouped by name
+                                            $availableAttributes = $product->variations->flatMap->attributes
+                                                ->groupBy('name')
+                                                ->map(function ($group) {
+                                                    return $group->pluck('value')->unique();
+                                                })
+                                                ->sortBy(function ($values, $key) {
+                                                    // Sort attribute types: type first, then size
+                                                    return $key === 'apparel_type' ? 1 : ($key === 'size' ? 2 : 3);
+                                                });
+                                        @endphp
+                                        @foreach ($availableAttributes as $attributeName => $attributeValues)
+                                            <div>
+                                                <div class="text-xs font-medium text-gray-500 mb-1">
+                                                    @if ($attributeName === 'apparel_type')
+                                                        Type
+                                                    @elseif ($attributeName === 'size')
+                                                        Size
+                                                    @else
+                                                        {{ ucfirst($attributeName) }}
+                                                    @endif
+                                                </div>
+                                                <div class="flex flex-wrap gap-1">
+                                                    @foreach ($attributeValues as $value)
+                                                        @php
+                                                            $isAvailable = $product->variations->contains(function (
+                                                                $variation,
+                                                            ) use ($attributeName, $value, $selectedVariation) {
+                                                                $matchesAttribute = $variation->attributes
+                                                                    ->where('name', $attributeName)
+                                                                    ->where('value', $value)
+                                                                    ->isNotEmpty();
+
+                                                                if (!$selectedVariation) {
+                                                                    return $matchesAttribute;
+                                                                }
+
+                                                                $otherAttributes = $selectedVariation->attributes->where(
+                                                                    'name',
+                                                                    '!=',
+                                                                    $attributeName,
+                                                                );
+                                                                foreach ($otherAttributes as $otherAttribute) {
+                                                                    if (
+                                                                        !$variation->attributes
+                                                                            ->where('name', $otherAttribute->name)
+                                                                            ->where('value', $otherAttribute->value)
+                                                                            ->isNotEmpty()
+                                                                    ) {
+                                                                        return false;
+                                                                    }
+                                                                }
+
+                                                                return $matchesAttribute;
+                                                            });
+
+                                                            $isSelected =
+                                                                $selectedVariation &&
+                                                                $selectedVariation->attributes
+                                                                    ->where('name', $attributeName)
+                                                                    ->where('value', $value)
+                                                                    ->isNotEmpty();
+                                                        @endphp
+
+                                                        <button
+                                                            wire:click="selectVariation({{ $product->id }}, '{{ $attributeName }}', '{{ $value }}')"
+                                                            @class([
+                                                                'px-2 py-1 text-xs rounded-full border transition-colors duration-200',
+                                                                'border-black bg-black text-white' => $isSelected,
+                                                                'border-gray-300 hover:border-black' => !$isSelected && $isAvailable,
+                                                                'border-gray-200 text-gray-400' => !$isAvailable,
+                                                            ])>
+                                                            {{ $value }}
+                                                        </button>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+
+                            <!-- Mobile Add to Cart button -->
+                            <div class="md:hidden mt-auto">
+                                <button wire:click="addToCart({{ $product->id }})" wire:loading.attr="disabled"
+                                    wire:key="mobile-add-to-cart-{{ $product->id }}" @class([
+                                        'w-full flex items-center justify-center space-x-2 bg-gray-200/70 backdrop-blur-sm text-black hover:bg-black hover:text-white transition-all duration-500 py-2 px-4 add-to-cart-btn',
+                                        'opacity-50 cursor-not-allowed hover:bg-gray-200/70 hover:text-black' => !$canAddToCart,
+                                    ])
+                                    {{ !$canAddToCart ? 'disabled' : '' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="none" viewBox="0 0 33 30" class="cart-icon">
+                                        <path
+                                            d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                                        <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
+                                    </svg>
+                                    <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
+                                        @if (!$canAddToCart)
+                                            Out of Stock
+                                        @else
+                                            {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
+                                        @endif
+                                    </span>
+                                    <span wire:loading wire:target="addToCart({{ $product->id }})">
+                                        {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                                    </span>
+                                </button>
                             </div>
                         </div>
-                        <!-- Mobile Add to Cart button -->
-                        <button wire:click="addToCart({{ $product->id }})"
-                            class="w-full text-black flex items-center justify-center space-x-2 hover:text-white hover:bg-black transition-colors duration-200 py-2 md:hidden add-to-cart-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
-                                viewBox="0 0 33 30" class="cart-icon">
-                                <path
-                                    d="M1.94531 1.80127H7.27113L11.9244 18.602C12.2844 19.9016 13.4671 20.8013 14.8156 20.8013H25.6376C26.9423 20.8013 28.0974 19.958 28.495 18.7154L31.9453 7.9303H19.0041"
-                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <circle cx="13.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                                <circle cx="26.4453" cy="27.3013" r="2.5" fill="currentColor" />
-                            </svg>
-                            <span wire:loading.remove wire:target="addToCart({{ $product->id }})">
-                                {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
-                            </span>
-                            <span class="text-sm" wire:loading wire:target="addToCart({{ $product->id }})">
-                                {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
-                            </span>
-                        </button>
                     </div>
                 </div>
             @endforeach
         </div>
-
-
-
     </section>
 
     <style>
@@ -255,32 +393,32 @@
             opacity: 1;
         }
 
-        /* Updated styles for the desktop Add to Cart button */
-        .product-card .group button {
-            transition: opacity 0.3s ease-in-out;
+        /* Desktop Add to Cart button */
+        .product-card .add-to-cart-btn {
+            transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            opacity: 0;
         }
 
-
-        /* Keep rounded corners only for mobile button */
+        /* Mobile Add to Cart button */
         @media (max-width: 767px) {
-            .product-card button {
-                border-bottom-left-radius: 0.5rem;
-                border-bottom-right-radius: 0.5rem;
+            .product-card .add-to-cart-btn {
+                border-radius: 0;
+                margin-top: 0;
             }
         }
 
-        .add-to-cart-btn {
-            color: black;
-            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
-        }
-
-        .add-to-cart-btn:hover {
+        .add-to-cart-btn:not(:disabled):hover {
             color: white;
             background-color: black;
         }
 
-        /* Remove the .cart-icon specific styles */
+        .add-to-cart-btn:disabled {
+            cursor: not-allowed;
+        }
 
-        /* ... other styles ... */
+        .add-to-cart-btn:disabled:hover {
+            color: black;
+            background-color: rgb(229 231 235 / 0.7);
+        }
     </style>
 </div>

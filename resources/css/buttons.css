@@ -20,6 +20,15 @@
 .main-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: rgb(229 231 235);
+    border-color: rgb(229 231 235);
+    color: rgb(107 114 128);
+}
+
+.main-button:disabled:hover {
+    background-color: rgb(229 231 235);
+    border-color: rgb(229 231 235);
+    color: rgb(107 114 128);
 }
 
 

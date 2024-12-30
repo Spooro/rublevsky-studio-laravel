@@ -5,8 +5,7 @@ namespace App\Livewire;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\Title;
-use App\Helpers\CartManagement;
-use App\Livewire\Partials\Navbar;
+use App\Traits\WithCartManagement;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Contracts\View\View;
 
@@ -14,6 +13,7 @@ use Illuminate\Contracts\View\View;
 class ProductDetailPage extends Component
 {
     use LivewireAlert;
+    use WithCartManagement;
 
     public $product;
     public $quantity = 1;
@@ -21,7 +21,6 @@ class ProductDetailPage extends Component
     public $slug;
     public $selectedVariation = null;
     public $availableAttributes = [];
-    public $availableStock;
     public $title;
     public $metaDescription;
 
@@ -38,13 +37,29 @@ class ProductDetailPage extends Component
                     return $group->pluck('value')->unique();
                 });
 
-            $this->selectedVariation = $this->product->variations->first();
+            // Find first available variation
+            $this->selectedVariation = $this->product->variations
+                ->first(function ($variation) {
+                    return $this->isVariationAvailable($this->product, $variation);
+                }) ?? $this->product->variations->first();
         }
-
-        $this->updateAvailableStock();
 
         $this->title = "{$this->product->name} | Store | Rublevsky Studio";
         $this->metaDescription = "Shop {$this->product->name} from Rublevsky Studio. {$this->product->description}";
+    }
+
+    public function incrementQuantity()
+    {
+        if ($this->quantity < $this->availableStock && $this->canAddToCart) {
+            $this->quantity++;
+        }
+    }
+
+    public function decrementQuantity()
+    {
+        if ($this->quantity > 1) {
+            $this->quantity--;
+        }
     }
 
     public function selectVariation($attributeName, $attributeValue)
@@ -84,81 +99,15 @@ class ProductDetailPage extends Component
         }
 
         $this->selectedVariation = $newVariation;
-        $this->updateAvailableStock();
-    }
-
-    public function addToCart()
-    {
-        try {
-            // Validate stock before proceeding
-            if (!$this->product->unlimited_stock && $this->quantity > $this->availableStock) {
-                $this->alert('error', 'Not enough stock available', [
-                    'position' => 'bottom-end',
-                    'timer' => 3000,
-                    'toast' => true,
-                    'showCancelButton' => false,
-                    'showConfirmButton' => false,
-                ]);
-                return;
-            }
-
-            if ($this->product->has_variations && $this->selectedVariation) {
-                $total_count = CartManagement::addVariationToCartWithQuantity(
-                    $this->product->id,
-                    $this->selectedVariation->id,
-                    $this->quantity
-                );
-            } else {
-                $total_count = CartManagement::addItemToCartWithQuantity($this->product->id, $this->quantity);
-            }
-
-            $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class);
-
-            $this->alert('success', 'Product added to cart', [
-                'position' => 'bottom-end',
-                'timer' => 2000,
-                'toast' => true,
-                'text' => '',
-                'showCancelButton' => false,
-                'showConfirmButton' => false,
-            ]);
-
-            // Reset quantity after successful addition
-            $this->quantity = 1;
-        } catch (\Exception $e) {
-            $this->alert('error', 'Failed to add product to cart', [
-                'position' => 'bottom-end',
-                'timer' => 3000,
-                'toast' => true,
-                'showCancelButton' => false,
-                'showConfirmButton' => false,
-            ]);
-        }
-    }
-
-    public function updatedQuantity($value)
-    {
-        $this->quantity = max(1, min($this->availableStock, intval($value)));
     }
 
     public function render(): View
     {
         return view('livewire.product-detail-page', [
             'title' => $this->title,
-            'metaDescription' => $this->metaDescription
+            'metaDescription' => $this->metaDescription,
+            'availableStock' => $this->availableStock,
+            'canAddToCart' => $this->canAddToCart
         ]);
-    }
-
-    public function updateAvailableStock()
-    {
-        // For unlimited stock products, set a high number or null
-        if ($this->product->unlimited_stock) {
-            $this->availableStock = PHP_INT_MAX; // Or any other large number
-            return;
-        }
-
-        $this->availableStock = $this->product->has_variations && $this->selectedVariation
-            ? $this->selectedVariation->stock
-            : $this->product->stock;
     }
 }

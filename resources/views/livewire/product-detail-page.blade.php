@@ -76,7 +76,8 @@
                                 <img :src="'{{ Storage::url('') }}' + selectedImage" :alt="'{{ $product->name }}'"
                                     class="max-w-full w-full lg:w-auto max-h-[calc(100vh-5rem)] object-contain rounded-none lg:rounded-lg cursor-zoom-in relative z-[2]"
                                     @load="$el.parentElement.classList.add('loaded')" @click="openGallery()">
-                                <div class="absolute inset-0 skeleton rounded-none lg:rounded-lg z-[1]"></div>
+                                <div class="absolute inset-0 skeleton rounded-none lg:rounded-lg z-[1] loaded-hide">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -166,39 +167,32 @@
                                     <span>Coming Soon</span>
                                 </div>
                             @else
-                                In stock: {{ $availableStock }}
+                                <span>In stock: {{ $availableStock }}</span>
                             @endif
-                            {{-- <span class="text-gray-500">Brand: {{ $product->brand->name }}</span> --}}
                         </div>
                     @endif
 
                     <!-- Quantity selector and Add to cart button -->
-                    <div class="flex flex-wrap items-center gap-4" x-data="{
-                        qty: @entangle('quantity').live,
-                        maxStock: {{ $product->unlimited_stock ? 'Infinity' : $availableStock }},
-                        decreaseQty() {
-                            if (this.qty > 1) {
-                                this.qty--;
-                            }
-                        },
-                        increaseQty() {
-                            if (this.qty < this.maxStock) {
-                                this.qty++;
-                            }
-                        }
-                    }">
+                    <div class="flex flex-wrap items-center gap-4">
                         <div class="flex items-center space-x-4">
-                            <button @click="decreaseQty()" :class="{ 'opacity-50 cursor-not-allowed': qty <= 1 }"
-                                class="w-10 h-10 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center">
+                            <button wire:click="decrementQuantity" @class([
+                                'w-10 h-10 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center',
+                                'opacity-50 cursor-not-allowed' => $quantity <= 1 || !$canAddToCart,
+                            ])
+                                {{ $quantity <= 1 || !$canAddToCart ? 'disabled' : '' }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                         d="M20 12H4" />
                                 </svg>
                             </button>
-                            <h5 x-text="qty"></h5>
-                            <button @click="increaseQty()" :class="{ 'opacity-50 cursor-not-allowed': qty >= maxStock }"
-                                class="w-10 h-10 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center">
+                            <h5>{{ $quantity }}</h5>
+                            <button wire:click="incrementQuantity" @class([
+                                'w-10 h-10 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center',
+                                'opacity-50 cursor-not-allowed' =>
+                                    !$canAddToCart || $quantity >= $availableStock,
+                            ])
+                                {{ !$canAddToCart || $quantity >= $availableStock ? 'disabled' : '' }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -207,47 +201,32 @@
                             </button>
                         </div>
 
-                        <!-- Add to Cart button with optimistic UI -->
-                        <div x-data="{
-                            isAdding: false,
-                            cartCount: {{ count(CartManagement::getCartItemsFromCookie()) }},
-                            async addToCart() {
-                                if (this.isAdding) return;
-                        
-                                this.isAdding = true;
-                                // Optimistically update cart count
-                                this.cartCount += qty;
-                        
-                                try {
-                                    await $wire.addToCart();
-                                } catch (error) {
-                                    // Revert optimistic update if failed
-                                    this.cartCount -= qty;
-                                } finally {
-                                    this.isAdding = false;
-                                }
-                            }
-                        }">
-                            <button @click="addToCart()" class="main-button relative"
-                                :class="{ 'opacity-75': isAdding }"
-                                {{ $product->has_variations && !$selectedVariation ? 'disabled' : '' }}>
-                                <span
-                                    x-show="!isAdding">{{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}</span>
-                                <span
-                                    x-show="isAdding">{{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}</span>
-                                <span class="ml-2">
-                                    @if ($product->has_variations && $selectedVariation)
-                                        <span class="opacity-50">CAD
-                                        </span>{{ number_format($selectedVariation->price, 2) }}
-                                    @else
-                                        <span class="opacity-50">CAD </span>{{ number_format($product->price, 2) }}
-                                        @if ($product->has_volume && $product->volume && !$product->has_variations)
-                                            <span class="font-light">/ {{ $product->volume }}</span>
-                                        @endif
-                                    @endif
+                        <!-- Add to Cart button -->
+                        <button wire:click="addToCart({{ $product->id }}, {{ $quantity }})"
+                            wire:loading.attr="disabled" wire:loading.class="opacity-75" class="main-button relative"
+                            {{ !$canAddToCart ? 'disabled' : '' }}>
+                            @if (!$canAddToCart)
+                                <span>Out of Stock</span>
+                            @else
+                                <span wire:loading.remove wire:target="addToCart">
+                                    {{ $product->coming_soon ? 'Pre-order' : 'Add to Cart' }}
                                 </span>
-                            </button>
-                        </div>
+                                <span wire:loading wire:target="addToCart">
+                                    {{ $product->coming_soon ? 'Pre-ordering...' : 'Adding...' }}
+                                </span>
+                            @endif
+                            <span class="ml-2">
+                                @if ($product->has_variations && $selectedVariation)
+                                    <span
+                                        class="opacity-50">CAD</span>{{ number_format($selectedVariation->price, 2) }}
+                                @else
+                                    <span class="opacity-50">CAD </span>{{ number_format($product->price, 2) }}
+                                    @if ($product->has_volume && $product->volume && !$product->has_variations)
+                                        <span class="font-light">/ {{ $product->volume }}</span>
+                                    @endif
+                                @endif
+                            </span>
+                        </button>
                     </div>
 
                     <!-- Product description -->
@@ -290,9 +269,10 @@
 <script>
     function centerSelectedImage(clickedImage) {
         const container = document.getElementById('image-preview-container');
-        const isDesktop = window.innerWidth >= 1024;
+        const containerStyle = window.getComputedStyle(container);
+        const isVerticalLayout = containerStyle.flexDirection === 'column';
 
-        if (isDesktop) {
+        if (isVerticalLayout) {
             const containerHeight = container.offsetHeight;
             const imageHeight = clickedImage.offsetHeight;
             const scrollTop = clickedImage.offsetTop - (containerHeight / 2) + (imageHeight / 2);
