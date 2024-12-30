@@ -175,8 +175,9 @@ class ProductResource extends Resource
                                             ->options([
                                                 'apparel_type' => 'Apparel Type',
                                                 'size' => 'Size cm',
+                                                'apparel_size' => 'Size',
                                                 'color' => 'Color',
-                                                'volume' => 'Volume',
+                                                'volume' => 'Volume g',
                                             ])
                                             ->required(),
                                         TextInput::make('value')

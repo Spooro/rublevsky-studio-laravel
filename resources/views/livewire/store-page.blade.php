@@ -266,13 +266,16 @@
                                         @foreach ($availableAttributes as $attributeName => $attributeValues)
                                             <div>
                                                 <div class="text-xs font-medium text-gray-500 mb-1">
-                                                    @if ($attributeName === 'apparel_type')
-                                                        Type
-                                                    @elseif ($attributeName === 'size')
-                                                        Size
-                                                    @else
-                                                        {{ ucfirst($attributeName) }}
-                                                    @endif
+                                                    @php
+                                                        $attributeLabels = [
+                                                            'apparel_type' => 'Apparel Type',
+                                                            'size' => 'Size cm',
+                                                            'apparel_size' => 'Size',
+                                                            'color' => 'Color',
+                                                            'volume' => 'Volume g',
+                                                        ];
+                                                    @endphp
+                                                    {{ $attributeLabels[$attributeName] ?? ucfirst($attributeName) }}
                                                 </div>
                                                 <div class="flex flex-wrap gap-1">
                                                     @foreach ($attributeValues as $value)

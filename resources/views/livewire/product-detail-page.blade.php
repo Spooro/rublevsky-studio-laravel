@@ -97,14 +97,17 @@
                         <div class="flex flex-wrap gap-8">
                             @foreach ($availableAttributes as $attributeName => $attributeValues)
                                 <div class="w-auto min-w-fit">
-                                    <h4 class="text-lg font-semibold mb-3">
-                                        @if ($attributeName === 'apparel_type')
-                                            Type
-                                        @elseif ($attributeName === 'size')
-                                            Size <span class="font-normal">cm</span>
-                                        @else
-                                            {{ ucfirst(str_replace('_', ' ', $attributeName)) }}
-                                        @endif
+                                    <h4 class="text-lg font-medium mb-1">
+                                        @php
+                                            $attributeLabels = [
+                                                'apparel_type' => 'Apparel Type',
+                                                'size' => 'Size cm',
+                                                'apparel_size' => 'Size',
+                                                'color' => 'Color',
+                                                'volume' => 'Volume g',
+                                            ];
+                                        @endphp
+                                        {{ $attributeLabels[$attributeName] ?? ucfirst($attributeName) }}
                                     </h4>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($attributeValues as $value)
