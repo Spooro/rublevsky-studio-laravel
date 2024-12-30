@@ -189,7 +189,7 @@ class StorePage extends Component
                 1
             );
         } else {
-            if (!CartManagement::getAvailableQuantity($product, null) > 0) {
+            if (CartManagement::getAvailableQuantity($product, null) <= 0) {
                 $this->alert('error', 'Product is out of stock', [
                     'position' => 'bottom-end',
                     'timer' => 3000,
@@ -203,6 +203,7 @@ class StorePage extends Component
 
         $this->dispatch('update-cart-count', total_count: $total_count)->to('App\Livewire\Partials\Navbar');
         $this->dispatch('cart-updated');
+        $this->refreshProducts();
 
         $this->alert('success', 'Product added to cart', [
             'position' => 'bottom-end',

@@ -150,7 +150,7 @@ trait WithCartManagement
                     $quantity
                 );
             } else {
-                if (!CartManagement::getAvailableQuantity($product, null) > 0) {
+                if (CartManagement::getAvailableQuantity($product, null) <= 0) {
                     $this->alert('error', 'Product is out of stock', [
                         'position' => 'bottom-end',
                         'timer' => 3000,
@@ -166,6 +166,11 @@ trait WithCartManagement
 
             $this->dispatch('update-cart-count', total_count: $total_count)->to('App\Livewire\Partials\Navbar');
             $this->dispatch('cart-updated');
+
+            // Refresh products to update stock display
+            if (method_exists($this, 'refreshProducts')) {
+                $this->refreshProducts();
+            }
 
             $this->alert('success', 'Product added to cart', [
                 'position' => 'bottom-end',

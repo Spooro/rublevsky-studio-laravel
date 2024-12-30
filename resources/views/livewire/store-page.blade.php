@@ -396,7 +396,13 @@
         /* Desktop Add to Cart button */
         .product-card .add-to-cart-btn {
             transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-            opacity: 0;
+        }
+
+        /* Only hide desktop button by default */
+        @media (min-width: 768px) {
+            .product-card .add-to-cart-btn {
+                opacity: 0;
+            }
         }
 
         /* Mobile Add to Cart button */
@@ -404,6 +410,7 @@
             .product-card .add-to-cart-btn {
                 border-radius: 0;
                 margin-top: 0;
+                opacity: 1;
             }
         }
 

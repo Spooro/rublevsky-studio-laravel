@@ -68,17 +68,17 @@ class CartManagement
         $existing_item = null;
 
         foreach ($cart_items as $key => $item) {
-            if ($item['product_id'] == $product_id) {
+            if ($item['product_id'] == $product_id && !isset($item['variation_id'])) {
                 $existing_item = $key;
                 break;
             }
         }
 
         if ($existing_item !== null) {
-            $cart_items[$existing_item]['quantity'] = $qty;
+            $cart_items[$existing_item]['quantity'] += $qty;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images', 'coming_soon']);
             if ($product) {
                 $cart_items[] = [
                     'product_id'   => $product_id,
@@ -87,6 +87,7 @@ class CartManagement
                     'quantity'     => $qty,
                     'unit_amount'  => $product->price,
                     'total_amount' => $qty * $product->price,
+                    'coming_soon'  => $product->coming_soon,
                 ];
             }
         }
@@ -245,10 +246,7 @@ class CartManagement
         }
 
         $baseStock = $variation ? $variation->stock : $product->stock;
-        $cartQuantity = self::getCartItemQuantity(
-            $product->id,
-            $variation ? $variation->id : null
-        );
+        $cartQuantity = self::getCartItemQuantity($product->id, $variation ? $variation->id : null);
 
         return max(0, $baseStock - $cartQuantity);
     }
