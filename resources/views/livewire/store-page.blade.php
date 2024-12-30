@@ -201,35 +201,38 @@
                             <!-- Info Section -->
                             <div class="p-4 flex flex-col h-auto md:h-full">
                                 <!-- Price and Stock -->
-                                <div class="flex justify-between items-baseline flex-wrap mb-2">
-                                    <div class="flex items-baseline justify-between w-full">
-                                        <span
-                                            class="text-lg font-light text-black whitespace-nowrap flex items-baseline gap-1">
-                                            @if ($product->has_variations && $product->variations->isNotEmpty())
-                                                @php
-                                                    $cheapestVariation = $product->variations->sortBy('price')->first();
-                                                @endphp
-                                                {{ Number::currency($cheapestVariation->price, 'CAD') }}
-                                                @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                    <span
-                                                        class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
+                                <div class="flex flex-col mb-2">
+                                    <div class="flex flex-wrap items-baseline justify-between w-full gap-x-2">
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-lg font-light text-black whitespace-nowrap">
+                                                @if ($product->has_variations && $product->variations->isNotEmpty())
+                                                    @php
+                                                        $cheapestVariation = $product->variations
+                                                            ->sortBy('price')
+                                                            ->first();
+                                                    @endphp
+                                                    {{ Number::currency($cheapestVariation->price, 'CAD') }}
+                                                    @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
+                                                        <span
+                                                            class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
+                                                    @endif
+                                                @else
+                                                    {{ Number::currency($product->price, 'CAD') }}
+                                                    @if ($product->has_volume && $product->volume)
+                                                        <span
+                                                            class="text-black smaller-text font-light">/{{ $product->volume }}</span>
+                                                    @endif
                                                 @endif
-                                            @else
-                                                {{ Number::currency($product->price, 'CAD') }}
-                                                @if ($product->has_volume && $product->volume)
-                                                    <span
-                                                        class="text-black smaller-text font-light">/{{ $product->volume }}</span>
-                                                @endif
-                                            @endif
-                                        </span>
+                                            </span>
+                                        </div>
 
                                         @if (!$product->unlimited_stock)
-                                            <span class="text-xs">
+                                            <span class="text-xs whitespace-nowrap [&:not(:first-child)]:ml-0">
                                                 {{ $availableStock }} in stock
                                             </span>
                                         @endif
-
                                     </div>
+
                                     @if ($product->coming_soon)
                                         <span class="text-sm hidden sm:inline">Coming Soon</span>
                                         <span class="text-sm w-full block sm:hidden mt-1">Coming Soon</span>
