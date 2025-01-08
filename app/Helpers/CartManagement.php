@@ -245,6 +245,44 @@ class CartManagement
             return PHP_INT_MAX;
         }
 
+        if ($product->has_volume && $product->has_variations) {
+            $remainingVolume = (float) $product->volume;
+
+            // Subtract volume of items already in cart
+            $cartItems = self::getCartItemsFromCookie();
+            foreach ($cartItems as $item) {
+                if ($item['product_id'] == $product->id) {
+                    $itemVariation = ProductVariation::find($item['variation_id']);
+                    if (!$itemVariation) continue;
+
+                    $volumeAttribute = $itemVariation->attributes
+                        ->where('name', 'volume')
+                        ->first();
+
+                    if (!$volumeAttribute) continue;
+
+                    $itemVolume = (float) $volumeAttribute->value;
+                    if ($itemVolume <= 0) continue;
+
+                    $remainingVolume -= ($itemVolume * (int) $item['quantity']);
+                }
+            }
+
+            if ($variation) {
+                $volumeAttribute = $variation->attributes
+                    ->where('name', 'volume')
+                    ->first();
+
+                if (!$volumeAttribute) return 0;
+
+                $variationVolume = (float) $volumeAttribute->value;
+                if ($variationVolume <= 0) return 0;
+
+                return max(0, floor($remainingVolume / $variationVolume));
+            }
+            return 0;
+        }
+
         $baseStock = $variation ? $variation->stock : $product->stock;
         $cartQuantity = self::getCartItemQuantity($product->id, $variation ? $variation->id : null);
 
@@ -259,6 +297,22 @@ class CartManagement
 
         if ($product->has_variations && !$variation) {
             return false;
+        }
+
+        if ($product->has_volume && $product->has_variations) {
+            // First check if the variation has a valid volume attribute
+            if ($variation) {
+                $volumeAttribute = $variation->attributes
+                    ->where('name', 'volume')
+                    ->first();
+
+                if (!$volumeAttribute || (float) $volumeAttribute->value <= 0) {
+                    return false;
+                }
+            }
+
+            $availableQuantity = self::getAvailableQuantity($product, $variation);
+            return ($quantity > 0 && $quantity <= $availableQuantity);
         }
 
         $baseStock = $variation ? $variation->stock : $product->stock;

@@ -72,6 +72,12 @@ class ProductResource extends Resource
                             ->default(0)
                             ->hidden(fn(Get $get): bool => (bool) $get('has_variations') || (bool) $get('unlimited_stock')),
 
+                        TextInput::make('volume')
+                            ->label('Total Volume Stock (g)')
+                            ->numeric()
+                            ->required(fn(Get $get): bool => $get('has_volume'))
+                            ->hidden(fn(Get $get): bool => !$get('has_volume')),
+
                     ])->columns(2),
                     Section::make("Images")->schema([
                         FileUpload::make('images')
@@ -94,10 +100,6 @@ class ProductResource extends Resource
                             ->required(fn(Get $get): bool => !$get('has_variations')) // Only required if no variations
                             ->prefix('CAD')
                             ->hidden(fn(Get $get): bool => $get('has_variations')),
-
-                        TextInput::make('volume')
-                            ->required(fn(Get $get): bool => $get('has_volume'))
-                            ->hidden(fn(Get $get): bool => !$get('has_volume') || $get('has_variations')),
 
                         Placeholder::make('price_instruction')
                             ->content('For products with variations, please set prices in the Variations section below.')
@@ -165,8 +167,21 @@ class ProductResource extends Resource
                                 TextInput::make('stock')
                                     ->numeric()
                                     ->default(0)
+                                    ->disabled(fn(Get $get): bool => (bool) $get('../../has_volume'))
                                     ->hidden(function (Get $get): bool {
                                         return (bool) $get('../../unlimited_stock');
+                                    })
+                                    ->afterStateHydrated(function (TextInput $component, $state, Get $get) {
+                                        if ($get('../../has_volume')) {
+                                            $totalVolume = $get('../../volume');
+                                            $variationVolume = collect($get('attributes'))
+                                                ->where('name', 'volume')
+                                                ->first()['value'] ?? null;
+
+                                            if ($totalVolume && $variationVolume) {
+                                                $component->state(floor($totalVolume / (int)$variationVolume));
+                                            }
+                                        }
                                     }),
                                 Repeater::make('attributes')
                                     ->relationship()
