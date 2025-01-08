@@ -40,8 +40,10 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
-    protected static ?int $navigationSort = 4;
+    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationGroup = 'Shop';
 
     public static function form(Form $form): Form
     {
@@ -330,6 +332,7 @@ class ProductResource extends Resource
             ...parent::getNavigationItems(),
             NavigationItem::make('Import Stock')
                 ->icon('heroicon-o-arrow-up-tray')
+                ->group('Shop')
                 ->url(static::getUrl('import-stock')),
         ];
     }
