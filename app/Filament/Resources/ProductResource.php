@@ -34,6 +34,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\Facades\Storage;
+use Filament\Navigation\NavigationItem;
 
 class ProductResource extends Resource
 {
@@ -286,6 +287,7 @@ class ProductResource extends Resource
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'import-stock' => Pages\ImportStock::route('/import-stock'),
         ];
     }
 
@@ -297,5 +299,20 @@ class ProductResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Shop';
+    }
+
+    public static function getNavigationItems(): array
+    {
+        return [
+            ...parent::getNavigationItems(),
+            NavigationItem::make('Import Stock')
+                ->icon('heroicon-o-arrow-up-tray')
+                ->url(static::getUrl('import-stock')),
+        ];
     }
 }
