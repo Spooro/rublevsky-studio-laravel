@@ -42,8 +42,14 @@
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    min-height: calc(30rem + 4rem);
+    min-height: 0rem;
 }
+
+/* @media (min-width: 640px) {
+    .blog-image-container {
+        min-height: 0;
+    }
+} */
 
 .blog-images-slider {
     width: 100%;

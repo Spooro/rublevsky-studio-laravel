@@ -27,7 +27,7 @@
                             <!-- Post Header -->
                             <div class="blog-post-header">
                                 @if ($post->images && count($post->images) > 0)
-                                    <div class="blog-image-container -mx-4 sm:-mx-6 md:mx-0">
+                                    <div class="blog-image-container mb-4 -mx-4 sm:-mx-6 md:mx-0">
                                         <div class=" relative">
                                             <!-- Main Slider -->
                                             <div class="swiper blog-images-slider" data-post-id="{{ $post->id }}">
@@ -55,7 +55,7 @@
 
                                         <!-- Image Previews -->
                                         @if (count($post->images) > 1)
-                                            <div class="w-full max-w-2xl mx-auto pb-4">
+                                            <div class="w-full max-w-2xl mx-auto">
                                                 <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
                                                     id="preview-container-{{ $post->id }}">
                                                     @foreach ($post->images as $index => $image)
