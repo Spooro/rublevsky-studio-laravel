@@ -77,7 +77,25 @@ class ProductResource extends Resource
                             ->label('Total Volume Stock (g)')
                             ->numeric()
                             ->required(fn(Get $get): bool => $get('has_volume'))
-                            ->hidden(fn(Get $get): bool => !$get('has_volume')),
+                            ->hidden(fn(Get $get): bool => !$get('has_volume'))
+                            ->live()
+                            ->afterStateUpdated(function ($state, Set $set, Get $get) {
+                                if (!$state) return;
+
+                                $variations = $get('variations');
+                                if (!$variations) return;
+
+                                foreach ($variations as $key => $variation) {
+                                    $attributes = $variation['attributes'] ?? [];
+                                    $volumeAttribute = collect($attributes)
+                                        ->where('name', 'volume')
+                                        ->first();
+
+                                    if ($volumeAttribute && $volumeAttribute['value']) {
+                                        $set("variations.{$key}.stock", floor($state / (int)$volumeAttribute['value']));
+                                    }
+                                }
+                            }),
 
                     ])->columns(2),
                     Section::make("Images")->schema([
