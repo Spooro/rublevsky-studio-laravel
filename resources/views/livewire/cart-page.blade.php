@@ -4,7 +4,7 @@
         <div class="flex flex-col md:flex-row gap-14">
             <div class="md:w-2/3">
                 <div class="bg-white overflow-x-auto rounded-lg mb-4">
-                    @forelse ($cart_items as $item)
+                    @forelse ($cartItems as $item)
                         <div wire:key="{{ $item['product_id'] . '-' . ($item['variation_id'] ?? '') }}"
                             class="flex items-start justify-between py-4 border-b">
                             <div class="flex items-start flex-grow pr-4">
@@ -53,18 +53,11 @@
 
                                         <button
                                             wire:click="increaseQty({{ $item['product_id'] }}, {{ $item['variation_id'] ?? 'null' }})"
-                                            @php
-$product = $products[$item['product_id']];
-                                                $variation = isset($item['variation_id']) ? $product->variations->firstWhere('id', $item['variation_id']) : null;
-                                                $maxStock = $variation ? $variation->stock : $product->stock;
-                                                if ($product->unlimited_stock) {
-                                                    $maxStock = PHP_INT_MAX;
-                                                } @endphp
                                             @class([
                                                 'w-8 h-8 rounded-full hover:bg-gray-100 transition duration-300 ease-in-out flex items-center justify-center',
-                                                'opacity-50 cursor-not-allowed' => $item['quantity'] >= $maxStock,
+                                                'opacity-50 cursor-not-allowed' => !$item['can_increase'],
                                             ])
-                                            {{ $item['quantity'] >= $maxStock ? 'disabled' : '' }}>
+                                            {{ !$item['can_increase'] ? 'disabled' : '' }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -117,7 +110,7 @@ $product = $products[$item['product_id']];
                         <span class="font-normal">Total</span>
                         <span class="font-normal">{{ Number::currency($grand_total, 'CAD') }}</span>
                     </div>
-                    @if ($cart_items)
+                    @if ($cartItems)
                         <a href="/checkout" class="main-button w-full">
                             Checkout
                         </a>

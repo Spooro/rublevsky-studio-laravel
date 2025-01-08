@@ -43,39 +43,12 @@ class CartPage extends Component
 
     public function increaseQty($product_id, $variation_id = null)
     {
-        // Set context for WithCartManagement trait
-        $this->product = $this->products[$product_id];
-        $this->selectedVariation = $variation_id ? $this->product->variations->firstWhere('id', $variation_id) : null;
+        $product = $this->products[$product_id];
+        $variation = $variation_id ? $product->variations->firstWhere('id', $variation_id) : null;
 
-        // Get current quantity from cart
-        $cartItem = collect($this->cart_items)
-            ->where('product_id', $product_id)
-            ->where('variation_id', $variation_id)
-            ->first();
+        $availableQuantity = CartManagement::getAvailableQuantity($product, $variation);
 
-        $currentQty = $cartItem['quantity'] ?? 0;
-        $totalStock = $this->selectedVariation ? $this->selectedVariation->stock : $this->product->stock;
-
-        // Check if we can add one more
-        if ($this->product->unlimited_stock || ($currentQty + 1) <= $totalStock) {
-            // Update quantity directly in cart items
-            foreach ($this->cart_items as $key => $item) {
-                if (
-                    $item['product_id'] == $product_id &&
-                    (($variation_id && isset($item['variation_id']) && $item['variation_id'] == $variation_id) ||
-                        (!$variation_id && !isset($item['variation_id'])))
-                ) {
-                    $this->cart_items[$key]['quantity'] = $currentQty + 1;
-                    $this->cart_items[$key]['total_amount'] = $this->cart_items[$key]['quantity'] * $this->cart_items[$key]['unit_amount'];
-                    break;
-                }
-            }
-
-            // Save updated cart
-            CartManagement::addCartItemsToCookie($this->cart_items);
-            $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
-            $this->dispatch('cart-updated');
-        } else {
+        if (!$product->unlimited_stock && $availableQuantity <= 0) {
             $this->alert('error', 'Cannot add more items than available in stock', [
                 'position' => 'bottom-end',
                 'timer' => 3000,
@@ -83,7 +56,26 @@ class CartPage extends Component
                 'showCancelButton' => false,
                 'showConfirmButton' => false,
             ]);
+            return;
         }
+
+        // Update quantity directly in cart items
+        foreach ($this->cart_items as $key => $item) {
+            if (
+                $item['product_id'] == $product_id &&
+                (($variation_id && isset($item['variation_id']) && $item['variation_id'] == $variation_id) ||
+                    (!$variation_id && !isset($item['variation_id'])))
+            ) {
+                $this->cart_items[$key]['quantity']++;
+                $this->cart_items[$key]['total_amount'] = $this->cart_items[$key]['quantity'] * $this->cart_items[$key]['unit_amount'];
+                break;
+            }
+        }
+
+        // Save updated cart
+        CartManagement::addCartItemsToCookie($this->cart_items);
+        $this->grand_total = CartManagement::calculateGrandTotal($this->cart_items);
+        $this->dispatch('cart-updated');
     }
 
     public function decreaseQty($product_id, $variation_id = null)
@@ -117,8 +109,28 @@ class CartPage extends Component
         }
     }
 
+    public function canIncreaseQuantity($product_id, $variation_id = null)
+    {
+        $product = $this->products[$product_id];
+        $variation = $variation_id ? $product->variations->firstWhere('id', $variation_id) : null;
+
+        return $product->unlimited_stock || CartManagement::getAvailableQuantity($product, $variation) > 0;
+    }
+
     public function render()
     {
-        return view('livewire.cart-page');
+        // Add available quantities data for each cart item
+        $cartItemsWithAvailability = collect($this->cart_items)->map(function ($item) {
+            $product = $this->products[$item['product_id']];
+            $variation = isset($item['variation_id']) ? $product->variations->firstWhere('id', $item['variation_id']) : null;
+
+            $item['can_increase'] = $this->canIncreaseQuantity($item['product_id'], $item['variation_id'] ?? null);
+
+            return $item;
+        })->all();
+
+        return view('livewire.cart-page', [
+            'cartItems' => $cartItemsWithAvailability
+        ]);
     }
 }
