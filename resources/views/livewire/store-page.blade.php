@@ -207,15 +207,12 @@
                                             <span class="text-lg font-light text-black whitespace-nowrap">
                                                 @if ($product->has_variations && $product->variations->isNotEmpty())
                                                     @php
-                                                        $cheapestVariation = $product->variations
-                                                            ->sortBy('price')
-                                                            ->first();
+                                                        $selectedVariation = $this->getSelectedVariation($product);
+                                                        $displayPrice = $selectedVariation
+                                                            ? $selectedVariation->price
+                                                            : $product->variations->sortBy('price')->first()->price;
                                                     @endphp
-                                                    {{ Number::currency($cheapestVariation->price, 'CAD') }}
-                                                    @if ($volumeAttr = $cheapestVariation->attributes->where('name', 'volume')->first())
-                                                        <span
-                                                            class="text-black smaller-text font-light">/{{ $volumeAttr->value }}</span>
-                                                    @endif
+                                                    {{ Number::currency($displayPrice, 'CAD') }}
                                                 @else
                                                     {{ Number::currency($product->price, 'CAD') }}
                                                     @if ($product->has_volume && $product->volume)
