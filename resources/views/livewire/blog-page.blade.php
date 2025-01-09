@@ -49,6 +49,34 @@
                                                 <div class="skeleton blog-image-skeleton right side"></div>
                                             </div>
                                         </div>
+
+                                        <!-- Image Previews -->
+                                        @if (count($post->images) > 1)
+                                            <div class="w-full max-w-2xl mx-auto mt-4">
+                                                <div class="flex gap-2 overflow-x-auto no-scrollbar px-0"
+                                                    id="preview-container-{{ $post->id }}">
+                                                    @foreach ($post->images as $index => $image)
+                                                        <div
+                                                            class="flex-shrink-0 {{ $loop->first ? 'pl-4 md:pl-0' : '' }} {{ $loop->last ? 'pr-4 md:pr-0' : '' }}">
+                                                            <div class="preview-image-wrapper rounded-lg"
+                                                                data-post-id="{{ $post->id }}"
+                                                                data-index="{{ $index }}">
+                                                                <div class="w-20 h-20 relative">
+                                                                    <img src="{{ Storage::url($image) }}"
+                                                                        alt="{{ $post->title }} - Preview {{ $loop->iteration }}"
+                                                                        class="w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-75 transition opacity-0"
+                                                                        onload="this.parentElement.classList.add('loaded')"
+                                                                        style="transition: opacity 0.2s">
+                                                                    <div
+                                                                        class="absolute inset-0 skeleton rounded-lg loaded-hide">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endif
