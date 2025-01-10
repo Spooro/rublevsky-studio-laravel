@@ -79,6 +79,10 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div x-show="isOpen" class="fixed inset-0 z-[999999999] bg-black bg-opacity-[0.92]"
+                                    x-cloak>
+                                    <x-lightbox-gallery />
+                                </div>
                             @endif
 
                             <div class="sticky-header-container">
@@ -126,7 +130,7 @@
                                 </div>
                             </div>
 
-                            <div class="prose prose-lg mx-auto -mt-10">
+                            <div class="prose prose-lg mx-auto -mt-14">
                                 <div class="prose-content">
                                     {!! $post->body !!}
                                 </div>

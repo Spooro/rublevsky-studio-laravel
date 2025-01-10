@@ -59,7 +59,7 @@
 .blog-images-slider .swiper-slide {
     width: auto;
     max-width: 85%;
-    transition: transform 0.3s;
+    transition: all 0.3s;
     overflow: hidden;
     transform-origin: center;
     opacity: 0.4;
@@ -70,11 +70,12 @@
     justify-content: center;
 }
 
-@media (max-width: 768px) {
+
+/* @media (max-width: 768px) {
     .blog-images-slider .swiper-slide {
         max-width: 81%;
     }
-}
+} */
 
 .blog-images-slider .swiper-slide-active {
     opacity: 1;
