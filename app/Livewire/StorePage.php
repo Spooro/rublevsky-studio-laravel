@@ -61,8 +61,31 @@ class StorePage extends Component
         if (!$this->price_range) {
             $this->price_range = $this->max_price;
         }
+    }
 
-        $this->refreshProducts();
+    private function getCategoryIdFromSlug($slug)
+    {
+        return Category::where('slug', $slug)->value('id');
+    }
+
+    private function getCategorySlugFromId($id)
+    {
+        return Category::where('id', $id)->value('slug');
+    }
+
+    public function toggleCategory($categoryId)
+    {
+        $categorySlug = $this->getCategorySlugFromId($categoryId);
+        $categories = $this->selected_categories ? explode(',', $this->selected_categories) : [];
+
+        if (($key = array_search($categorySlug, $categories)) !== false) {
+            unset($categories[$key]);
+        } else {
+            $categories[] = $categorySlug;
+        }
+
+        // Convert back to comma-separated string
+        $this->selected_categories = implode(',', array_filter($categories));
     }
 
     public function selectVariation($product_id, $attributeName, $attributeValue)
@@ -203,7 +226,6 @@ class StorePage extends Component
 
         $this->dispatch('update-cart-count', total_count: $total_count)->to('App\Livewire\Partials\Navbar');
         $this->dispatch('cart-updated');
-        $this->refreshProducts();
 
         $this->alert('success', 'Product added to cart', [
             'position' => 'bottom-end',
@@ -212,7 +234,7 @@ class StorePage extends Component
         ]);
     }
 
-    public function refreshProducts()
+    public function render(): View
     {
         // Start with base query
         $productQuery = Product::query()
@@ -302,10 +324,7 @@ class StorePage extends Component
         }
 
         $this->products = $productQuery->get();
-    }
 
-    public function render(): View
-    {
         return view('livewire.store-page', [
             'title' => $this->title,
             'metaDescription' => $this->metaDescription,
