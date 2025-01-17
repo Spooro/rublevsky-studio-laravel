@@ -221,9 +221,10 @@
                             <span class="ml-2">
                                 @if ($product->has_variations && $selectedVariation)
                                     <span
-                                        class="opacity-50">CAD</span>{{ number_format($selectedVariation->price, 2) }}
+                                        class="opacity-50">CAD</span>{{ number_format($selectedVariation->price * $quantity, 2) }}
                                 @else
-                                    <span class="opacity-50">CAD </span>{{ number_format($product->price, 2) }}
+                                    <span class="opacity-50">CAD
+                                    </span>{{ number_format($product->price * $quantity, 2) }}
                                     @if ($product->has_volume && $product->volume && !$product->has_variations)
                                         <span class="font-light">/ {{ $product->volume }}</span>
                                     @endif
