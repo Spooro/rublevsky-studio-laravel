@@ -164,10 +164,6 @@ class ProductResource extends Resource
                             ->label('Unlimited Stock')
                             ->default(false)
                             ->reactive(),
-
-                        Toggle::make('coming_soon')
-                            ->label('Coming Soon')
-                            ->default(false),
                     ])
                 ])->columnSpan(1),
                 Section::make('Variations')
@@ -239,6 +235,9 @@ class ProductResource extends Resource
                 TextColumn::make('name')
                     ->searchable(),
 
+                IconColumn::make('is_active')
+                    ->boolean(),
+
                 TextColumn::make('category.name')
                     ->sortable(),
 
@@ -256,9 +255,6 @@ class ProductResource extends Resource
                     ->boolean(),
 
                 IconColumn::make('in_stock')
-                    ->boolean(),
-
-                IconColumn::make('is_active')
                     ->boolean(),
 
                 TextColumn::make('created_at')

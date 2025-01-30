@@ -26,14 +26,12 @@ class Product extends Model
         'unlimited_stock',
         'has_volume',
         'volume',
-        'coming_soon',
     ];
 
     protected $casts = [
         'images' => 'array',
         'has_variations' => 'boolean',
         'has_volume' => 'boolean',
-        'coming_soon' => 'boolean',
     ];
 
     public function category()

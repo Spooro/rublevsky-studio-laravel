@@ -237,11 +237,12 @@ class ImportStock extends Page
                             // Calculate the final price by multiplying per-gram price by variation volume
                             $perGramPrice = (float) $cleanPrice;
                             $finalPrice = $perGramPrice * (float) $variationVolume;
+                            $finalPrice = ceil($finalPrice); // Round up to nearest whole dollar
 
                             $updateData['price_updates'][] = [
                                 'volume' => $variationVolume,
                                 'current_price' => (float) $variation->price,
-                                'new_price' => round($finalPrice, 2),
+                                'new_price' => $finalPrice,
                                 'variation_id' => $variation->id,
                                 'price_tier' => "{$applicableTier}g+",
                                 'per_gram_price' => $perGramPrice
