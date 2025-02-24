@@ -105,11 +105,11 @@
             {{-- Development Skills --}}
             <div>
                 <div class="flex justify-center">
-                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-10">
+                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-6">
                         <h3 class="text-lg md:text-xl lg:text-2xl">Development</h3>
                     </div>
                 </div>
-                <div class="flex flex-wrap gap-4 justify-center">
+                <div class="flex flex-wrap gap-6 justify-center">
                     <x-skill-logo name="HTML5" logo="html5.svg" />
                     <x-skill-logo name="Tailwind CSS" logo="tailwind.svg" />
                     <x-skill-logo name="Laravel" logo="laravel.svg" />
@@ -127,11 +127,11 @@
             {{-- Design Skills --}}
             <div>
                 <div class="flex justify-center">
-                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-10">
+                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-6">
                         <h3 class="text-lg md:text-xl lg:text-2xl">Design</h3>
                     </div>
                 </div>
-                <div class="flex flex-wrap gap-8 justify-center">
+                <div class="flex flex-wrap gap-6 justify-center">
                     <x-skill-logo name="Photoshop" logo="photoshop.svg" />
                     <x-skill-logo name="After Effects" logo="after-effects.svg" />
                     <x-skill-logo name="Illustrator" logo="illustrator.svg" />

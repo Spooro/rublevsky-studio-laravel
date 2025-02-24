@@ -466,7 +466,7 @@
 
                 <!-- Close Button -->
                 <button @click="closeModal"
-                    class="absolute top-2 right-2 text-black bg-black/10 w-10 h-10 rounded-lg hover:bg-black/20 transition-colors duration-300 z-[60]">
+                    class="absolute top-4 right-4 text-black bg-black/10 w-14 h-14 rounded-lg hover:bg-black/20 transition-colors duration-300 z-[60]">
                     <svg class="w-6 h-6 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -476,8 +476,8 @@
 
                 <template x-if="selectedProject">
                     <div class="p-6 pb-16 lg:flex lg:gap-8">
-                        <!-- Project Images Gallery or Video - Flexible width -->
-                        <div class="relative mb-8 lg:mb-0 lg:sticky lg:top-6 lg:flex-1">
+                        <!-- Project Images Gallery or Video -->
+                        <div class="relative mb-8 lg:mb-0 lg:sticky lg:top-6 lg:flex-1 min-w-0">
                             <template x-if="selectedProject.type === 'video'">
                                 <div class="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
                                     <video class="w-full h-full object-cover" autoplay loop muted playsinline>
@@ -550,8 +550,8 @@
                             </template>
                         </div>
 
-                        <!-- Project Info - Fixed width -->
-                        <div class="lg:w-[65ch] lg:flex-none lg:pr-6">
+                        <!-- Project Info -->
+                        <div class="lg:w-[45ch] lg:shrink-0 lg:pr-6">
                             <h2 class="text-2xl font-bold mb-4" x-text="selectedProject.name"></h2>
 
                             <!-- Project Description -->
@@ -768,7 +768,7 @@
                     ],
                     description: 'Branding project for Chick-fil-A',
                     toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
-
+                    companyLogos: ['logos/chickfila.svg']
                 },
                 {
                     name: 'Adobe',
@@ -776,7 +776,7 @@
                     images: ['1-adobe.jpg', '2-adobe.jpg', '3-adobe.jpg'],
                     description: 'Design work for Adobe',
                     toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
-
+                    companyLogos: ['logos/adobe.svg']
                 },
                 {
                     name: 'Chrysalis',
@@ -784,7 +784,7 @@
                     images: ['1-chrysalis.jpg', '2-chrysalis.jpg'],
                     description: 'Branding for Chrysalis',
                     toolLogos: ['logos/photoshop.svg'],
-                    companyLogos: ['hpl.svg']
+                    companyLogos: ['logos/hpl.svg']
                 },
                 {
                     name: 'Cayuga',
@@ -792,7 +792,7 @@
                     images: ['1-cayuga.jpg', '2-cayuga.jpg', '3-cayuga.jpg'],
                     description: 'Cayuga project',
                     toolLogos: ['logos/illustrator.svg'],
-
+                    companyLogos: ['logos/cayuga.svg']
                 },
                 {
                     name: 'Nutrition Box',
@@ -802,6 +802,7 @@
                     ],
                     description: 'Nutrition Box branding',
                     toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
+                    companyLogos: ['logos/nutritionbox.svg']
                 },
                 {
                     name: 'Emmanuel',
@@ -809,6 +810,7 @@
                     images: ['2-emmanuel.jpg', '1-emmanuel.jpg'],
                     description: 'Emmanuel project',
                     toolLogos: ['logos/indesisgn.svg'],
+                    companyLogos: ['logos/emmanuel.svg']
                 },
                 {
                     name: 'HPL',
@@ -816,8 +818,8 @@
                     preview: 'hpl-animation-preview.jpg',
                     src: 'hpl-animation.mp4',
                     description: 'HPL animation project',
-                    toolLogos: ['logos/photoshop.svg', 'logos/after-effects.svg'],
-                    companyLogos: ['hpl.svg']
+                    toolLogos: ['logos/photoshop.svg', 'logos/aftereffects.svg'],
+                    companyLogos: ['logos/hpl.svg']
                 },
                 {
                     name: 'Querido',
@@ -825,6 +827,7 @@
                     images: ['1-querido.jpg', '2-querido.jpg', '3-querido.jpg', '4-querido.jpg'],
                     description: 'Querido branding project',
                     toolLogos: ['logos/illustrator.svg'],
+                    companyLogos: ['logos/querido.svg']
                 },
                 {
                     name: 'Design Shirt',
