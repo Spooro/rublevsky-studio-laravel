@@ -30,7 +30,7 @@
                     <div class="col-span-12 lg:col-span-4 flex flex-col lg:items-end mb-6 lg:mb-0">
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
-                            <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                            <img src="{{ Storage::disk('r2')->url('logos/webflow-text.svg') }}" alt="Webflow"
                                 class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://aps-cb63ae.webflow.io/" class="blur-link" target="_blank">Live website</a>
@@ -80,9 +80,9 @@
                     <div class="col-span-12 lg:col-span-4 flex flex-col lg:items-end mb-6 lg:mb-0">
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
-                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
+                            <img src="{{ Storage::disk('r2')->url('logos/figma.svg') }}" alt="Figma"
                                 class="h-[1.8rem] logo-hover">
-                            <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                            <img src="{{ Storage::disk('r2')->url('logos/webflow-text.svg') }}" alt="Webflow"
                                 class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://bfloor.ru/" class="blur-link" target="_blank">Live website</a></h3>
@@ -132,7 +132,7 @@
                             <div class="flex flex-wrap mt-4 mb-6 gap-6">
                                 <img src="{{ Storage::disk('r2')->url('spline.png') }}" alt="Spline"
                                     class="h-[1.8rem] logo-hover">
-                                <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                                <img src="{{ Storage::disk('r2')->url('logos/webflow-text.svg') }}" alt="Webflow"
                                     class="h-[1.8rem] logo-hover">
                             </div>
                             <h3><a href="https://rublevsky-studio.webflow.io/32karata/home" class="blur-link"
@@ -170,9 +170,9 @@
                     <div class="col-span-12 lg:col-span-4 flex flex-col lg:items-end mb-6 lg:mb-0">
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
-                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
+                            <img src="{{ Storage::disk('r2')->url('logos/figma.svg') }}" alt="Figma"
                                 class="h-[1.8rem] logo-hover">
-                            <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                            <img src="{{ Storage::disk('r2')->url('logos/webflow-text.svg') }}" alt="Webflow"
                                 class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://inksoul.webflow.io/" class="blur-link" target="_blank">Live website</a>
@@ -224,9 +224,9 @@
                     <div class="col-span-12 lg:col-span-4 flex flex-col lg:items-end mb-6 lg:mb-0">
                         <h4>Tools used:</h4>
                         <div class="flex flex-wrap lg:justify-end mt-4 mb-6 gap-6">
-                            <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma"
+                            <img src="{{ Storage::disk('r2')->url('logos/figma.svg') }}" alt="Figma"
                                 class="h-[1.8rem] logo-hover">
-                            <img src="{{ Storage::disk('r2')->url('webflow.svg') }}" alt="Webflow"
+                            <img src="{{ Storage::disk('r2')->url('logos/webflow-text.svg') }}" alt="Webflow"
                                 class="h-[1.8rem] logo-hover">
                         </div>
                         <h3><a href="https://www.femtechsearch.com/" class="blur-link" target="_blank">Live
