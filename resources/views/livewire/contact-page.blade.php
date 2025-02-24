@@ -173,7 +173,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('mohawk.svg') }}" alt="Mohawk Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/mohawk.svg') }}" alt="Mohawk Logo"
                             class="w-full mb-8">
                         <h5 class="font-semibold">Graphic design advanced 3 year program</h5>
                         <p>Gained hands-on experience in various aspects of graphic design, including print, branding,
@@ -196,7 +196,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('beautyfloor.svg') }}" alt="Beauty Floor Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/beautyfloor.svg') }}" alt="Beauty Floor Logo"
                             class="w-full mb-8">
                         <h5 class="font-semibold">Flooring Business</h5>
                         <p>I have designed an e-commerce website for a flooring Business.</p>
@@ -218,7 +218,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('hpl.svg') }}" alt="Hamilton Public Library Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/hpl.svg') }}" alt="Hamilton Public Library Logo"
                             class="h-24 w-auto mb-8">
                         <h5 class="font-semibold">Government-funded public organization</h5>
                         <p>I was in charge of creating brand identities for the library events in various mediums from
@@ -241,7 +241,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('inksoul.svg') }}" alt="Inksoul Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/inksoul.svg') }}" alt="Inksoul Logo"
                             class="w-24 h-24 mb-8 object-contain">
                         <h5 class="font-semibold">Tattoo studio</h5>
                         <p>I have designed and developed a website for a tattoo studio based in Vladivostok, Russia.</p>
@@ -263,7 +263,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('aps.svg') }}" alt="Africa Power Supply Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/aps.svg') }}" alt="Africa Power Supply Logo"
                             class="h-24 w-auto mb-8">
                         <h5 class="font-semibold">Africa Power Supply</h5>
                         <p>I have designed and developed a website for a Canadian startup that strives to revolutionize
@@ -286,7 +286,7 @@
                 </div>
                 <div class="experience_timeline_right">
                     <div class="experience_timeline_content">
-                        <img src="{{ Storage::disk('r2')->url('centre3.png') }}" alt="Centre3 Logo"
+                        <img src="{{ Storage::disk('r2')->url('logos/centre3.png') }}" alt="Centre3 Logo"
                             class="w-auto h-16 sm:h-20 mb-8">
                         <h5 class="font-semibold">Centre3 for Artistic + Social Practice</h5>
                         <p>Participated in screen printing workshops and contributed to the Digital Pipeline 4 Youth
