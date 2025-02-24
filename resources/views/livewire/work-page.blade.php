@@ -397,8 +397,9 @@
         <div class="column-layout">
             <template x-for="(project, index) in projects" :key="index">
                 <div class="work-visual-item relative group">
-                    <div class="branding-item rounded-lg overflow-hidden" @mouseenter="startProjectAnimation(index)"
-                        @mouseleave="stopProjectAnimation(index)">
+                    <div class="branding-item rounded-lg overflow-hidden cursor-pointer"
+                        @mouseenter="startProjectAnimation(index)" @mouseleave="stopProjectAnimation(index)"
+                        @click="openModal(index)">
                         <template x-if="project.type !== 'video'">
                             <div>
                                 <img :src="getImageUrl(project.images[0])" :alt="project.name"
@@ -428,16 +429,164 @@
                             </div>
                         </template>
                     </div>
-                    <div x-show="project.description || project.logo" class="work-visual-item-overlay">
+                    <div x-show="project.description || project.toolLogos || project.companyLogos"
+                        class="work-visual-item-overlay">
                         <div class="work-visual-item-overlay-content">
                             <p x-show="project.description" x-text="project.description"
                                 class="work-visual-item-overlay-description"></p>
-                            <img x-show="project.logo" :src="getImageUrl(project.logo)" :alt="project.name + ' logo'"
-                                class="work-visual-item-overlay-logo">
+                            <div x-show="project.toolLogos || project.companyLogos" class="flex gap-2">
+                                <template
+                                    x-for="(logo, logoIndex) in [...(project.toolLogos || []), ...(project.companyLogos || [])]"
+                                    :key="logoIndex">
+                                    <img :src="getImageUrl(logo)" :alt="project.name + ' logo ' + (logoIndex + 1)"
+                                        class="work-visual-item-overlay-logo">
+                                </template>
+                            </div>
                         </div>
                     </div>
                 </div>
             </template>
+        </div>
+
+        <!-- Project Modal -->
+        <div x-show="isModalOpen" class="fixed inset-0 z-50" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0">
+
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" @click="closeModal"></div>
+
+            <!-- Modal Content -->
+            <div class="fixed bottom-0 left-0 right-0 w-full bg-white rounded-t-2xl max-h-[calc(100vh-1rem)] overflow-y-auto"
+                x-show="isModalOpen" x-transition:enter="transform transition ease-out duration-300"
+                x-transition:enter-start="translate-y-full" x-transition:enter-end="translate-y-0"
+                x-transition:leave="transform transition ease-in duration-200"
+                x-transition:leave-start="translate-y-0" x-transition:leave-end="translate-y-full">
+
+                <!-- Close Button -->
+                <button @click="closeModal"
+                    class="absolute top-2 right-2 text-black bg-black/10 w-10 h-10 rounded-lg hover:bg-black/20 transition-colors duration-300 z-[60]">
+                    <svg class="w-6 h-6 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+
+                <template x-if="selectedProject">
+                    <div class="p-6 pb-16 lg:flex lg:gap-8">
+                        <!-- Project Images Gallery or Video - Flexible width -->
+                        <div class="relative mb-8 lg:mb-0 lg:sticky lg:top-6 lg:flex-1">
+                            <template x-if="selectedProject.type === 'video'">
+                                <div class="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                                    <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                                        <source :src="getImageUrl(selectedProject.src)" type="video/mp4">
+                                    </video>
+                                </div>
+                            </template>
+
+                            <template x-if="selectedProject.type !== 'video'">
+                                <div>
+                                    <div class="relative">
+                                        <!-- Main Image -->
+                                        <div class="aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
+                                            <template x-for="(image, index) in selectedProject.images"
+                                                :key="index">
+                                                <img :src="getImageUrl(image)"
+                                                    :alt="selectedProject.name + ' image ' + (index + 1)"
+                                                    class="absolute inset-0 w-full h-full object-contain transition-opacity duration-300"
+                                                    :class="modalImageIndex === index ? 'opacity-100' : 'opacity-0'">
+                                            </template>
+                                        </div>
+
+                                        <!-- Navigation Arrows -->
+                                        <button @click="prevModalImage"
+                                            class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+                                            x-show="selectedProject.images.length > 1">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 19l-7-7 7-7"></path>
+                                            </svg>
+                                        </button>
+                                        <button @click="nextModalImage"
+                                            class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all"
+                                            x-show="selectedProject.images.length > 1">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 5l7 7-7 7"></path>
+                                            </svg>
+                                        </button>
+
+                                        <!-- Image Counter -->
+                                        <div class="absolute bottom-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm"
+                                            x-show="selectedProject.images.length > 1">
+                                            <span x-text="modalImageIndex + 1"></span>/<span
+                                                x-text="selectedProject.images.length"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Thumbnail Navigation -->
+                                    <div class="mt-6" x-show="selectedProject.images.length > 1">
+                                        <div class="overflow-x-auto">
+                                            <div class="flex gap-4 p-2">
+                                                <template x-for="(image, index) in selectedProject.images"
+                                                    :key="index">
+                                                    <button @click="modalImageIndex = index"
+                                                        class="relative flex-shrink-0 w-20 aspect-square rounded-lg transition-all hover:scale-105"
+                                                        :class="modalImageIndex === index ? 'ring-2 ring-black ring-offset-2' :
+                                                            ''">
+                                                        <img :src="getImageUrl(image)"
+                                                            :alt="selectedProject.name + ' thumbnail ' + (index + 1)"
+                                                            class="w-full h-full object-cover rounded-lg">
+                                                    </button>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Project Info - Fixed width -->
+                        <div class="lg:w-[65ch] lg:flex-none lg:pr-6">
+                            <h2 class="text-2xl font-bold mb-4" x-text="selectedProject.name"></h2>
+
+                            <!-- Project Description -->
+                            <div class="mb-8">
+                                <h3 class="text-xl font-semibold mb-2">About the Project</h3>
+                                <p x-text="selectedProject.description" class="text-gray-700"></p>
+                            </div>
+
+                            <!-- Tools Used -->
+                            <div x-show="selectedProject.toolLogos">
+                                <h3 class="text-xl font-semibold mb-4">Tools Used</h3>
+                                <div class="flex gap-4">
+                                    <template x-for="(logo, index) in selectedProject.toolLogos"
+                                        :key="index">
+                                        <img :src="getImageUrl(logo)" :alt="'Tool ' + (index + 1)"
+                                            class="h-8 w-auto">
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Made For -->
+                            <div x-show="selectedProject.companyLogos" class="mt-8">
+                                <h3 class="text-xl font-semibold mb-4">Made For</h3>
+                                <div class="flex gap-4">
+                                    <template x-for="(logo, index) in selectedProject.companyLogos"
+                                        :key="index">
+                                        <img :src="getImageUrl(logo)" :alt="'Company ' + (index + 1)"
+                                            class="h-8 w-auto">
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
         </div>
     </section>
 
@@ -608,8 +757,8 @@
                         'yin-yan-shirt-5.jpg', 'yin-yan-shirt-4.jpg', 'yin-yan-shirt-6.jpg',
                         'yin-yan-shirt-3.jpg',
                     ],
-
                     description: 'Screen Printing a Custom Design',
+                    toolLogos: ['logos/illustrator.svg', 'logos/photoshop.svg']
                 },
                 {
                     name: 'Chick-fil-A',
@@ -618,25 +767,32 @@
                         '5-chickfila.jpg'
                     ],
                     description: 'Branding project for Chick-fil-A',
+                    toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
+
                 },
                 {
                     name: 'Adobe',
                     type: 'image',
                     images: ['1-adobe.jpg', '2-adobe.jpg', '3-adobe.jpg'],
                     description: 'Design work for Adobe',
+                    toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
+
                 },
                 {
                     name: 'Chrysalis',
                     type: 'image',
                     images: ['1-chrysalis.jpg', '2-chrysalis.jpg'],
                     description: 'Branding for Chrysalis',
-                    logo: 'hpl.svg'
+                    toolLogos: ['logos/photoshop.svg'],
+                    companyLogos: ['hpl.svg']
                 },
                 {
                     name: 'Cayuga',
                     type: 'image',
                     images: ['1-cayuga.jpg', '2-cayuga.jpg', '3-cayuga.jpg'],
-                    description: 'Cayuga project'
+                    description: 'Cayuga project',
+                    toolLogos: ['logos/illustrator.svg'],
+
                 },
                 {
                     name: 'Nutrition Box',
@@ -644,13 +800,15 @@
                     images: ['1-nutrition-box.jpg', '2-nutrition-box.jpg', '3-nutrition-box.jpg',
                         '4-nutrition-box.jpg', '5-nutrition-box.jpg', '6-nutrition-box.jpg'
                     ],
-                    description: 'Nutrition Box branding'
+                    description: 'Nutrition Box branding',
+                    toolLogos: ['logos/illustrator.svg', 'logos/indesisgn.svg'],
                 },
                 {
                     name: 'Emmanuel',
                     type: 'image',
-                    images: ['1-emmanuel.jpg', '2-emmanuel.jpg'],
-                    description: 'Emmanuel project'
+                    images: ['2-emmanuel.jpg', '1-emmanuel.jpg'],
+                    description: 'Emmanuel project',
+                    toolLogos: ['logos/indesisgn.svg'],
                 },
                 {
                     name: 'HPL',
@@ -658,33 +816,36 @@
                     preview: 'hpl-animation-preview.jpg',
                     src: 'hpl-animation.mp4',
                     description: 'HPL animation project',
-                    logo: 'hpl.svg'
+                    toolLogos: ['logos/photoshop.svg', 'logos/after-effects.svg'],
+                    companyLogos: ['hpl.svg']
                 },
                 {
                     name: 'Querido',
                     type: 'image',
                     images: ['1-querido.jpg', '2-querido.jpg', '3-querido.jpg', '4-querido.jpg'],
-                    description: 'Querido branding project'
+                    description: 'Querido branding project',
+                    toolLogos: ['logos/illustrator.svg'],
                 },
                 {
                     name: 'Design Shirt',
                     type: 'image',
                     images: ['1-design-shirt.jpg', '2-design-shirt.jpg'],
-                    description: 'Design Shirt project'
+                    description: 'Design Shirt project',
+                    toolLogos: ['logos/illustrator.svg']
                 }
             ],
             currentProjectIndex: null,
             currentImageIndex: 0,
             animationInterval: null,
+            isModalOpen: false,
+            selectedProject: null,
+            modalImageIndex: 0,
 
             startProjectAnimation(index) {
                 this.currentProjectIndex = index;
                 const project = this.projects[index];
                 if (project.type !== 'video') {
-                    // Immediately show the second image
                     this.currentImageIndex = 1;
-
-                    // Start the interval immediately
                     this.animationInterval = setInterval(() => {
                         this.currentImageIndex = (this.currentImageIndex + 1) % project.images.length;
                     }, 800);
@@ -695,6 +856,31 @@
                 clearInterval(this.animationInterval);
                 this.currentProjectIndex = null;
                 this.currentImageIndex = 0;
+            },
+
+            openModal(index) {
+                this.selectedProject = this.projects[index];
+                this.isModalOpen = true;
+                this.modalImageIndex = 0;
+                document.body.style.overflow = 'hidden';
+            },
+
+            closeModal() {
+                this.isModalOpen = false;
+                this.selectedProject = null;
+                this.modalImageIndex = 0;
+                document.body.style.overflow = '';
+            },
+
+            nextModalImage() {
+                if (!this.selectedProject) return;
+                this.modalImageIndex = (this.modalImageIndex + 1) % this.selectedProject.images.length;
+            },
+
+            prevModalImage() {
+                if (!this.selectedProject) return;
+                this.modalImageIndex = (this.modalImageIndex - 1 + this.selectedProject.images.length) % this
+                    .selectedProject.images.length;
             }
         }
     }

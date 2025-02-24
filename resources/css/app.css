@@ -331,6 +331,13 @@ input[type="range"]::-moz-range-thumb:active {
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+/* Hide overlay on mobile devices */
+@media (max-width: 768px) {
+    .work-visual-item-overlay {
+        display: none;
+    }
+}
+
 .work-visual-item:hover .work-visual-item-overlay {
     opacity: 1;
     visibility: visible;
