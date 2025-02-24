@@ -97,127 +97,52 @@
         </div>
     </section>
 
-    {{-- My Expertise Section --}}
+    {{-- Skills Section --}}
     <section class="w-full" wire:ignore>
-        <h2 class="mb-10" heading-reveal>My expertise</h2>
+        <h2 class="mb-10" heading-reveal>Skills</h2>
 
-        {{-- Parent container --}}
-        <div class="grid grid-cols-1 gap-16">
-            {{-- First row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-6 order-2 lg:order-1">
-                    <h3 class="large-text-description text-left" reveal-type>
-                        With over <strong class="font-semibold">3</strong> years of industry experience, I
-                        specialize in
-                        <strong class="font-semibold">Laravel</strong>, <strong class="font-semibold">PHP</strong>,
-                        <strong class="font-semibold">Tailwind CSS</strong>, and <strong
-                            class="font-semibold">Figma</strong>,
-                        enabling me to design and build robust and scalable web applications with powerful database
-                        management and
-                        advanced functionality.
-                    </h3>
-                </div>
-                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
-                    <div class="flex flex-col w-full">
-                        <div class="flex justify-center items-center">
-                            <div class="h-full w-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('laravel.svg') }}" alt="Laravel Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="w-3/4 h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('php.svg') }}" alt="PHP Logo" class="logo-hover">
-                            </div>
-                            <div class="w-3/4 h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('git.svg') }}" alt="Git Logo" class="logo-hover">
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center items-center">
-                            <div class="w-full h-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('tailwind.svg') }}" alt="Tailwind CSS Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="h-full w-full flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('alpine-js.svg') }}" alt="Alpine.js Logo"
-                                    class="logo-hover">
-                            </div>
-                            <div class="h-full w-3/4 flex justify-center items-center p-4">
-                                <img src="{{ Storage::disk('r2')->url('figma.svg') }}" alt="Figma Logo"
-                                    class="logo-hover">
-                            </div>
-                        </div>
+        <div class="flex flex-col gap-16">
+            {{-- Development Skills --}}
+            <div>
+                <div class="flex justify-center">
+                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-10">
+                        <h3 class="text-lg md:text-xl lg:text-2xl">Development</h3>
                     </div>
+                </div>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <x-skill-logo name="HTML5" logo="html5.svg" />
+                    <x-skill-logo name="Tailwind CSS" logo="tailwind.svg" />
+                    <x-skill-logo name="Laravel" logo="laravel.svg" />
+                    <x-skill-logo name="PHP" logo="php.svg" />
+                    <x-skill-logo name="Webflow" logo="webflow.svg" />
+                    <x-skill-logo name="Next.js" logo="next-js.svg" :wideLogo="true" />
+                    <x-skill-logo name="React" logo="react.svg" />
+                    <x-skill-logo name="Git" logo="git.svg" :wideLogo="true" />
+                    <x-skill-logo name="Wized" logo="wized.svg" :wideLogo="true" />
+                    <x-skill-logo name="Google Analytics" logo="google-analytics.svg" :wideLogo="true" />
+
                 </div>
             </div>
 
-            {{-- Second row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-4 flex justify-center items-center order-1">
-                    <div class="flex justify-center items-center w-full">
-                        <div class="w-3/4 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('xano.svg') }}" alt="Xano Logo" class="logo-hover">
-                        </div>
-                        <div class="w-full h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('client-first.svg') }}" alt="Client First Logo"
-                                class="logo-hover">
-                        </div>
-                        <div class="w-3/4 h-full flex justify-center items-center p-4">
-                            <img src="{{ Storage::disk('r2')->url('wized.svg') }}" alt="Wized Logo"
-                                class="logo-hover">
-                        </div>
+            {{-- Design Skills --}}
+            <div>
+                <div class="flex justify-center">
+                    <div class="bg-neutral-100 rounded-lg px-3 py-1 mb-10">
+                        <h3 class="text-lg md:text-xl lg:text-2xl">Design</h3>
                     </div>
                 </div>
-                <div class="lg:col-span-6 order-2 flex lg:justify-end">
-                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        The <strong class="font-semibold"> WWX </strong> combination allows me for hyper-fast delivery
-                        speeds, never lacking in quality or
-                        functionality, yet providing results of a whole web team.
-                    </h3>
-                </div>
-            </div>
+                <div class="flex flex-wrap gap-8 justify-center">
+                    <x-skill-logo name="Photoshop" logo="photoshop.svg" />
+                    <x-skill-logo name="After Effects" logo="after-effects.svg" />
+                    <x-skill-logo name="Illustrator" logo="illustrator.svg" />
 
-            <!-- Third row -->
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-6 order-2 lg:order-1">
-                    <h3 class="large-text-description text-left" reveal-type>
-                        Using <strong class="font-semibold">Client First</strong> methodology makes projects easy
-                        to
-                        understand for other developers, while <strong class="font-semibold">Wized</strong> enables
-                        seamless integration with any third-party service, database, or API.
-                    </h3>
-                </div>
-                <div class="lg:col-span-4 flex justify-center items-center order-1 lg:order-2">
-                    <div class="h-18 w-full">
-                        <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.32/build/spline-viewer.js"></script>
-                        <spline-viewer
-                            url="https://prod.spline.design/QXnaSK-s1c-VXGpm/scene.splinecode"></spline-viewer>
-                    </div>
-                </div>
-            </div>
+                    <x-skill-logo name="InDesign" logo="indesisgn.svg" />
+                    <x-skill-logo name="Spline" logo="spline.png" :wideLogo="true" />
 
-            {{-- Print/Photo row --}}
-            <div class="grid grid-cols-1 lg:grid-cols-10 gap-16 items-center">
-                <div class="lg:col-span-4 flex justify-center items-center order-1">
-                    <video class="w-full h-auto aspect-square object-cover rounded-lg" autoplay loop muted playsinline
-                        wire:ignore>
-                        <source src="{{ Storage::disk('r2')->url('screen-printing.mp4') }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="lg:col-span-6 order-2 flex lg:justify-end">
-                    <h3 class="large-text-description text-left lg:text-right" reveal-type>
-                        Beyond digital, I bring expertise in <strong class="font-semibold">screen printing</strong>
-                        for
-                        apparel and posters, as well as professional <strong class="font-semibold">photography</strong>
-                        services capturing
-                        anything from portraits to products.
-                    </h3>
                 </div>
             </div>
         </div>
     </section>
-
-
 
     {{-- Experience Section --}}
     <section class="pb-10">
